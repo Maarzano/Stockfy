@@ -1,0 +1,35 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Visual Studio Code
+.vscode/
+
+# Maven
+target/
+
+# Compiled Java class files
+*.class
+
+# JARs, WARs, EARs
+*.jar
+*.war
+*.ear
+
+# Arquivos de logs
+*.log
+
+# Arquivos temporários do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Docker e Arquivos relacionados
+.docker/
+docker-compose.override.yml
+
+# Node.js (React)
+node_modules/
+
+# Teste local de arquivos temporários
+*.swp
+*.swo
