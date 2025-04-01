@@ -1,7 +1,6 @@
 package TCC.TCC.Entities;
 
 import java.time.Instant;
-import java.util.UUID;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "usuarios")
 public class Usuario {
 
     public Usuario() { }
@@ -26,8 +25,8 @@ public class Usuario {
         this.cpf = CPF;
         this.celular = celular;
         this.email = email;
-        this.updateTimestamp = creationTimestamp;
-        this.creationTimesstamp = updateTimestamp;
+        this.updateTimestamp = updateTimestamp;
+        this.creationTimesstamp = creationTimestamp;
     }
 
     @Id
@@ -108,18 +107,18 @@ public class Usuario {
     }
     
     public Instant getUpdateTimesstamp() {
-        return creationTimesstamp;
-    }
-    
-    public void setUpdateTimesstamp(Instant updateTimesstamp) {
-        this.creationTimesstamp = updateTimesstamp;
-    }
-    
-    public Instant getCreationTimestamp() {
         return updateTimestamp;
     }
     
+    public void setUpdateTimesstamp(Instant updateTimesstamp) {
+        this.updateTimestamp = updateTimesstamp;
+    }
+    
+    public Instant getCreationTimestamp() {
+        return creationTimesstamp;
+    }
+    
     public void setCreationTimestamp(Instant creationTimestamp) {
-        this.updateTimestamp = creationTimestamp;
+        this.creationTimesstamp = creationTimestamp;
     }
 }

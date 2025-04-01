@@ -7,6 +7,7 @@ import TCC.TCC.DTOs.AtualizarFuncionarioDTO;
 import TCC.TCC.DTOs.CriarUsuarioDTO;
 import TCC.TCC.Entities.Usuario;
 import TCC.TCC.Service.UsuarioService;
+import jakarta.validation.Valid;
 
 import java.net.URI;
 import java.util.List;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 
 
@@ -35,9 +35,11 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> criarUsuario(@RequestBody CriarUsuarioDTO entity) {
+    public ResponseEntity<Usuario> criarUsuario(@Valid @RequestBody CriarUsuarioDTO entity) {
         var userId = usuarioService.criarUsuario(entity);
-        return ResponseEntity.created(URI.create("/v1/Usuarios/" + userId)).build();
+        return ResponseEntity.created(URI.create("/v1/Usuarios/" + userId))
+    .body(usuarioService.pegarUsuarioPeloID(userId).orElseThrow(() -> new RuntimeException("Usuário não encontrado")));
+
     }
 
     @GetMapping("/{userID}")

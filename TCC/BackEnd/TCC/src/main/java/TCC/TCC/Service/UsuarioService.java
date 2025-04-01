@@ -3,8 +3,8 @@ package TCC.TCC.Service;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import TCC.TCC.DTOs.AtualizarFuncionarioDTO;
@@ -14,6 +14,7 @@ import TCC.TCC.Repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
     public UsuarioService(UsuarioRepository usuarioRepository){
@@ -42,7 +43,7 @@ public class UsuarioService {
         if (usuarioExiste){
             usuarioRepository.deleteById(userId);
         } else {
-
+            throw new IllegalArgumentException("Usuário com ID " + userId + " não encontrado.");
         }
     }
     public void AtualiazarusuarioPorId(Long userId, AtualizarFuncionarioDTO atualizarFuncionarioDTO){
@@ -61,6 +62,9 @@ public class UsuarioService {
             usuarioRepository.save(usuario);
         }
 
+    }
+    public Usuario buscarPorEmailESenha(String email, String senha) {
+        return usuarioRepository.findByEmailAndSenha(email, senha).orElse(null);
     }
 
 }
