@@ -24,7 +24,7 @@ public class UsuarioService {
     public long criarUsuario(CriarUsuarioDTO createUserDTO){
 
         var entity = new Usuario(createUserDTO.nomeCompleto(), createUserDTO.senha(), createUserDTO.cpf(), createUserDTO.celular(), createUserDTO.email(), Instant.now(), null);
-        var usuarioSalvo =  usuarioRepository.save(entity);
+        var usuarioSalvo = usuarioRepository.save(entity);
 
        return usuarioSalvo.getUsuarioID();
 
