@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import TCC.TCC.DTOs.AtualizarFuncionarioDTO;
+import TCC.TCC.DTOs.AtualizarUsuarioDTO;
 import TCC.TCC.DTOs.CriarUsuarioDTO;
 import TCC.TCC.Entities.Usuario;
 import TCC.TCC.Repository.UsuarioRepository;
@@ -29,7 +29,7 @@ public class UsuarioService {
        return usuarioSalvo.getUsuarioID();
 
     }
-    public Optional<Usuario> pegarUsuarioPeloID(Long UsuarioID){
+    public Optional<Usuario> pegarUsuarioPeloID(long UsuarioID){
         return usuarioRepository.findById(UsuarioID);
     }
 
@@ -37,7 +37,7 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public void DeletarUsuario(Long userId){
+    public void DeletarUsuario(long userId){
         var usuarioExiste = usuarioRepository.existsById(userId);
 
         if (usuarioExiste){
@@ -46,18 +46,18 @@ public class UsuarioService {
             throw new IllegalArgumentException("Usuário com ID " + userId + " não encontrado.");
         }
     }
-    public void AtualiazarusuarioPorId(Long userId, AtualizarFuncionarioDTO atualizarFuncionarioDTO){
+    public void AtualiazarUsuarioPorId(long userId, AtualizarUsuarioDTO atualizarUsuarioDTO){
         var usuarioExiste = usuarioRepository.findById(userId);
 
         if (usuarioExiste.isPresent()){
             var usuario = usuarioExiste.get();
 
-            if (atualizarFuncionarioDTO.nomeCompleto() != null){
-                usuario.setNomeCompleto(atualizarFuncionarioDTO.nomeCompleto());
+            if (atualizarUsuarioDTO.nomeCompleto() != null){
+                usuario.setNomeCompleto(atualizarUsuarioDTO.nomeCompleto());
             }
 
-            if (atualizarFuncionarioDTO.senha() != null){
-                usuario.setSenha(atualizarFuncionarioDTO.senha());
+            if (atualizarUsuarioDTO.senha() != null){
+                usuario.setSenha(atualizarUsuarioDTO.senha());
             }
             usuarioRepository.save(usuario);
         }
