@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import TCC.TCC.DTOs.LoginDTO;
 import TCC.TCC.Service.JWTService;
 import TCC.TCC.Service.UsuarioService;
+import TCC.TCC.DTOs.UsuarioDTO.LoginDTO;
 import TCC.TCC.Entities.Usuario;
 
 @RestController

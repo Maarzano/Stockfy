@@ -3,8 +3,8 @@ package TCC.TCC.Controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import TCC.TCC.DTOs.AtualizarFuncionarioDTO;
-import TCC.TCC.DTOs.CriarUsuarioDTO;
+import TCC.TCC.DTOs.UsuarioDTO.AtualizarUsuarioDTO;
+import TCC.TCC.DTOs.UsuarioDTO.CriarUsuarioDTO;
 import TCC.TCC.Entities.Usuario;
 import TCC.TCC.Service.UsuarioService;
 import jakarta.validation.Valid;
@@ -55,16 +55,16 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarios);
     }
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> ApagarUsuario(@PathVariable("userId") Long userId){
+    public ResponseEntity<Void> ApagarUsuario(@PathVariable("userId") long userId){
         usuarioService.DeletarUsuario(userId);
         return ResponseEntity.noContent().build();
     }
     @PutMapping("/{userId}")
-    public ResponseEntity<Void> AtualiazarusuarioPorId(@PathVariable("userId") Long userId, @RequestBody AtualizarFuncionarioDTO atualizarFuncionarioDTO) {
+    public ResponseEntity<Void> AtualiazarUsuarioPorId(@PathVariable("userId") long userId, @RequestBody AtualizarUsuarioDTO atualizarUsuarioDTO) {
         
-        usuarioService.AtualiazarusuarioPorId(userId, atualizarFuncionarioDTO);
+        usuarioService.AtualiazarUsuarioPorId(userId, atualizarUsuarioDTO);
         return ResponseEntity.noContent().build();
-    }
     
+    }
 
 }

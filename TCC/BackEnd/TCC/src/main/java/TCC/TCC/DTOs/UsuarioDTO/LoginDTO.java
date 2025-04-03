@@ -1,4 +1,4 @@
-package TCC.TCC.DTOs;
+package TCC.TCC.DTOs.UsuarioDTO;
 
 public class LoginDTO {
     private String email;
@@ -8,7 +8,7 @@ public class LoginDTO {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email){
         this.email = email;
     }
 

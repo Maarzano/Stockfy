@@ -1,6 +1,6 @@
 package TCC.TCC.Entities;
 
-import java.sql.Date;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,7 +21,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Funcionario {
 
-    public Funcionario(String nomeFuncionario, String emailFuncionario, String cpfFuncionario, String celularFuncionario, Date dataNascimentoFuncionario, String descricaoFuncionario, boolean ativo) {
+    public Funcionario(String nomeFuncionario, String emailFuncionario, String cpfFuncionario, String celularFuncionario, Date dataNascimentoFuncionario, String descricaoFuncionario, Boolean ativo) {
         this.nomeFuncionario = nomeFuncionario;
         this.emailFuncionario = emailFuncionario;
         this.cpfFuncionario = cpfFuncionario;
@@ -34,7 +34,7 @@ public class Funcionario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_funcionario")
-    private Long funcionarioId;
+    private long funcionarioId;
 
 
     @Column(name = "nome_funcionario", unique = true, nullable = false)
@@ -46,17 +46,17 @@ public class Funcionario {
     @Column(name = "cpf_funcionario", unique = true, nullable = false)
     private String cpfFuncionario;
 
-    @Column(name = "celular_funcionario")
+    @Column(name = "celular_funcionario", nullable = false)
     private String celularFuncionario;
 
-    @Column(name = "data_nascimento_funcionario")
+    @Column(name = "data_nascimento_funcionario", nullable = true)
     private Date dataNascimentoFuncionario;
 
-    @Column(name = "descricao_funcionario")
+    @Column(name = "descricao_funcionario", nullable = true)
     private String descricaoFuncionario;
 
     @Column(name = "ativo_desativo_funcionario", nullable = false)
-    private boolean ativo;
+    private Boolean ativo = true;
 
 
 }
