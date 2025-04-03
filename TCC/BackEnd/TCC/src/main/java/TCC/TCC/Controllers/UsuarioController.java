@@ -35,7 +35,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> criarUsuario(@Valid @RequestBody CriarUsuarioDTO entity) {
+    public ResponseEntity<Usuario> criarUsuario(@RequestBody CriarUsuarioDTO entity) {
         var userId = usuarioService.criarUsuario(entity);
         return ResponseEntity.created(URI.create("/v1/Usuarios/" + userId))
     .body(usuarioService.pegarUsuarioPeloID(userId).orElseThrow(() -> new RuntimeException("Usuário não encontrado")));

@@ -30,7 +30,7 @@ public class Movimentacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_movimentacao")
-    private Long idMovimentacao;
+    private long idMovimentacao;
 
     @ManyToOne
     @JoinColumn(name = "id_item", nullable = false)

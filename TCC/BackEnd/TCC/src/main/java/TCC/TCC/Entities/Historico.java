@@ -28,7 +28,7 @@ public class Historico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_historico")
-    private Long idHistorico;
+    private long idHistorico;
 
     @ManyToOne
     @JoinColumn(name = "id_movimentacao", nullable = false)

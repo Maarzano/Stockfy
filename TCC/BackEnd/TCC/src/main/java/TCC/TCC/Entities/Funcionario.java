@@ -34,7 +34,7 @@ public class Funcionario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_funcionario")
-    private Long funcionarioId;
+    private long funcionarioId;
 
 
     @Column(name = "nome_funcionario", unique = true, nullable = false)
