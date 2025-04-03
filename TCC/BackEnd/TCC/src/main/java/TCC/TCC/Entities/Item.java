@@ -45,10 +45,10 @@ public class Item {
     @Column(name = "imagem", nullable = true)
     private String imagem;
 
-    @Column(name = "descricao")
+    @Column(name = "descricao", nullable = true)
     private String descricao;
 
-    @Column(name = "data_de_criacao")
+    @Column(name = "data_de_criacao", updatable = false)
     @CreationTimestamp
     private Instant dataDeCriacao;
 

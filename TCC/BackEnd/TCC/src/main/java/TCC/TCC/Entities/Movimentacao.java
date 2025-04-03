@@ -30,14 +30,14 @@ public class Movimentacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_movimentacao")
-    private Long id;
+    private Long idMovimentacao;
 
     @ManyToOne
-    @JoinColumn(name = "item_id", nullable = false)
+    @JoinColumn(name = "id_item", nullable = false)
     private Item item;
 
     @ManyToOne
-    @JoinColumn(name = "funcionario_id", nullable = false)
+    @JoinColumn(name = "id_funcionario", nullable = false)
     private Funcionario funcionario;
 
     @Column(name = "quantidade", nullable = false)
