@@ -1,6 +1,6 @@
 package TCC.TCC.Entities;
 
-import java.sql.Date;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,7 +21,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Funcionario {
 
-    public Funcionario(String nomeFuncionario, String emailFuncionario, String cpfFuncionario, String celularFuncionario, Date dataNascimentoFuncionario, String descricaoFuncionario, boolean ativo) {
+    public Funcionario(String nomeFuncionario, String emailFuncionario, String cpfFuncionario, String celularFuncionario, Date dataNascimentoFuncionario, String descricaoFuncionario, Boolean ativo) {
         this.nomeFuncionario = nomeFuncionario;
         this.emailFuncionario = emailFuncionario;
         this.cpfFuncionario = cpfFuncionario;
@@ -56,7 +56,7 @@ public class Funcionario {
     private String descricaoFuncionario;
 
     @Column(name = "ativo_desativo_funcionario", nullable = false)
-    private boolean ativo = true;
+    private Boolean ativo = true;
 
 
 }
