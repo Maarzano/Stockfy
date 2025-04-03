@@ -1,6 +1,7 @@
 package TCC.TCC.Controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import TCC.TCC.DTOs.AtualizarItemDTO;
@@ -36,7 +37,7 @@ public class ItemController {
     public ResponseEntity<Item> criarItem(@Valid @RequestBody CriarItemDTO entity) {
         var itemId = itemService.criarItem(entity);
         return ResponseEntity.created(URI.create("/v1/Items/" + itemId))
-        .body(itemService.pegarItemPeloId(itemId).orElseThrow(() -> new RuntimeException("Usuário não encontrado")));
+        .body(itemService.pegarItemPeloId(itemId).orElseThrow(() -> new RuntimeException("Item não encontrado")));
         
     }
 
@@ -52,27 +53,24 @@ public class ItemController {
         return ResponseEntity.ok(items);
     }
 
+    @GetMapping("/buscar/{nomeItem}")
+    public ResponseEntity<Item> buscarItemPorNome(@PathVariable("nomeItem") String nomeItem) {
+        Item item = itemService.buscarItemPorNome(nomeItem);
+        return item != null ? ResponseEntity.ok(item) : ResponseEntity.notFound().build();
+    }
+
     @DeleteMapping("/{itemId}")
-    public ResponseEntity<Void> apagaritemPorId(@PathVariable("itemId")long itemId, @RequestBody AtualizarItemDTO atualizarItemDTO){
-        itemService.AtualizarItemPorId(itemId, atualizarItemDTO);
+    public ResponseEntity<Void> apagaritemPorId(@PathVariable("itemId")long itemId){
+        itemService.deletarItem(itemId);
         return ResponseEntity.noContent().build();
     }
     @PutMapping("/{itemId}")
-    public ResponseEntity<Void> AtualiazarItemPorId(@PathVariable("itemId") long itemId, @RequestBody AtualizarItemDTO atualizarItemDTO) {
+    public ResponseEntity<Void> AtualiazarItemPorId(@Valid @PathVariable("itemId") long itemId, @RequestBody AtualizarItemDTO atualizarItemDTO) {
         
         itemService.AtualizarItemPorId(itemId, atualizarItemDTO);
         return ResponseEntity.noContent().build();
     
     }
-    
-    
-    
-
-
-
-
-
-
 
 
 }

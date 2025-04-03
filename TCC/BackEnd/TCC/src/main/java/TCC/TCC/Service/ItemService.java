@@ -22,6 +22,9 @@ public class ItemService {
     }
 
     public long criarItem(CriarItemDTO criarItemDTO){
+        if(criarItemDTO.quantidade() < 0){
+            throw new IllegalArgumentException("A quantidade não pode ser negativa");
+        }
         Item entity = new Item(criarItemDTO.nomeItem(), criarItemDTO.quantidade(), criarItemDTO.imagem(), criarItemDTO.descricao(), Instant.now());
         Item itemSalvo = itemRepository.save(entity);
 
@@ -43,6 +46,10 @@ public class ItemService {
         }
     }
     public void AtualizarItemPorId(long itemId, AtualizarItemDTO atualziarItemDTO){
+
+        if(atualziarItemDTO.quantidade() < 0){
+            throw new IllegalArgumentException("A quantidade não pode ser negativa");
+        }
         var itemExiste = itemRepository.findById(itemId);
 
         if(itemExiste.isPresent()){
@@ -59,9 +66,10 @@ public class ItemService {
             if (atualziarItemDTO.imagem() != null) {
                 item.setImagem(atualziarItemDTO.imagem());
             }
+            itemRepository.save(item);
         }
     }
-    public Item buscarItemPorNome(String nome){
-        return itemRepository.findByName(nome).orElse(null);
+    public Item buscarItemPorNome(String nomeItem){
+        return itemRepository.findBynomeItemIgnoreCase(nomeItem).orElse(null);
     }
 }

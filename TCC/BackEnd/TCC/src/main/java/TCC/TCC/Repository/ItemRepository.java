@@ -9,8 +9,8 @@ import TCC.TCC.Entities.*;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long>{
-    Optional<Item> findByName(String nomeItem);
+    Optional<Item> findBynomeItemIgnoreCase(String nomeItem);
     
-    boolean existsByName(String nomeItem);
+    boolean existsBynomeItem(String nomeItem);
 
 }
