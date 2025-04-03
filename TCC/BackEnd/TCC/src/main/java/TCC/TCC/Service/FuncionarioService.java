@@ -9,8 +9,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
-import TCC.TCC.DTOs.AtualizarFuncionarioDTO;
-import TCC.TCC.DTOs.CriarFuncionarioDTO;
+import TCC.TCC.DTOs.FuncionarioDTO.AtualizarFuncionarioDTO;
+import TCC.TCC.DTOs.FuncionarioDTO.CriarFuncionarioDTO;
 import TCC.TCC.Entities.Funcionario;
 import TCC.TCC.Repository.FuncionarioRepository;
 

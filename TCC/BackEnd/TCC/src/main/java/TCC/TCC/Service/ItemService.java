@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import TCC.TCC.DTOs.*;
+import TCC.TCC.DTOs.ItemDTO.AtualizarItemDTO;
+import TCC.TCC.DTOs.ItemDTO.CriarItemDTO;
 import TCC.TCC.Entities.*;
 import TCC.TCC.Repository.*;
 

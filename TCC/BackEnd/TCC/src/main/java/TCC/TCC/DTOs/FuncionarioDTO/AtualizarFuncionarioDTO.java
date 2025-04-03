@@ -1,4 +1,4 @@
-package TCC.TCC.DTOs;
+package TCC.TCC.DTOs.FuncionarioDTO;
 
 import java.util.Date;
 

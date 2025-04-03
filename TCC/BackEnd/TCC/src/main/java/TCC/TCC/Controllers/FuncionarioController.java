@@ -3,8 +3,8 @@ package TCC.TCC.Controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import TCC.TCC.DTOs.AtualizarFuncionarioDTO;
-import TCC.TCC.DTOs.CriarFuncionarioDTO;
+import TCC.TCC.DTOs.FuncionarioDTO.AtualizarFuncionarioDTO;
+import TCC.TCC.DTOs.FuncionarioDTO.CriarFuncionarioDTO;
 import TCC.TCC.Entities.Funcionario;
 import TCC.TCC.Service.FuncionarioService;
 import jakarta.validation.Valid;

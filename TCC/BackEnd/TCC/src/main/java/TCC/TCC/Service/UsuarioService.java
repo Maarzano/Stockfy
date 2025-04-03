@@ -7,8 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import TCC.TCC.DTOs.AtualizarUsuarioDTO;
-import TCC.TCC.DTOs.CriarUsuarioDTO;
+import TCC.TCC.DTOs.UsuarioDTO.AtualizarUsuarioDTO;
+import TCC.TCC.DTOs.UsuarioDTO.CriarUsuarioDTO;
 import TCC.TCC.Entities.Usuario;
 import TCC.TCC.Repository.UsuarioRepository;
 

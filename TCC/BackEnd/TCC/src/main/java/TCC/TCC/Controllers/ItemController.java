@@ -3,8 +3,8 @@ package TCC.TCC.Controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import TCC.TCC.DTOs.AtualizarItemDTO;
-import TCC.TCC.DTOs.CriarItemDTO;
+import TCC.TCC.DTOs.ItemDTO.AtualizarItemDTO;
+import TCC.TCC.DTOs.ItemDTO.CriarItemDTO;
 import TCC.TCC.Entities.Item;
 import TCC.TCC.Service.ItemService;
 import jakarta.validation.Valid;

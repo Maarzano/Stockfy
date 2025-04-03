@@ -3,8 +3,8 @@ package TCC.TCC.Controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import TCC.TCC.DTOs.AtualizarUsuarioDTO;
-import TCC.TCC.DTOs.CriarUsuarioDTO;
+import TCC.TCC.DTOs.UsuarioDTO.AtualizarUsuarioDTO;
+import TCC.TCC.DTOs.UsuarioDTO.CriarUsuarioDTO;
 import TCC.TCC.Entities.Usuario;
 import TCC.TCC.Service.UsuarioService;
 import jakarta.validation.Valid;

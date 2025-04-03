@@ -1,4 +1,4 @@
-package TCC.TCC.DTOs;
+package TCC.TCC.DTOs.UsuarioDTO;
 
 public class LoginDTO {
     private String email;

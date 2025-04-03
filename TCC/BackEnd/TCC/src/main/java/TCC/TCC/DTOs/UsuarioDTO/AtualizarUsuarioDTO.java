@@ -1,4 +1,4 @@
-package TCC.TCC.DTOs;
+package TCC.TCC.DTOs.UsuarioDTO;
 
 public record AtualizarUsuarioDTO(String nomeCompleto, String senha) {
 
