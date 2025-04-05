@@ -1,0 +1,28 @@
+.Cadastro{
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.Cadastro input{
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.sidebar {
+    border-right: solid 1px #cdcdcd;
+}
+.sidebar > ul{
+    list-style: none;
+}
+.sidebar > ul > li > a{
+    color: black;
+    text-decoration: none;
+}
+.sidebar > ul > li > a:hover{
+    color: rgb(84, 84, 84);
+    text-decoration: underline;
+}
