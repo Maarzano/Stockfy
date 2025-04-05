@@ -2,110 +2,71 @@
     margin: 0;
     padding: 0;
 }
-.Cadastro{
-    background-color: aquamarine;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.Cadastro input{
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-}
-
-nav {
-    border-right: solid 3px #23232e;
-    margin-top: 5vh;
-    margin-bottom: 10vh;
-    width: 250px;
-    height: 73vh;
-    display: flex;
-    align-items: top;
-    padding-left: 45px;
-}
-nav > ul{
-    list-style: none;
-}
-nav > ul > li{
-    padding: 10px;
-    font-size: larger;
-}
-nav > ul > li > a{
-    color: black;
-    text-decoration: none;
-}
-nav > ul > li > a:hover{
-    opacity: 0.7;
-}
-
-header img{
-    padding: 10px 30px;
-    
-}
-.content{
+.container{
     flex: 1;
-    display: flex;
-    flex-direction: row;
     background: url(../images/marek-piwnicki-NLiKKKr3IbU-unsplash.jpg) no-repeat center center ;
     background-size: cover;
+    flex-direction: column;
     height: 100vh;
 }
-.content section{
-    margin-top: 3.5vh;
-    margin-left: 30px;
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-footer {
-    position: fixed;
-    bottom: 20px; /* Distância do rodapé até a borda inferior da tela */
+.login-container{
+    background-color: #23232ec2;
+    width: 300px;
+    height: 380px;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%); /* Centraliza horizontalmente */
-    background-color: #23232e;
-    border-radius: 30px;
-    width: 250px;
-    height: 70px;
+    transform: translate(-50%, -50%);
+
+}
+.login-container h1{
+    color: whitesmoke;
+    padding: 15px;
+    text-align: center;
+}
+.login-container label{
+    font-size: 20px;
+    padding-left: 30px;
+    display: block;
+    color: whitesmoke;
+    margin: 10px 0 5px;
+}
+.login-container input{
+    height: 25px; 
+    width: 80%;
+    padding: 10px;
+    margin: auto;
+    border: none;
+    border-radius: 5px;   
     display: flex;
-    justify-content: space-between;
-    padding: 5px 30px;
     align-items: center;
-    z-index: 10; /* Garante que fique acima do conteúdo */
 }
-input{
-    background-color: #23232e;
+input[type="username"],
+input[type="password"]{
+    background-color: #23232ed3;
+    color: whitesmoke;
 }
-input ::placeholder{
-    color: white;
+button{
+    background-color: rgb(82, 84, 87);
+    color: whitesmoke;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 260px;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+button:hover{
+    background-color: rgba(82, 84, 87, 0.863);
 }
 
-/* Estilo da caixa de pesquisa*/
-#txtBusca{
-    float:left;
-    background-color:rgba(133, 129, 129, 0.11);
-    padding-left:5px;
-    font-size:18px;
-    border:none;
-    height:32px;
-    width:226px;
-  }
-  
-  #btnBusca{
-    float:left;
-    cursor:pointer;
-  }
-  
-  #divBusca img{
-    float:left;
-  }
-  
-  #divBusca{
-    border-radius:10px;
-    height:37px;
-    width:400px;
-  }
+p{
+    color: whitesmoke;
+    padding: 20px;
+    text-align: center;
+}
+a{
+    color: rgb(255, 97, 97);
+}
