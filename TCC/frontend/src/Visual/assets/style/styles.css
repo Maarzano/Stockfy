@@ -66,6 +66,9 @@ header img{
     display: flex;
     flex-direction: column;
 }
+.content section span img{
+    position: absolute;
+}
 
 footer {
     position: fixed;
@@ -88,3 +91,43 @@ input{
 input ::placeholder{
     color: white;
 }
+
+h2{
+    font-size: 30px;
+    padding-bottom: 20px;
+}
+#campo{
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+/* Estilo da caixa de pesquisa*/
+#txtBusca{
+    float:left;
+    background-color:rgba(133, 129, 129, 0.11);
+    padding-left:5px;
+    font-size:18px;
+    border:none;
+    height:32px;
+    width:226px;
+  }
+#Add{
+    align: right;
+}  
+  
+  #btnBusca{
+    float:left;
+    cursor:pointer;
+  }
+  
+  #divBusca img{
+    float:left;
+    padding-right: 7.5px;
+  }
+  
+  #divBusca{
+    border-radius:30px;
+    height:37px;
+    width:400px;
+    padding-bottom: 20px;
+  }
