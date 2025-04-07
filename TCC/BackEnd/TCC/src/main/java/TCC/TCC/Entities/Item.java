@@ -1,8 +1,8 @@
 package TCC.TCC.Entities;
 
 import org.hibernate.annotations.CreationTimestamp;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+
+import java.time.OffsetDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,7 +28,6 @@ public class Item {
         this.quantidade = quantidade;
         this.imagem = imagem;
         this.descricao = descricao;
-        this.dataDeCriacao = ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"));
     }
 
 
@@ -49,8 +48,8 @@ public class Item {
     @Column(name = "descricao", nullable = true)
     private String descricao;
 
-    @Column(name = "data_de_criacao", updatable = false)
+    @Column(name = "data_de_criacao", updatable = false, nullable = false)
     @CreationTimestamp
-    private ZonedDateTime dataDeCriacao;
+    private OffsetDateTime dataDeCriacao = OffsetDateTime.now();
 
 }
