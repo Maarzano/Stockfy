@@ -12,7 +12,7 @@
 .login-container{
     background-color: #23232ec2;
     width: 300px;
-    height: 380px;
+    height: auto;
     border-radius: 20px;
     position: absolute;
     top: 50%;
@@ -43,7 +43,8 @@
     align-items: center;
 }
 input[type="username"],
-input[type="password"]{
+input[type="password"],
+input[type="email"]{
     background-color: #23232ed3;
     color: whitesmoke;
 }
@@ -69,4 +70,7 @@ p{
 }
 a{
     color: rgb(255, 97, 97);
+}
+#finalizarCadastro{
+    margin-bottom: 20px;
 }

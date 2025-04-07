@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/style/styles.css">
+</head>
+<body>
+    <main>
+        <header>
+            <a href="Carrinho.html"><img src="assets/images/Carrinho.svg" alt="Carrinho" width="50px"></a>
+            <a href="TelaLogin.html"><img src="assets/images/close.svg" alt="close" width="50px"></a>
+        </header>
+        <div class="content">
+            <nav>
+                <ul>
+                    <li><a class="ativo" onclick="mostrarSecao('ConfigFuncionario', this)">Gerenciar Funcionário</a></li>
+                    <li><a onclick="mostrarSecao('ConfigEstoque', this)">Gerenciar Estoque</a></li>
+                    <li><a onclick="mostrarSecao('Historico', this)">Histórico</a></li>
+                    <li><a onclick="mostrarSecao('MeuPerfil', this)">Meu Perfil</a></li>
+                </ul>
+            </nav>
+            <section>
+                <!--Configurações de Funcionário-->
+                <div id="ConfigFuncionario" class="secao ativa">                   
+                    <h2>Funcionários da Empresa</h2>
+
+                    <!--Caixa de pesquisa (Nome Funcionario)-->
+                    <div id="divBusca">
+                        <img src="../Visual/assets/images/lupa_pesquisa.svg" alt="Lupa de Pesquisa" width="30px">
+                        <input type="text" id="txtBusca" placeholder="Nome Funcionário..."/>
+                    </div>
+                    
+                    <div class="botao-add">
+                    <img src="assets/images/plus.svg" alt="add" width="50px">
+                    </div>
+                </div>
+
+                <!--Configurações de Estoque-->
+                <div id="ConfigEstoque" class="secao">
+
+                </div>
+
+                <!--Configurações de Histórico-->
+                <div id="Historico" class="secao">
+
+                </div>
+
+                <!--Configurações de Meu Perfil-->
+                <div id="MeuPerfil" class="secao">
+                    <h2>Meu Perfil</h2>
+                    <div id="campo"><label >Nome: </label><input type="text" placeholder="AQUI ESTARIA O NOME DA PESSOA"></div>
+                    <div id="campoNumeros"><label>CPF: </label> <input type="text" placeholder="CPF DA PESSOA"></div>
+                    <div id="campoNumeros"><label>Celular: </label><input type="text" placeholder="AQUI ESTARIA O CELULAR DA PESSOA"></div>
+                    <div id="campo"><label>E-mail: </label><input type="email"placeholder="AQUI ESTARIA O E-MAIL DA PESSOA"></div>
+                    <div id="campoFoto"><label>Foto: </label><input type="image" placeholder="AQUI ESTARIA A FOTO DA PESSOA"></div>
+                </div>
+            </section>
+        </div>
+        <footer>
+            <a href="GaleriaItens.html"><img src="assets/images/ferramenta.svg" alt="galeria de itens" width="50px"></a>
+            <img src="assets/images/config.svg" alt="config" width="50px">
+        </footer>
+
+        <script>
+            function mostrarSecao(id, linkClicado) {
+                // Esconde todas as seções
+                const secoes = document.querySelectorAll('.secao');
+                secoes.forEach(secao => secao.classList.remove('ativa'));
+
+                // Mostra a seção clicada
+                document.getElementById(id).classList.add('ativa');
+
+                // Remove destaque de todos os links
+                const links = document.querySelectorAll('nav a');
+                links.forEach(link => link.classList.remove('ativo'));
+
+                // Adiciona destaque (negrito) ao link clicado
+                linkClicado.classList.add('ativo');
+            }
+        </script>
+    </main>
+</body>
+</html>
