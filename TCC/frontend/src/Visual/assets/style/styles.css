@@ -2,6 +2,16 @@
     margin: 0;
     padding: 0;
 }
+html, body {
+    height: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 .Cadastro{
     background-color: aquamarine;
     display: flex;
@@ -46,9 +56,10 @@ header{
     display: flex;
     justify-content: space-between;
 }
-header img{
-    padding: 10px 30px;
-    
+
+header a{
+    justify-content: space-between;
+    padding: 3vh;
 }
 .content{
     flex: 1;
@@ -56,7 +67,7 @@ header img{
     flex-direction: row;
     background: url(../images/marek-piwnicki-NLiKKKr3IbU-unsplash.jpg) no-repeat center center ;
     background-size: cover;
-    height: 88vh;
+    min-height: 0;
 }
 .content section{
     margin-top: 3.5vh;
@@ -65,9 +76,27 @@ header img{
     padding: 20px;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 .content section span img{
     position: absolute;
+}
+
+.contentEstoque{
+    flex: 1;
+    display: flex;
+    flex-direction:column;
+    background: url(../images/marek-piwnicki-NLiKKKr3IbU-unsplash.jpg) no-repeat center center ;
+    background-size: cover;
+    height: 88vh;
+}
+.contentEstoque h2{
+    padding-top: 20px;
+}
+.contentEstoque h2, p{
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: justify;
 }
 
 footer {
@@ -96,9 +125,60 @@ h2{
     font-size: 30px;
     padding-bottom: 20px;
 }
+
+.secao {
+    display: none;
+}
+
+.secao.ativa {
+    display: block;
+}
+nav a.ativo {
+    font-weight: bold;
+}
+
+nav a:hover{
+    cursor: pointer;
+}
+
 #campo{
     font-size: 25px;
     margin-bottom: 20px;
+}
+#campo input{
+    height: 30px;
+    width: 250px;
+    padding: 3px;
+    margin: auto;
+    border: none;
+    border-radius: 5px;
+}
+#campoNumeros{
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+#campoNumeros input{
+    height: 30px;
+    padding: 3px;
+    margin: auto;
+    border: none;
+    border-radius: 5px;
+}
+#campoFoto{
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+#campoFoto input{
+    height: 30px;
+    padding: 3px;
+    margin: auto;
+    border: none;
+    border-radius: 5px;
+}
+input[type="text"],
+input[type="email"]{
+    background-color: #23232e;
+    color: whitesmoke;
 }
 
 /* Estilo da caixa de pesquisa*/
@@ -131,3 +211,21 @@ h2{
     width:400px;
     padding-bottom: 20px;
   }
+
+  /* Posicionamento do botão "+" no canto inferior direito da seção */
+#ConfigFuncionario {
+    position: relative; /* importante para que o filho absoluto funcione dentro da div */
+    min-height: 300px; /* ajuste conforme necessário */
+}
+
+.botao-add {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.botao-add:hover {
+    transform: scale(1.1);
+}
