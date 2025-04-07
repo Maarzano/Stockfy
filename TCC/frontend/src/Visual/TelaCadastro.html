@@ -4,21 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="assets/style/styles.css">
+    <link rel="stylesheet" href="assets/style/styles_login-cad.css">
 </head>
 <body>
-    <main class="Cadastro">
-        <div id="tituloCadastro">
-            <label for=""><h2>Cadastro</h2></label>
-        </div>
-        <div>
-            <form onsubmit="">
-                <input type="text" placeholder="Nome Completo">
-                <input type="date" placeholder="Data de Nascimento">
-                <input type="text" placeholder="Número de Celular">
-                <input type="text" placeholder="E-mail">
+    <main class="container">
+        <div class="login-container">
+            <H1>Cadastro</H1>
+            <form>
+                <label for="username">Nome Completo</label>
+                <input type="username" placeholder="Seu nome completo aqui" name="username" required>
+                
+                <label for="cpf">CPF</label>
+                <input type="username" placeholder="Seu CPF" name="cpf" required>
+
+                <label for="celular">Celular</label>
+                <input type="username" placeholder="Seu celular com DDD" name="cellphoneNumber" required>
+
+                <label for="email">E-mail</label>
+                <input type="email" placeholder="Seu e-mail" name="email" required>
+                
+                <label for=password">Senha</label>
                 <input type="password" placeholder="Senha">
+
+                <a href="GaleriaItens.html"><button type="submit" id="finalizarCadastro">Finalizar Cadastro</button></a>
             </form>
+
         </div>
     </main>
 </body>
