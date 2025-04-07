@@ -9,22 +9,22 @@
 <body>
     <main class="container">
         <div class="login-container">
-            <H1>Cadastro</H1>
+            <span class="botao-voltar"><a href="TelaLogin.html"><img src="assets/images/setaEsquerda.svg" alt="" width="30px"></a></span><span><H1>Cadastro</H1></span>
             <form>
                 <label for="username">Nome Completo</label>
-                <input type="username" placeholder="Seu nome completo aqui" name="username" required>
+                <input id="username" type="username" placeholder="Seu nome completo aqui" name="username" required>
                 
                 <label for="cpf">CPF</label>
-                <input type="username" placeholder="Seu CPF" name="cpf" required>
+                <input id="cpf" type="username" placeholder="Seu CPF" name="cpf" required>
 
                 <label for="celular">Celular</label>
-                <input type="username" placeholder="Seu celular com DDD" name="cellphoneNumber" required>
+                <input id="celular" type="username" placeholder="Seu celular com DDD" name="cellphoneNumber" required>
 
                 <label for="email">E-mail</label>
-                <input type="email" placeholder="Seu e-mail" name="email" required>
+                <input id="email" type="email" placeholder="Seu e-mail" name="email" required>
                 
-                <label for=password">Senha</label>
-                <input type="password" placeholder="Senha">
+                <label for="password">Senha</label>
+                <input id="password" type="password" placeholder="Senha" required>
 
                 <a href="GaleriaItens.html"><button type="submit" id="finalizarCadastro">Finalizar Cadastro</button></a>
             </form>

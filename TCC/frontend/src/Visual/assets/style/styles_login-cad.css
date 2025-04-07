@@ -74,3 +74,8 @@ a{
 #finalizarCadastro{
     margin-bottom: 20px;
 }
+
+.botao-voltar{
+    position: absolute;
+    padding: 20px;
+}
