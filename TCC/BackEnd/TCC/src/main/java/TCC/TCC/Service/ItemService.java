@@ -1,16 +1,16 @@
 package TCC.TCC.Service;
 
-import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import TCC.TCC.DTOs.*;
 import TCC.TCC.DTOs.ItemDTO.AtualizarItemDTO;
 import TCC.TCC.DTOs.ItemDTO.CriarItemDTO;
 import TCC.TCC.Entities.*;
+import TCC.TCC.Exceptions.ItemsException.ItemDuplicadoException;
+import TCC.TCC.Exceptions.ItemsException.ItemNaoEncontradoException;
+import TCC.TCC.Exceptions.ItemsException.QuantidadeInvalida;
 import TCC.TCC.Repository.*;
 
 @Service
@@ -24,54 +24,77 @@ public class ItemService {
     }
 
     public long criarItem(CriarItemDTO criarItemDTO){
+
         if(criarItemDTO.quantidade() < 0){
-            throw new IllegalArgumentException("A quantidade não pode ser negativa");
+            throw new QuantidadeInvalida(criarItemDTO.quantidade());
         }
-        Item entity = new Item(criarItemDTO.nomeItem(), criarItemDTO.quantidade(), criarItemDTO.imagem(), criarItemDTO.descricao(), Instant.now());
+        if (itemRepository.findBynomeItemIgnoreCase(criarItemDTO.nomeItem()).isPresent()) {
+            throw new ItemDuplicadoException(criarItemDTO.nomeItem());
+        }
+
+        Item entity = new Item(criarItemDTO.nomeItem(), criarItemDTO.quantidade(),  
+                                criarItemDTO.imagem(), criarItemDTO.descricao());
+
         Item itemSalvo = itemRepository.save(entity);
 
         return itemSalvo.getItemId();
     }
-    public Optional<Item> pegarItemPeloId(long itemId){
-        return itemRepository.findById(itemId);
+
+    public Item pegarItemPeloId(long itemId){
+        return itemRepository.findById(itemId).orElseThrow(() -> new ItemNaoEncontradoException(itemId));
     }
+
     public List<Item> listarItems(){
         return itemRepository.findAll();
     }
+
     public void deletarItem(long itemId){
         var itemExiste = itemRepository.existsById(itemId);
 
         if(itemExiste){
             itemRepository.deleteById(itemId);
         } else {
-            throw new IllegalArgumentException("Item com ID " + itemId + " não encontrado");
+            throw new ItemNaoEncontradoException(itemId);
         }
     }
-    public void AtualizarItemPorId(long itemId, AtualizarItemDTO atualziarItemDTO){
 
-        if(atualziarItemDTO.quantidade() < 0){
-            throw new IllegalArgumentException("A quantidade não pode ser negativa");
+    public Item AtualizarItemPorId(long itemId, AtualizarItemDTO atualizarItemDTO) {
+        var itemExiste = itemRepository.findById(itemId)
+            .orElseThrow(() -> new ItemNaoEncontradoException(itemId));
+    
+        if (atualizarItemDTO.quantidade() != null && atualizarItemDTO.quantidade() < 0) {
+            throw new QuantidadeInvalida(atualizarItemDTO.quantidade());
         }
-        var itemExiste = itemRepository.findById(itemId);
+        
+        if (atualizarItemDTO.nomeItem() != null && 
+            !atualizarItemDTO.nomeItem().equalsIgnoreCase(itemExiste.getNomeItem()) && 
+            itemRepository.findBynomeItemIgnoreCase(atualizarItemDTO.nomeItem()).isPresent()) {
 
-        if(itemExiste.isPresent()){
-            var item = itemExiste.get();
-            if(atualziarItemDTO.nomeItem() != null){
-                item.setNomeItem(atualziarItemDTO.nomeItem());
-            }
-            if (atualziarItemDTO.quantidade() > 0){
-                item.setQuantidade(atualziarItemDTO.quantidade());
-            }
-            if (atualziarItemDTO.descricao() != null) {
-                item.setDescricao(atualziarItemDTO.descricao());
-            }
-            if (atualziarItemDTO.imagem() != null) {
-                item.setImagem(atualziarItemDTO.imagem());
-            }
-            itemRepository.save(item);
+                throw new ItemDuplicadoException(atualizarItemDTO.nomeItem());
         }
+
+        if (atualizarItemDTO.nomeItem() != null) {
+            itemExiste.setNomeItem(atualizarItemDTO.nomeItem());
+        }
+        if (atualizarItemDTO.quantidade() != null) {
+            itemExiste.setQuantidade(atualizarItemDTO.quantidade());
+        }
+    
+        if (atualizarItemDTO.descricao() != null) {
+            itemExiste.setDescricao(atualizarItemDTO.descricao());
+        }
+    
+        if (atualizarItemDTO.imagem() != null) {
+            itemExiste.setImagem(atualizarItemDTO.imagem());
+        }
+    
+        itemRepository.save(itemExiste);
+        return itemExiste;
     }
+    
+
     public Item buscarItemPorNome(String nomeItem){
-        return itemRepository.findBynomeItemIgnoreCase(nomeItem).orElse(null);
+        return itemRepository.findBynomeItemIgnoreCase(nomeItem)
+                .orElseThrow(() -> new ItemNaoEncontradoException(nomeItem));
     }
 }

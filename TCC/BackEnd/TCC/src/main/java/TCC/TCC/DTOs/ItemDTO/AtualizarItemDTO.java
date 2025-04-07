@@ -1,10 +1,11 @@
 package TCC.TCC.DTOs.ItemDTO;
 
-import jakarta.validation.constraints.Min;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@JsonIgnoreProperties(ignoreUnknown = false)
 public record AtualizarItemDTO ( 
     String nomeItem,
-    @Min(value = 0, message = "A quantidade não pode ser negativa")
-    int quantidade,
+    Integer quantidade,
     String imagem,
     String descricao) { }

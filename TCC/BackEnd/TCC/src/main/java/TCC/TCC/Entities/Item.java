@@ -1,7 +1,8 @@
 package TCC.TCC.Entities;
 
 import org.hibernate.annotations.CreationTimestamp;
-import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,12 +23,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Item {
     
-    public Item(String nomeItem, int quantidade, String imagem, String descricao, Instant dataDeCriacao) {
+    public Item(String nomeItem, Integer quantidade, String imagem, String descricao) {
         this.nomeItem = nomeItem;
         this.quantidade = quantidade;
         this.imagem = imagem;
         this.descricao = descricao;
-        this.dataDeCriacao = dataDeCriacao;
+        this.dataDeCriacao = ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"));
     }
 
 
@@ -40,7 +41,7 @@ public class Item {
     private String nomeItem;
 
     @Column(name = "quantidade", nullable = false)
-    private int quantidade;
+    private Integer quantidade;
 
     @Column(name = "imagem", nullable = true)
     private String imagem;
@@ -50,6 +51,6 @@ public class Item {
 
     @Column(name = "data_de_criacao", updatable = false)
     @CreationTimestamp
-    private Instant dataDeCriacao;
+    private ZonedDateTime dataDeCriacao;
 
 }
