@@ -1,0 +1,15 @@
+header {
+    background-color: #23232e;
+    height: 12vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+header a {
+    justify-content: space-between;
+    padding: 3vh;
+}
+
+.headerConfig {
+    justify-content: end;
+}

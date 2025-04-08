@@ -1,0 +1,15 @@
+footer {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #23232e;
+    border-radius: 30px;
+    width: 250px;
+    height: 90px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    align-items: center;
+    z-index: 10;
+}
