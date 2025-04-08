@@ -1,0 +1,55 @@
+.link {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    margin: 0 0px;
+    transition: all 0.3s ease;
+}
+
+.link:before {
+    display: none;
+}
+
+.link-icon {
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+.link-icon-setting {
+    padding-top: 0.5vh;
+}
+
+.link-icon:hover,
+.link-icon-setting:hover {
+    transition-duration: 400ms;
+    transform: scale(1.1);
+}
+
+.link-title,
+.link-title-setting {
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1;
+    font-size: 12px;
+    color: #f5f5f5;
+    margin-top: 4px;
+}
+
+.link-title-setting {
+    margin-top: 0px;
+}
+
+.link:hover .link-title,
+.link:hover .link-title-setting {
+    transform: translateY(0);
+    opacity: 1;
+}

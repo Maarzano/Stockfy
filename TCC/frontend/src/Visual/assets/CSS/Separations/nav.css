@@ -1,0 +1,36 @@
+nav {
+    border-right: solid 3px #23232e;
+    margin-top: 5vh;
+    margin-bottom: 10vh;
+    width: 250px;
+    height: 73vh;
+    display: flex;
+    align-items: top;
+    padding-left: 45px;
+}
+
+nav > ul {
+    list-style: none;
+}
+
+nav > ul > li {
+    padding: 10px;
+    font-size: larger;
+}
+
+nav > ul > li > a {
+    color: black;
+    text-decoration: none;
+}
+
+nav > ul > li > a:hover {
+    opacity: 0.7;
+}
+
+nav a.ativo {
+    font-weight: bold;
+}
+
+nav a:hover {
+    cursor: pointer;
+}

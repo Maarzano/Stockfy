@@ -1,0 +1,45 @@
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.content, .contentEstoque {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: url(../../images/marek-piwnicki-NLiKKKr3IbU-unsplash.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.content {
+    flex-direction: row;
+    min-height: 0;
+}
+
+.content section {
+    margin-top: 3.5vh;
+    margin-left: 30px;
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.content section span img {
+    position: absolute;
+}
+
+.contentEstoque {
+    height: 88vh;
+}
+
+.contentEstoque h2 {
+    padding-top: 20px;
+}
+
+.contentEstoque h2, p {
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: justify;
+}
