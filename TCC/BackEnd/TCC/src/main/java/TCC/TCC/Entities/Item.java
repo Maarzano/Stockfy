@@ -3,12 +3,14 @@ package TCC.TCC.Entities;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -50,6 +52,11 @@ public class Item {
 
     @Column(name = "data_de_criacao", updatable = false, nullable = false)
     @CreationTimestamp
-    private OffsetDateTime dataDeCriacao = OffsetDateTime.now();
+    private OffsetDateTime dataDeCriacao;
+
+    @PrePersist
+    protected void onCreate() {
+        this.dataDeCriacao = OffsetDateTime.now(ZoneId.of("America/Sao_Paulo"));
+    }
 
 }
