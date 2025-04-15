@@ -2,6 +2,7 @@ package TCC.TCC.Entities;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import TCC.TCC.Entities.Enum.StatusMovimentacao;
 import TCC.TCC.Entities.Enum.TipoMovimentacao;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,11 +20,12 @@ import java.time.Instant;
 @AllArgsConstructor
 public class Movimentacao {
 
-    public Movimentacao(Item item, Funcionario funcionario, int quantidade, TipoMovimentacao tipoMovimentacao, Instant dataMovimentacao) {
+    public Movimentacao(Item item, Funcionario funcionario, int quantidade, TipoMovimentacao tipoMovimentacao, StatusMovimentacao status, Instant dataMovimentacao) {
         this.item = item;
         this.funcionario = funcionario;
         this.quantidade = quantidade;
         this.tipoMovimentacao = tipoMovimentacao;
+        this.statusMovimentacao = status;
         this.dataMovimentacao = dataMovimentacao;
     }
     
@@ -46,6 +48,10 @@ public class Movimentacao {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_movimentacao", nullable = false)
     private TipoMovimentacao tipoMovimentacao;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Status_movimentacao", nullable = false)
+    private StatusMovimentacao statusMovimentacao;
 
     @CreationTimestamp
     @Column(name = "data_movimentacao", nullable = false, updatable = false)

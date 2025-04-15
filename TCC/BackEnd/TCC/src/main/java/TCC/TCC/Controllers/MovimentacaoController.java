@@ -39,4 +39,10 @@ public class MovimentacaoController {
         movimentacaoService.deletarMovimentacao(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/movimentacoes/{id}/concluir")
+    public ResponseEntity<String> concluirMovimentacao(@PathVariable Long id) {
+    movimentacaoService.concluirMovimentacao(id);
+    return ResponseEntity.ok("Movimentação concluída com sucesso.");
+}
 }
