@@ -1,12 +1,16 @@
 package TCC.TCC.Controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import TCC.TCC.DTOs.ItemDTO.AtualizarItemDTO;
 import TCC.TCC.DTOs.ItemDTO.CriarItemDTO;
 import TCC.TCC.Entities.Item;
 import TCC.TCC.Service.ItemService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 import java.net.URI;
@@ -65,6 +69,16 @@ public class ItemController {
     public ResponseEntity<?> AtualiazarItemPorId(@PathVariable("itemId") long itemId, @RequestBody AtualizarItemDTO atualizarItemDTO) {
         itemService.AtualizarItemPorId(itemId, atualizarItemDTO);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Buscar itens por nome (parcial ou completo)", description = "Retorna uma lista de itens que contenham o nome informado, sem diferenciar maiúsculas e minúsculas.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Itens encontrados com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Parâmetro de nome inválido")
+    })
+    @GetMapping("/buscar")
+    public List<Item> buscarItensPorNome(@RequestParam String nome) {
+        return itemService.buscarPorNome(nome);
     }
 
 }

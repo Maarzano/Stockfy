@@ -44,6 +44,10 @@ public class ItemService {
         return itemRepository.findById(itemId).orElseThrow(() -> new ItemNaoEncontradoException(itemId));
     }
 
+    public List<Item> buscarPorNome(String nome) {
+        return itemRepository.buscarPorNome(nome);
+    }
+
     public List<Item> listarItems(){
         return itemRepository.findAll();
     }
