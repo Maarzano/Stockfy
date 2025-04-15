@@ -25,7 +25,11 @@ public class FuncionarioService {
     }
 
     public long criarFuncionario(CriarFuncionarioDTO dto){
-        var entity = new Funcionario(dto.nomeFuncionario(), dto.emailFuncionario(), dto.cpfFuncionario(), dto.celularFuncionario(), dto.dataNascimentoFuncionario(), dto.descricaoFuncionario(), true);
+        var entity = new Funcionario(dto.nomeFuncionario(), dto.emailFuncionario(), 
+                                    dto.cpfFuncionario(), dto.celularFuncionario(), 
+                                    dto.dataNascimentoFuncionario(), 
+                                    dto.descricaoFuncionario(), true);
+                                    
         var funcionarioSalvo = funcionarioRepository.save(entity);
         return funcionarioSalvo.getFuncionarioId();
     }

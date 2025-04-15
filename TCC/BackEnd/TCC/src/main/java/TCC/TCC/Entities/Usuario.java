@@ -21,7 +21,6 @@ import lombok.*;
 @AllArgsConstructor
 public class Usuario {
 
-
     public Usuario(String nome, String senha, String CPF, String celular, String email, Instant creationTimestamp, Instant updateTimestamp) {
         this.nomeCompleto = nome;
         this.senha = senha;

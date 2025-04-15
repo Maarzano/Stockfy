@@ -12,9 +12,11 @@ import TCC.TCC.DTOs.MovimentacaoDTO.DetalhesMovimentacaoDTO;
 import TCC.TCC.Entities.Funcionario;
 import TCC.TCC.Entities.Item;
 import TCC.TCC.Entities.Movimentacao;
+import TCC.TCC.Entities.Enum.StatusMovimentacao;
 import TCC.TCC.Repository.FuncionarioRepository;
 import TCC.TCC.Repository.ItemRepository;
 import TCC.TCC.Repository.MovimentacaoRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +38,7 @@ public class MovimentacaoService {
             item,
             funcionario,
             dto.quantidade(),
-            dto.tipoMovimentacao(),
+            dto.tipoMovimentacao(), StatusMovimentacao.PENDENTE,
             null
         );
 
@@ -48,8 +50,20 @@ public class MovimentacaoService {
             movimentacao.getFuncionario().getFuncionarioId(),
             movimentacao.getQuantidade(),
             movimentacao.getTipoMovimentacao(),
+            movimentacao.getStatusMovimentacao(),
             movimentacao.getDataMovimentacao()
         );
+    }
+
+    public void concluirMovimentacao(Long id) {
+        Movimentacao movimentacao = movimentacaoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Movimentação não encontrada com ID: " + id));
+
+        if (movimentacao.getStatusMovimentacao() != StatusMovimentacao.PENDENTE) {
+            throw new IllegalStateException("Apenas movimentações com status PENDENTE podem ser concluídas.");
+        }
+        movimentacao.setStatusMovimentacao(StatusMovimentacao.CONCLUIDO);
+        movimentacaoRepository.save(movimentacao);
     }
 
     public List<DetalhesMovimentacaoDTO> listarMovimentacoes() {
@@ -60,6 +74,7 @@ public class MovimentacaoService {
                 mov.getFuncionario().getFuncionarioId(),
                 mov.getQuantidade(),
                 mov.getTipoMovimentacao(),
+                mov.getStatusMovimentacao(),
                 mov.getDataMovimentacao()
             )
         ).collect(Collectors.toList());
@@ -82,6 +97,7 @@ public class MovimentacaoService {
             movimentacao.getFuncionario().getFuncionarioId(),
             movimentacao.getQuantidade(),
             movimentacao.getTipoMovimentacao(),
+            movimentacao.getStatusMovimentacao(),
             movimentacao.getDataMovimentacao()
         );
     }

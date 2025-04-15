@@ -1,21 +1,21 @@
 package TCC.TCC.Controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import TCC.TCC.DTOs.ItemDTO.AtualizarItemDTO;
 import TCC.TCC.DTOs.ItemDTO.CriarItemDTO;
 import TCC.TCC.Entities.Item;
-import TCC.TCC.Exceptions.ItemsException.ItemDuplicadoException;
-import TCC.TCC.Exceptions.ItemsException.ItemNaoEncontradoException;
-import TCC.TCC.Exceptions.ItemsException.QuantidadeInvalida;
 import TCC.TCC.Service.ItemService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,16 +38,10 @@ public class ItemController {
 
     @PostMapping
     public ResponseEntity<?> criarItem(@Valid @RequestBody CriarItemDTO entity) {
-        try {
-            var itemId = itemService.criarItem(entity);
-            return ResponseEntity.created(URI.create("/v1/Items/" + itemId))
+        var itemId = itemService.criarItem(entity);
+
+        return ResponseEntity.created(URI.create("/v1/Items/" + itemId))
                 .body(itemService.pegarItemPeloId(itemId));
-        } catch (ItemDuplicadoException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        } catch (QuantidadeInvalida e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-        
     }
 
     @GetMapping("/{itemId}")
@@ -63,11 +57,7 @@ public class ItemController {
 
     @GetMapping("/buscar/{nomeItem}")
     public ResponseEntity<?> buscarItemPorNome(@PathVariable("nomeItem") String nomeItem) {
-        try {
             return ResponseEntity.ok(itemService.buscarItemPorNome(nomeItem));
-        } catch (ItemNaoEncontradoException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
     }
 
     @DeleteMapping("/{itemId}")
@@ -77,20 +67,18 @@ public class ItemController {
     }
     @PutMapping("/{itemId}")
     public ResponseEntity<?> AtualiazarItemPorId(@PathVariable("itemId") long itemId, @RequestBody AtualizarItemDTO atualizarItemDTO) {
-        
-        try {
-            itemService.AtualizarItemPorId(itemId, atualizarItemDTO);
-            return ResponseEntity.noContent().build();
-        } catch (ItemNaoEncontradoException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (ItemDuplicadoException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        } catch (QuantidadeInvalida e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro interno.");
-        }
-    
+        itemService.AtualizarItemPorId(itemId, atualizarItemDTO);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Buscar itens por nome (parcial ou completo)", description = "Retorna uma lista de itens que contenham o nome informado, sem diferenciar maiúsculas e minúsculas.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Itens encontrados com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Parâmetro de nome inválido")
+    })
+    @GetMapping("/buscar")
+    public List<Item> buscarItensPorNome(@RequestParam String nome) {
+        return itemService.buscarPorNome(nome);
     }
 
 }
