@@ -14,8 +14,20 @@
         </header>
         <section class="contentEstoque">
             <h2>Seu estoque</h2>
-            <p>Bem-vindo à tela de estoque. Nesta seção, é possível visualizar a quantidade atual de cada produto disponível na empresa. Este espaço foi desenvolvido para facilitar o acompanhamento dos itens armazenados e permitir o controle das saídas de produtos de forma prática e organizada. Mantenha-se sempre atualizado com as quantidades em tempo real e garanta uma gestão eficiente dos recursos.</p>
+            <p>Bem-vindo à tela de estoque. Nesta seção, é possível visualizar a quantidade atual de cada produto disponível na empresa.
+                 Este espaço foi desenvolvido para facilitar o acompanhamento dos itens armazenados e permitir o controle das saídas de produtos
+                  de forma prática e organizada. Mantenha-se sempre atualizado com as quantidades em tempo real e garanta uma gestão eficiente dos recursos.</p>
+                  
+            <section class="galeria-itens">
+                <div id="container-itens" class="container-cards">
+                    <!-- Cards aqui -->
+                </div>
+                <div id="placeholder" class="sem-itens">
+                    <p>Nenhum item cadastrado no momento.</p>
+                </div>
+            </section>
         </section>
+        
         <footer>
             <a href="#" class="link">
                 <span class="link-icon">
@@ -32,5 +44,44 @@
             </a>
         </footer>
     </main>
+    <script>
+        async function carregarItens() {
+            try {
+                const resposta = await fetch('http://localhost:8080/v1/Items');
+                const itens = await resposta.json();
+                const container = document.getElementById('container-itens');
+                const placeholder = document.getElementById('placeholder');
+    
+                container.innerHTML = '';
+    
+                if (itens.length === 0) {
+                    placeholder.style.display = 'block';
+                } else {
+                    placeholder.style.display = 'none';
+    
+                    itens.forEach(item => {
+                        const card = document.createElement('div');
+                        card.classList.add('card-item');
+                        
+                        const imagem = item.imagem ? item.imagem : 'assets/images/sem-imagem.png';
+    
+                        card.innerHTML = `
+                            <img src="${imagem}" alt="${item.nomeItem}">
+                            <h3>${item.nomeItem}</h3>
+                            <p>${item.descricao || 'Sem descrição'}</p>
+                            <p>Quantidade: ${item.quantidade}</p>
+                        `;
+    
+                        container.appendChild(card);
+                    });
+                }
+            } catch (erro) {
+                console.error("Erro ao carregar itens:", erro);
+                alert("Erro ao carregar itens do estoque.");
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', carregarItens);
+    </script>    
 </body>
 </html>
