@@ -60,4 +60,43 @@
     font-style: italic;
     margin-top: 30px;
 }
+.btn-toggle {
+    background-color: transparent;
+    border: none;
+    color: #1e90ff;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 8px;
+    transition: color 0.2s ease;
+}
+
+.btn-toggle:hover {
+    color: #63b3ed;
+}
+
+.card-item {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.card-item .descricao {
+    max-height: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    margin-bottom: 10px;
+}
+
+.btn-toggle-descricao {
+    background-color: transparent;
+    border: none;
+    color: #00aaff;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
 
