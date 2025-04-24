@@ -13,7 +13,9 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    padding: 20px;
+    padding: 11.5px;
+    padding-top: 20px;
+    padding-bottom: 100px;
 }
 
 .card-item {

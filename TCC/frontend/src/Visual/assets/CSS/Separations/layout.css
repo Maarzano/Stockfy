@@ -54,7 +54,7 @@ main {
     background-color: #1e1e1e;
     color: #f0f0f0;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 12px 12px 0px 0px;
     margin-top: 20px;
 }
 
