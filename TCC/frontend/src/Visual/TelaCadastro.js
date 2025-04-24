@@ -1,4 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+    const cpfInput = document.getElementById("cpf");
+    // eslint-disable-next-line no-undef
+    IMask(cpfInput, {
+        mask: '000.000.000-00'
+    });
+
+    const celularInput = document.getElementById("celular");
+    // eslint-disable-next-line no-undef
+    IMask(celularInput, {
+        mask: '(00) 00000-0000'
+    });
+
     const formCadastro = document.getElementById("form-cadastro");
 
     formCadastro.addEventListener("submit", async function (event) {
