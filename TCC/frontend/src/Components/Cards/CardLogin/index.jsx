@@ -10,11 +10,11 @@ const CardLogin = ({ onSwitch }) => (
       <form className="form">
         <div className="input-group">
           <label htmlFor="username">Email/Cpf</label>
-          <input type="text" name="username" id="username" placeholder />
+          <input type="text" name="username" id="username" placeholder  required/>
         </div>
         <div className="input-group">
           <label htmlFor="password">Senha</label>
-          <input type="password" name="password" id="password" placeholder />
+          <input type="password" name="password" id="password" placeholder required/>
           <div className="forgot">
             <a rel="noopener noreferrer" href="#">Esqueceu a senha ?</a>
           </div>

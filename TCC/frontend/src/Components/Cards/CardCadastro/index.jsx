@@ -6,7 +6,7 @@ const CardCadastro = ({ onSwitch }) => (
       <p className="title">Cadastro</p>
       <form className="form">
         <div className="input-group">
-          <label htmlFor="nome">Nome</label>
+          <label htmlFor="nome">Nome Completo</label>
           <input type="text" name="nome" id="nome" />
         </div>
         <div className="input-group">
@@ -16,6 +16,10 @@ const CardCadastro = ({ onSwitch }) => (
         <div className="input-group">
           <label htmlFor="cpf">CPF</label>
           <input type="text" name="cpf" id="cpf" />
+        </div>
+        <div className="input-group">
+          <label htmlFor="celular">Celular</label>
+          <input type="tel" name="celular" id="celular" />
         </div>
         <div className="input-group">
           <label htmlFor="password">Senha</label>
