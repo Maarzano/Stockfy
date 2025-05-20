@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import bgImage from "../../Assets/SVGs/background-login-cadastro.svg";
+import bgImage from "../../Assets/SVGs/Background/background-login-cadastro.svg";
 import CardLogin from "../../Components/Cards/CardLogin";
 import CardCadastro from "../../Components/Cards/CardCadastro";
 
