@@ -1,9 +1,9 @@
-import Login from "./Pages/Login";
+import Auth from "./Pages/Auth";
 
 const App = () => {
   return (
     <>
-    <Login/>
+    <Auth/>
     </>
   );
 }

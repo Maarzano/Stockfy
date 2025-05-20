@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const CardLogin = () => {
+const CardLogin = ({onSwitch}) => {
   return (
     <StyledWrapper>
       <div className="form-container">
@@ -42,7 +42,7 @@ const CardLogin = () => {
           </button>
         </div>
         <p className="signup">Ainda não tem conta?
-          <a rel="noopener noreferrer" href="#" className> Cadastre se</a>
+          <a href="#" onClick={e => { e.preventDefault(); onSwitch(); }}> Cadastre se</a>
         </p>
       </div>
     </StyledWrapper>
