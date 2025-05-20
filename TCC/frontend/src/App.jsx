@@ -1,10 +1,11 @@
-import Auth from "./Pages/Auth";
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./Routes";
 
 const App = () => {
   return (
-    <>
-    <Auth/>
-    </>
+    <BrowserRouter>
+      <AppRoutes/>
+    </BrowserRouter>
   );
 }
 
