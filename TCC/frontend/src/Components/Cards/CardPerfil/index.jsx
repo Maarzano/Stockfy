@@ -23,7 +23,7 @@ const Wrapper = styled.div`
     flex-direction: row;
     justify-content: right;
     align-items: center;
-    width: 10%;
+    width: fit-content;
     height: 73%;
     background-color: #000000;
     border-radius: 0.79rem;
