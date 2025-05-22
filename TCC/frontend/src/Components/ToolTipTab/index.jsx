@@ -25,8 +25,8 @@ const TabWrapper = styled.div`
 const Tooltip = styled.span`
   position: absolute;
   bottom: 115%;
-  background-color: #333;
-  color: #fff;
+  background-color: #000000;
+  color: #623bda;
   padding: 5px 10px;
   border-radius: 6px;
   font-size: 12px;
