@@ -62,11 +62,11 @@ const StyledWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 55px;
-    height: 55px;
+    width: 3.5rem;
+    height: 3.5rem;
     overflow: hidden;
     background-color: #252525;
-    padding: 15px;
+    padding: 1rem;
     border-radius: 50%;
     cursor: pointer;
     text-decoration: none;
