@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ToolTipTab = ({ children, label }) => {
+const ToolTipTab = ({ children, label, direction }) => {
   return (
-    <TabWrapper>
+    <TabWrapper direction={direction}>
       {children}
       <Tooltip>{label}</Tooltip>
     </TabWrapper>
@@ -18,7 +18,7 @@ const TabWrapper = styled.div`
 
   &:hover span {
     opacity: 1;
-    transform: translateY(-10px);
+    transform: translateY(${props => props.direction === undefined ? "-10px" : props.direction});
   }
 `;
 
