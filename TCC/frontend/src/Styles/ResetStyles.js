@@ -21,7 +21,6 @@ export const ResetStyles = createGlobalStyle`
 
   /* Setar altura mínima para o body */
   html, body {
-    height: 100%;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
