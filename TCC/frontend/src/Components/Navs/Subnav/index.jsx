@@ -1,22 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import SettingIcon from "../../../Assets/SVGs/Icons/icon-setting-purple.svg";
+import { ReactComponent as SettingIcon } from "../../../Assets/SVGs/Icons/icon-setting-purple.svg";
 import ToolTipTab from '../../ToolTipTab';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const Subnav = () => {
+  const location = useLocation();
   return (
     <StyledWrapper>
       <div className="navigation-card">
         <ToolTipTab label={"Galeria"}>
-            <a href="#" className="tab">
-            <svg className="svgIcon" viewBox="0 0 104 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100.5 40.75V96.5H66V68.5V65H62.5H43H39.5V68.5V96.5H3.5V40.75L52 4.375L100.5 40.75Z" stroke="#623bda" strokeWidth={7} />
-            </svg>
-            </a>
+            <Link className={`tab ${location.pathname === '/Gallery' ? 'active' : ''}`} to="/Gallery">
+              <svg className="svgIcon" viewBox="0 0 104 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M100.5 40.75V96.5H66V68.5V65H62.5H43H39.5V68.5V96.5H3.5V40.75L52 4.375L100.5 40.75Z" stroke="currentColor" strokeWidth={7} />
+              </svg>
+            </Link>
         </ToolTipTab>
 
         <ToolTipTab label={"Perfil"}>
-            <a href="#" className="tab">
+            <Link className="tab">
             <svg width={104} height={100} viewBox="0 0 104 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="21.5" y="3.5" width={60} height={60} rx={30} stroke="#623bda" strokeWidth={7} />
                 <g clipPath="url(#clip0_41_27)">
@@ -33,13 +36,13 @@ const Subnav = () => {
                 </clipPath>
                 </defs>
             </svg>
-            </a>
+            </Link>
         </ToolTipTab>
 
         <ToolTipTab label={"Configurações"}>
-            <a href="#" className="tab">
-                <img src={SettingIcon} alt=""/>
-            </a>
+          <Link to="/Config" className={`tab ${location.pathname === '/Config' ? 'active' : ''}`}>
+            <SettingIcon className="svgIcon" fill='currentColor'/>
+          </Link>
         </ToolTipTab>
       </div>
     </StyledWrapper>
@@ -57,6 +60,10 @@ const StyledWrapper = styled.div`
     background-color: #000000;
     padding: 15px 20px;
     border-radius: 50px;
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
   }
   .tab {
     display: flex;
@@ -71,10 +78,22 @@ const StyledWrapper = styled.div`
     cursor: pointer;
     text-decoration: none;
     transition: all 0.3s;
+    color: #623bda;
   }
   .tab:hover {
-    background-color: rgb(227, 223, 223);
-  }`;
+    box-shadow: 0 0 10px #623bda;
+  }
+
+  .tab.active {
+    background-color: #623bda;
+    box-shadow: 0 0 10px #623bda;
+
+    .svgIcon {
+      color: black;
+    }
+  }
+
+`
 
 export default Subnav;
 

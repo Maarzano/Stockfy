@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import CardPerfil from "../../Cards/CardPerfil"
 import Cart from "../../../Assets/SVGs/Icons/icon-cart-black.svg"
+import { Link } from "react-router-dom"
 
 const NavBar = () =>{
     
@@ -8,9 +9,15 @@ const NavBar = () =>{
     return (
         <Wrapper>
             <WrapperCart>
-                <CartImg src={Cart}/>
+                <Link to="/Cart">
+                    <CartImg src={Cart}/>
+                </Link>
             </WrapperCart>
-            <SystemName>Stockify</SystemName>
+            <Link to="/Gallery">
+                <SystemName>
+                    Stockify
+                </SystemName>
+            </Link>
             <CardPerfil/>
         </Wrapper>
     )
@@ -24,6 +31,8 @@ const Wrapper = styled.div`
     height: 4vw;
     background-color: #623bda;
     width: 100%;
+    position: fixed;
+    top: 0;
 `
 
 const WrapperCart = styled.div`
@@ -42,8 +51,7 @@ const CartImg = styled.img`
 const SystemName = styled.h1`
     color: #FFF;
     font-size: 60px;
-    padding: 10px;
-    height: fit-content;
+    height: 100px;
     cursor: pointer;
 `
 

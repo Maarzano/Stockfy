@@ -1,24 +1,21 @@
 import styled from "styled-components";
 import NavBar from "../../Components/Navs/NavBar"
 import Subnav from "../../Components/Navs/Subnav";
+import GalleryItenSection from "../../Components/GalleryItemSection";
 
 const Gallery = () => {
     return (
-        <>
+        <Wrapper>
             <NavBar/>
-            <SubnavWrapper>
-                <Subnav/>
-            </SubnavWrapper>
-        </>
+            <GalleryItenSection/>
+            <Subnav/>
+        </Wrapper>
     )
 }
 
 export default Gallery;
 
 
-const SubnavWrapper = styled.div`
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+const Wrapper = styled.div`
+    background-color: #1a1a1a;
 `
