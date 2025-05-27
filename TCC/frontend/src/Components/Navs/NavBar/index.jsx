@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import CardPerfil from "../../Cards/CardPerfil";
 import Cart from "../../../Assets/SVGs/Icons/icon-cart-black.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const NavBar = () => {
     const [scrolled, setScrolled] = useState(false);
+    const locate = useLocation();
+
+    const locateNow = locate.pathname === "/Gallery";
 
     useEffect(() => {
         const handleScroll = () => {
@@ -25,7 +28,7 @@ const NavBar = () => {
         <Wrapper className={scrolled ? "scrolled" : ""}>
             <WrapperCart>
                 <Link to="/Cart">
-                    <CartImg src={Cart} />
+                    <CartImg src={ locateNow && (Cart)} />
                 </Link>
             </WrapperCart>
             <Link to="/Gallery">
