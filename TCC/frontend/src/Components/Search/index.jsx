@@ -11,7 +11,7 @@ const Search = () => {
             <path strokeLinejoin="round" strokeLinecap="round" strokeWidth="1.5" stroke="#fff" d="M22 22L20 20" />
           </svg>
         </button>
-        <input placeholder="search.." className="input" name="text" type="text" />
+        <input placeholder="Search..." className="input" name="text" type="text" />
       </div>
     </StyledWrapper>
   );
@@ -24,6 +24,7 @@ const StyledWrapper = styled.div`
     justify-content: center;
     gap: 15px;
     position: relative;
+    margin-top: 15px;
   }
 
   .input {
@@ -74,7 +75,7 @@ const StyledWrapper = styled.div`
     border-radius: 0px;
     background-color: transparent;
     border-bottom: 3px solid #7e4fd4;
-    transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+    transition: all 500ms ease-in-out;
   }`;
 
 export default Search;
