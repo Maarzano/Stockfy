@@ -8,10 +8,13 @@ import { ReactComponent as EmployeIcon } from "../../../Assets/SVGs/Icons/icon-e
 import ToolTipTab from '../../ToolTipTab';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
+const ANIMATION_DURATION = 350; // ms
+
 const Subnav = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(location.pathname.startsWith('/Config'));
+  const [animating, setAnimating] = useState(false);
 
   React.useEffect(() => {
     if (!location.pathname.startsWith('/Config')) setExpanded(false);
@@ -20,22 +23,41 @@ const Subnav = () => {
 
   const handleConfigClick = (e) => {
     e.preventDefault();
-    if (!expanded) {
+    if (!expanded && !animating) {
+      setAnimating(true);
       setExpanded(true);
-      navigate('/Config/Stock');
+      setTimeout(() => {
+        setAnimating(false);
+        navigate('/Config/Stock');
+      }, ANIMATION_DURATION);
     }
+  };
+
+  const handleHomeClick = (e) => {
+    if (expanded && !animating) {
+      e.preventDefault();
+      setAnimating(true);
+      setExpanded(false);
+      setTimeout(() => {
+        setAnimating(false);
+        navigate('/Gallery');
+      }, ANIMATION_DURATION);
+    }
+    // else allow default navigation
   };
 
   const isStock = location.pathname === '/Config/Stock';
 
   return (
     <StyledWrapper>
-      <div className={`navigation-card${expanded ? ' expanded' : ''}`}>
+      <div className={`navigation-card${expanded ? ' expanded' : ''}${animating ? ' animating' : ''}`}>
         <ToolTipTab label={"Galeria"}>
           <Link
             className={`tab ${location.pathname === '/Gallery' ? 'active' : ''}`}
             to="/Gallery"
-            onClick={() => setExpanded(false)}
+            onClick={handleHomeClick}
+            tabIndex={animating ? -1 : 0}
+            style={animating ? { pointerEvents: "none" } : {}}
           >
             <svg className="svgIcon" viewBox="0 0 104 100" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M100.5 40.75V96.5H66V68.5V65H62.5H43H39.5V68.5V96.5H3.5V40.75L52 4.375L100.5 40.75Z" stroke="currentColor" strokeWidth={7} />
@@ -48,6 +70,8 @@ const Subnav = () => {
             <Link
               className={`tab${isStock ? ' active' : ''}`}
               to="/Config/Stock"
+              tabIndex={animating ? -1 : 0}
+              style={animating ? { pointerEvents: "none" } : {}}
             >
               <BoxIcon className="svgIcon" />
             </Link>
@@ -58,6 +82,8 @@ const Subnav = () => {
               className={`tab`}
               href="#"
               onClick={handleConfigClick}
+              tabIndex={animating ? -1 : 0}
+              style={animating ? { pointerEvents: "none" } : {}}
             >
               <SettingIcon className="svgIcon" fill='currentColor' />
             </Link>
@@ -70,6 +96,8 @@ const Subnav = () => {
               <Link
                 className={`tab ${location.pathname === '/Config/Employe' ? 'active' : ''}`}
                 to="/Config/Employe"
+                tabIndex={animating ? -1 : 0}
+                style={animating ? { pointerEvents: "none" } : {}}
               >
                 <EmployeIcon className="svgIcon" fill='currentColor' />
               </Link>
@@ -78,6 +106,8 @@ const Subnav = () => {
               <Link
                 className={`tab ${location.pathname === '/Config/History' ? 'active' : ''}`}
                 to="/Config/History"
+                tabIndex={animating ? -1 : 0}
+                style={animating ? { pointerEvents: "none" } : {}}
               >
                 <HistoryIcon className="svgIcon" />
               </Link>
@@ -86,6 +116,8 @@ const Subnav = () => {
               <Link
                 className={`tab ${location.pathname === '/Config/Profile' ? 'active' : ''}`}
                 to="/Config/Profile"
+                tabIndex={animating ? -1 : 0}
+                style={animating ? { pointerEvents: "none" } : {}}
               >
                 <ProfileIcon className="svgIcon" />
               </Link>
@@ -112,12 +144,18 @@ const StyledWrapper = styled.div`
     bottom: 25px;
     left: 50%;
     transform: translateX(-50%);
-    transition: all 0.3s;
+    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    /* animation for expansion/retraction */
   }
   .navigation-card.expanded {
     gap: 20px;
     padding: 15px 35px;
     border-radius: 30px;
+    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  .navigation-card.animating {
+    /* Optionally add a subtle scale or shadow effect during animation */
+    filter: brightness(1.05);
   }
   .tab {
     display: flex;
