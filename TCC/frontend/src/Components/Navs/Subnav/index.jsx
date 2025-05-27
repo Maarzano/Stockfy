@@ -8,7 +8,7 @@ import { ReactComponent as EmployeIcon } from "../../../Assets/SVGs/Icons/icon-e
 import ToolTipTab from '../../ToolTipTab';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-const ANIMATION_DURATION = 350; // ms
+const ANIMATION_DURATION = 700;
 
 const Subnav = () => {
   const location = useLocation();
@@ -43,7 +43,6 @@ const Subnav = () => {
         navigate('/Gallery');
       }, ANIMATION_DURATION);
     }
-    // else allow default navigation
   };
 
   const isStock = location.pathname === '/Config/Stock';
@@ -144,17 +143,15 @@ const StyledWrapper = styled.div`
     bottom: 25px;
     left: 50%;
     transform: translateX(-50%);
-    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
-    /* animation for expansion/retraction */
+    transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .navigation-card.expanded {
     gap: 20px;
     padding: 15px 35px;
     border-radius: 30px;
-    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .navigation-card.animating {
-    /* Optionally add a subtle scale or shadow effect during animation */
     filter: brightness(1.05);
   }
   .tab {
@@ -191,6 +188,3 @@ const StyledWrapper = styled.div`
 `
 
 export default Subnav;
-
-//1 #ffffff
-//2 #fcfcfc
