@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Auth from "../Pages/Auth";
 import Home from '../Pages/Home'
 import NotFound from "../Pages/NotFound";
@@ -17,6 +17,7 @@ const AppRoutes = () => {
             <Route path="/Gallery" element={<Gallery/>} />
             <Route path="/Cart" element={<Cart/>} />
             <Route path="/Config" element={<Config/>} >
+                <Route index element={<Navigate to="Stock" replace />} />
                 <Route path="Employe" element={<Employe/>} />
                 <Route path="Stock" element={<Stock/>} />
                 <Route path="History" element={<History/>} />
