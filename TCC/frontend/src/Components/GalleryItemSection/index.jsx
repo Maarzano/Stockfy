@@ -36,7 +36,7 @@ const Wrapper = styled.div`
     background-color: black;
     color: wheat;
     padding: 30px;
-    height: 100%;
+    height: 91.55vh;
 `
 
 const WrapperInside = styled.div`
