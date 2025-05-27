@@ -8,7 +8,7 @@ import { ReactComponent as EmployeIcon } from "../../../Assets/SVGs/Icons/icon-e
 import ToolTipTab from '../../ToolTipTab';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-const ANIMATION_DURATION = 700;
+const ANIMATION_DURATION = 500;
 
 const Subnav = () => {
   const location = useLocation();
@@ -143,13 +143,13 @@ const StyledWrapper = styled.div`
     bottom: 25px;
     left: 50%;
     transform: translateX(-50%);
-    transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .navigation-card.expanded {
     gap: 20px;
     padding: 15px 35px;
     border-radius: 30px;
-    transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .navigation-card.animating {
     filter: brightness(1.05);
