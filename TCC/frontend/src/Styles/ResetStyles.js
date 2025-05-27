@@ -25,6 +25,10 @@ export const ResetStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
   }
 
+  html{
+    background-color: #1a1a1a;
+  }
+
   /* Tipografia consistente */
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
