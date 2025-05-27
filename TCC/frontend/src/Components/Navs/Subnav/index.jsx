@@ -148,7 +148,6 @@ const StyledWrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
-    margin-left: 10px;
     transition: all 0.3s;
   }
 `
