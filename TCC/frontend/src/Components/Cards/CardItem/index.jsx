@@ -4,7 +4,7 @@ const CardItem = ({imgURL, tittle, description}) => {
     return (
         <Wrapper>
             <ImgDiv>
-                <Img src= {imgURL === undefined ? "https://cdn-icons-png.flaticon.com/512/8136/8136031.png" : imgURL}/>
+                <Img src= {imgURL === "" ? "https://cdn-icons-png.flaticon.com/512/8136/8136031.png" : imgURL}/>
             </ImgDiv>
             <Text>
                 <Tittle>{tittle === undefined ? "Sem título" : tittle}</Tittle>
