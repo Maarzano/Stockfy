@@ -2,6 +2,7 @@ import styled from "styled-components";
 import CardItem from "../Cards/CardItem";
 import Search from "../Search";
 import { useProdutos } from "../../Hooks/useProdutos";
+import SearchLoader from "../Loaders/SearchLoader";
 
 const GalleryItenSection = () => {
     const { produtos, loading, erro } = useProdutos();
@@ -15,14 +16,15 @@ const GalleryItenSection = () => {
                 <Search />
             </WrapperSearch>
             <WrapperInside>
-                {produtos.map((produto) => (
+            { loading && (<SearchLoader/>) }
+                { produtos.map((produto) => (
                     <CardItem 
                     key={produto.itemId}
                     imgURL={produto.imagem}
                     tittle={produto.nomeItem}
                     description={produto.descricao}
                     />
-                ))}
+                )) }
                 
             </WrapperInside>
         </Wrapper>
@@ -36,7 +38,7 @@ const Wrapper = styled.div`
     background-color: black;
     color: wheat;
     padding: 30px;
-    height: 91.55vh;
+    height: 100%;
 `
 
 const WrapperInside = styled.div`
@@ -45,6 +47,7 @@ const WrapperInside = styled.div`
     margin: 20px 40px 40px 40px;
     background-color: #1a1a1a;
     border-radius: 15px;
+    min-height: 67vh;
     padding: 20px;
 `
 
