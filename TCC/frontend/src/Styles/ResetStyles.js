@@ -35,6 +35,8 @@ export const ResetStyles = createGlobalStyle`
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #fff;
     color: #000;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   /* Remove estilos de links */
