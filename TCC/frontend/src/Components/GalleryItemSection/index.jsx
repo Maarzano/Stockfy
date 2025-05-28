@@ -7,7 +7,7 @@ import SearchLoader from "../Loaders/SearchLoader";
 const GalleryItenSection = () => {
     const { produtos, loading, erro } = useProdutos();
 
-    if (erro) alert(`Erro: ${erro}`);
+    if (erro) alert(`Não foi possível se conectar com o servidor: ${erro}`);
 
     return (
         <Wrapper>
