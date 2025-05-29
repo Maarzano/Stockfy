@@ -13,6 +13,7 @@ export const ResetStyles = createGlobalStyle`
     padding: 0;
   }
 
+
   /* Remove listas com estilo padrão */
   ul[role='list'],
   ol[role='list'] {

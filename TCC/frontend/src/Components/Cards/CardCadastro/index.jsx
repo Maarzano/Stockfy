@@ -1,39 +1,69 @@
 import styled from 'styled-components';
+import { useCriarUsuario } from '../../../Hooks/useCriarUsuario';
+import { useState, useEffect } from 'react';
 
-const CardCadastro = ({ onSwitch }) => (
-  <StyledWrapper>
-    <div className="form-container">
-      <p className="title">Cadastro</p>
-      <form className="form">
-        <div className="input-group">
-          <label htmlFor="nome">Nome Completo</label>
-          <input type="text" name="nome" id="nome" />
-        </div>
-        <div className="input-group">
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email" />
-        </div>
-        <div className="input-group">
-          <label htmlFor="cpf">CPF</label>
-          <input type="text" name="cpf" id="cpf" />
-        </div>
-        <div className="input-group">
-          <label htmlFor="celular">Celular</label>
-          <input type="tel" name="celular" id="celular" />
-        </div>
-        <div className="input-group">
-          <label htmlFor="password">Senha</label>
-          <input type="password" name="password" id="password" />
-        </div>
-        <button className="sign">Cadastrar</button>
-      </form>
-      <p className="signup">
-        Já tem conta?
-        <a href="#" onClick={e => { e.preventDefault(); onSwitch(); }}> Entrar</a>
-      </p>
-    </div>
-  </StyledWrapper>
-);
+const CardCadastro = ({ onSwitch }) => {
+
+  const {criar, loading, erro, sucesso, dadosRecebidos } = useCriarUsuario();
+  const [form, setForm] = useState({nomeCompleto: "", email: "", cpf: "", celular: "", senha: ""});
+
+  const handleChange = (e) => {
+    setForm({...form, [e.target.name]: e.target.value});
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await criar(form);
+  };
+
+  useEffect(() => {
+    if (sucesso) {
+      alert("Usuário criado com sucesso!!");
+      setForm({ nomeCompleto: "", email: "", cpf: "", celular: "", senha: "" });
+    }
+  }, [sucesso]);
+
+  useEffect(() => {
+    if (erro) {
+      alert("Erro ao criar usuário: " + erro);
+    }
+  }, [erro]);
+
+
+  return (
+    <StyledWrapper>
+      <div className="form-container">
+        <p className="title">Cadastro</p>
+        <form className="form" onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="nome">Nome Completo</label>
+            <input type="text" name="nomeCompleto" id="nome" onChange={handleChange} value={form.nomeCompleto}/>
+          </div>
+          <div className="input-group">
+            <label htmlFor="email">Email</label>
+            <input type="email" name="email" id="email" onChange={handleChange} value={form.email}/>
+          </div>
+          <div className="input-group">
+            <label htmlFor="cpf">CPF</label>
+            <input type="text" name="cpf" id="cpf" onChange={handleChange} value={form.cpf}/>
+          </div>
+          <div className="input-group">
+            <label htmlFor="celular">Celular</label>
+            <input type="tel" name="celular" id="celular" onChange={handleChange} value={form.celular}/>
+          </div>
+          <div className="input-group">
+            <label htmlFor="password">Senha</label>
+            <input type="password" name="senha" id="password" onChange={handleChange} value={form.senha}/>
+          </div>
+          <button className="sign" disabled={loading}>Cadastrar</button>
+        </form>
+        <p className="signup">
+          Já tem conta?
+          <a href="#" onClick={e => { e.preventDefault(); onSwitch(); }}> Entrar</a>
+        </p>
+      </div>
+    </StyledWrapper>
+  )
+};
 
 const StyledWrapper = styled.div`
   .form-container {
