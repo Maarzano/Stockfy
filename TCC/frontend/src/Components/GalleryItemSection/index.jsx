@@ -33,12 +33,13 @@ const GalleryItenSection = () => {
 }
 
 const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 77px 150px 0px 150px;
     background-color: black;
     color: wheat;
-    padding: 30px 100px;
-    max-width: 100%;
-    margin: 77px 150px 0px 150px;
-    position: relative;
+    padding: 30px;
+    height: 100%;
 `
 
 const WrapperInside = styled.div`
