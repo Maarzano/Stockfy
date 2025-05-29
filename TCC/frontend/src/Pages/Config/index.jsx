@@ -18,6 +18,7 @@ const Config = () => {
 
 const Wrapper = styled.div`
     margin-top: 100px;
+    background-color: #1a1a1a;
 `
 
 export default Config;
