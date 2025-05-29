@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { buscarUsuarios } from "../Services/usuarioService";
+import { buscarUsuarios } from "../../Services/usuarioService";
 
 
 export const useUsuarios = () => {

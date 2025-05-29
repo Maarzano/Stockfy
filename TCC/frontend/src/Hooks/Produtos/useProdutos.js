@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { buscarProdutos } from "../Services/prudutoService";
+import { buscarProdutos } from "../../Services/prudutoService";
 
 export const useProdutos = () => {
     const [produtos, setProdutos] = useState([]);

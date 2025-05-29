@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react"
-import { criarUsuario } from "../Services/usuarioService";
+import { criarUsuario } from "../../Services/usuarioService";
 
 export const useCriarUsuario = () => {
     const [loading, setLoading] = useState(false);

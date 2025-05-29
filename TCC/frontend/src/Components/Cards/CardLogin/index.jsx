@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import GoogleWhite from "../../../Assets/SVGs/Icons/icon-google-white.svg";
 import GoogleColor from "../../../Assets/SVGs/Icons/icon-google-color.svg";
-import { useLoginUsuario } from "../../../Hooks/useLoginUsuario";
+import { useLoginUsuario } from "../../../Hooks/Usuario/useLoginUsuario";
 import { useNavigate } from "react-router-dom";
 
 const CardLogin = ({ onSwitch }) => {

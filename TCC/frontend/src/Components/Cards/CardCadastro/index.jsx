@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useCriarUsuario } from '../../../Hooks/useCriarUsuario';
+import { useCriarUsuario } from '../../../Hooks/Usuario/useCriarUsuario';
 import { useState, useEffect } from 'react';
 
 const CardCadastro = ({ onSwitch }) => {

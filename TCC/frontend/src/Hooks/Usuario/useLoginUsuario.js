@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { logarUsuario } from "../Services/usuarioService";
+import { logarUsuario } from "../../Services/usuarioService";
 
 export const useLoginUsuario = () => {
     const [loading, setLoading] = useState(false);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Arrow from "../../../Assets/SVGs/Icons/Arrow.svg"
-import { useProdutos } from '../../../Hooks/useProdutos';
+import { useProdutos } from '../../../Hooks/Produtos/useProdutos';
 import SearchLoader from '../../../Components/Loaders/SearchLoader';
 
 const Stock = () => {

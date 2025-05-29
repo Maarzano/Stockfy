@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import CardItem from "../Cards/CardItem";
 import Search from "../Search";
-import { useProdutos } from "../../Hooks/useProdutos";
+import { useProdutos } from "../../Hooks/Produtos/useProdutos";
 import SearchLoader from "../Loaders/SearchLoader";
 
 const GalleryItenSection = () => {
