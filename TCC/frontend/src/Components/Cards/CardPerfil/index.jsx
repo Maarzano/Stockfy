@@ -7,7 +7,7 @@ const CardPerfil = () => {
     return (
         <Wrapper>
             <ProfileWrapper>
-                <ProfilePciture src={profilePictureWhite}/>
+                <ProfilePciture src={profilePictureWhite}/>{/* TODO - ainda precisamos conectar isso ao backend */}
                 <ProfileName>Convidado</ProfileName>
             </ProfileWrapper>
             <LogoutBTN/>
