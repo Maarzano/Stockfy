@@ -7,7 +7,7 @@ import SearchLoader from "../Loaders/SearchLoader";
 const GalleryItenSection = () => {
     const { produtos, loading, erro } = useProdutos();
 
-    if (erro) alert(`Não foi possível se conectar com o servidor: ${erro}`);
+    // if (erro) alert(`Não foi possível se conectar com o servidor: ${erro}`);
 
     return (
         <Wrapper>
@@ -17,6 +17,7 @@ const GalleryItenSection = () => {
             </WrapperSearch>
             <WrapperInside>
             { loading && (<SearchLoader/>) }
+            { erro && (<ErrorMessage> Erro ao acessar o servidor</ErrorMessage>)}
                 { produtos.map((produto) => (
                     <CardItem 
                     key={produto.itemId}
@@ -55,6 +56,12 @@ const WrapperSearch = styled.div`
     flex-direction: row;
     align-items: start;
     justify-content: left;
+`
+
+const ErrorMessage = styled.p`
+    color: red;
+    text-align: center;
+    width: 100%;
 `
 
 export default GalleryItenSection;
