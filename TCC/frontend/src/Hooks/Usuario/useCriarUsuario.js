@@ -25,3 +25,7 @@ export const useCriarUsuario = () => {
     }, []);
     return { criar, loading, erro, sucesso, dadosRetornados };
 };
+
+/* TODO - Melhorar tratamento de erros no geral, 
+o hook que tem que tratar erros enviadas da 
+API com códigos 400, 500 etc */

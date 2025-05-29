@@ -28,3 +28,7 @@ export const useLoginUsuario = () => {
     };
     return { login, loading, erro, sucesso, dataRecebido };
 };
+
+/* TODO - Melhorar tratamento de erros no geral, 
+o hook que tem que tratar erros enviadas da 
+API com códigos 400, 500 etc */
