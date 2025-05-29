@@ -19,6 +19,7 @@ const CardCadastro = ({ onSwitch }) => {
     if (sucesso) {
       alert("Usuário criado com sucesso!!");
       setForm({ nomeCompleto: "", email: "", cpf: "", celular: "", senha: "" });
+      onSwitch();
     }
   }, [sucesso]);
 
