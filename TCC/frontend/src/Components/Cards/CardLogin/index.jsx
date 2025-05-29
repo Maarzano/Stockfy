@@ -43,7 +43,7 @@ const CardLogin = ({ onSwitch }) => {
           </div>
         </div>
         <button className="sign" onClick={handleLogin} disabled={loading}>{ loading ? "Carregando..." : "Entrar"}</button>
-        {erro && <p>{`Deu erro: ${erro}`}</p>}
+        {erro?.response?.status === 401 && <ErrorP>{`Você não está cadastrado`}</ErrorP>}
       </form>
       <div className="divider">
         <span>ou entre com</span>
@@ -212,5 +212,9 @@ const StyledWrapper = styled.div`
     color: rgba(156, 163, 175, 1);
   }
 `;
+
+const ErrorP = styled.p`
+  color: red;
+`
 
 export default CardLogin;
