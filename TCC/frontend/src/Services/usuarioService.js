@@ -19,3 +19,13 @@ export const criarUsuario = async (info) => {
         throw e;
     }
 }
+
+export const logarUsuario = async (info) => {
+    try {
+        const response = await api.post("/Usuarios/login", info);
+        return response;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
