@@ -1,25 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import GoogleWhite from "../../../Assets/SVGs/Icons/icon-google-white.svg";
 import GoogleColor from "../../../Assets/SVGs/Icons/icon-google-color.svg";
+import { useLoginUsuario } from "../../../Hooks/useLoginUsuario";
+import { useNavigate } from "react-router-dom";
 
-const CardLogin = ({ onSwitch }) => (
+const CardLogin = ({ onSwitch }) => {
+  const [emailCpf, setEmailCpf] = useState("");
+  const [senha, setSenha] = useState("");
+  const {login, loading, erro, sucesso, dataRecebido} = useLoginUsuario();
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    if (emailCpf === "" || senha === ""){
+        return
+      }
+    const info = {
+      login: emailCpf, // ainda precisamos melhorar a lógica e outras coisas... 
+      senha: senha  // TODO - guardar token etc...
+    }
+    login(info);
+  };
+
+  useEffect(() => {
+    sucesso && navigate("/Gallery");
+  }, [sucesso]);
+
+  return (
   <StyledWrapper>
     <div className="form-container">
       <p className="title">Login</p>
       <form className="form" method="post">
         <div className="input-group">
           <label htmlFor="username">Email/Cpf</label>
-          <input type="text" name="username" id="username" placeholder="convidado@exemplo.com"  required/>
+          <input type="text" name="username" id="username" value={emailCpf} placeholder="convidado@exemplo.com"   onChange={(e) => setEmailCpf(e.target.value)} required/>
         </div>
         <div className="input-group">
           <label htmlFor="password">Senha</label>
-          <input type="password" name="password" id="password" placeholder="SenhaExemplo123.." required/>
+          <input type="password" name="password" id="password" value={senha} placeholder="SenhaExemplo123.." onChange={(e) => setSenha(e.target.value)} required/>
           <div className="forgot">
             <a rel="noopener noreferrer" href="#">Esqueceu a senha ?</a>
           </div>
         </div>
-        <button className="sign" onClick={ e => e.preventDefault()}>Entrar</button>
+        <button className="sign" onClick={handleLogin} disabled={loading}>{ loading ? "Carregando..." : "Entrar"}</button>
+        {erro && <p>{`Deu erro: ${erro}`}</p>}
       </form>
       <div className="divider">
         <span>ou entre com</span>
@@ -36,7 +60,8 @@ const CardLogin = ({ onSwitch }) => (
       </p>
     </div>
   </StyledWrapper>
-);
+  )
+};
 
 const StyledWrapper = styled.div`
   .form-container {
