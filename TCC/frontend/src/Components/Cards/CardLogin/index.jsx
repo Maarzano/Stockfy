@@ -7,7 +7,7 @@ const CardLogin = ({ onSwitch }) => (
   <StyledWrapper>
     <div className="form-container">
       <p className="title">Login</p>
-      <form className="form">
+      <form className="form" method="post">
         <div className="input-group">
           <label htmlFor="username">Email/Cpf</label>
           <input type="text" name="username" id="username" placeholder="convidado@exemplo.com"  required/>
@@ -19,7 +19,7 @@ const CardLogin = ({ onSwitch }) => (
             <a rel="noopener noreferrer" href="#">Esqueceu a senha ?</a>
           </div>
         </div>
-        <button className="sign">Entrar</button>
+        <button className="sign" onClick={ e => e.preventDefault()}>Entrar</button>
       </form>
       <div className="divider">
         <span>ou entre com</span>
@@ -40,7 +40,7 @@ const CardLogin = ({ onSwitch }) => (
 
 const StyledWrapper = styled.div`
   .form-container {
-    width: 320px;
+    width: 100%;
     border-radius: 0.75rem;
     background-color: #111827;
     padding: 2rem;

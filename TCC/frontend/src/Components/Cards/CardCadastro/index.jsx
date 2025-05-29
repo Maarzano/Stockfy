@@ -36,23 +36,23 @@ const CardCadastro = ({ onSwitch }) => {
         <form className="form" onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="nome">Nome Completo</label>
-            <input type="text" name="nomeCompleto" id="nome" onChange={handleChange} value={form.nomeCompleto}/>
+            <input type="text" name="nomeCompleto" id="nome" onChange={handleChange} value={form.nomeCompleto} required/>
           </div>
           <div className="input-group">
             <label htmlFor="email">Email</label>
-            <input type="email" name="email" id="email" onChange={handleChange} value={form.email}/>
+            <input type="email" name="email" id="email" onChange={handleChange} value={form.email} required/>
           </div>
           <div className="input-group">
             <label htmlFor="cpf">CPF</label>
-            <input type="text" name="cpf" id="cpf" onChange={handleChange} value={form.cpf}/>
+            <input type="text" name="cpf" id="cpf" onChange={handleChange} value={form.cpf} required/>
           </div>
           <div className="input-group">
             <label htmlFor="celular">Celular</label>
-            <input type="tel" name="celular" id="celular" onChange={handleChange} value={form.celular}/>
+            <input type="tel" name="celular" id="celular" onChange={handleChange} value={form.celular} required/>
           </div>
           <div className="input-group">
-            <label htmlFor="password">Senha</label>
-            <input type="password" name="senha" id="password" onChange={handleChange} value={form.senha}/>
+            <label htmlFor="senha">Senha</label>
+            <input type="password" name="senha" id="senha" onChange={handleChange} value={form.senha} required/>
           </div>
           <button className="sign" disabled={loading}>Cadastrar</button>
         </form>
@@ -67,7 +67,7 @@ const CardCadastro = ({ onSwitch }) => {
 
 const StyledWrapper = styled.div`
   .form-container {
-    width: 320px;
+    width: 100%;
     border-radius: 0.75rem;
     background-color: #111827;
     padding: 2rem;

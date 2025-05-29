@@ -17,12 +17,14 @@ const Wrapper = styled.div`
 const CardContainer = styled.div`
   position: relative;
   width: 350px;
-  min-height: 400px;
+  min-height: 480px;
+  height: fit-content;
 `;
 
 const AnimatedCard = styled.div`
   position: absolute;
   width: 100%;
+  height: 582px;
   transition: 
     opacity 0.5s cubic-bezier(.68,-0.55,.27,1.55),
     transform 0.5s cubic-bezier(.68,-0.55,.27,1.55);
