@@ -1,32 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Arrow from "../../../Assets/SVGs/Icons/Arrow.svg"
-import lupa from "../../../Assets/SVGs/Icons/lupa.svg"
+import { useProdutos } from '../../../Hooks/useProdutos';
+import SearchLoader from '../../../Components/Loaders/SearchLoader';
 
 const Stock = () => {
-  const [itens, setItens] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [erro, setErro] = useState(null);
-  const [showForm, setShowForm] = useState(false);
-
-  useEffect(() => {
-    const fetchItens = async () => {
-      try {
-        const resposta = await fetch('http://localhost:8080/v1/Items');
-        if (!resposta.ok) {
-          throw new Error('Erro ao buscar itens do estoque');
-        }
-        const dados = await resposta.json();
-        setItens(dados);
-      } catch (err) {
-        setErro(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchItens();
-  }, []);
+  const { produtos, loading, erro} = useProdutos([]);
+  const [showForm, setShowForm] = useState("");
 
   return (
     <Wrapper>
@@ -37,11 +17,17 @@ const Stock = () => {
         <input type="text" placeholder="Nome Item" className="search-input" />
       </div>
 
-      {loading && <p>Carregando itens...</p>}
+      {
+        loading &&
+        <>
+          <p>Carregando itens...</p>
+          <SearchLoader/>
+        </>
+      }
       {erro && <p style={{ color: 'red' }}>{erro}</p>}
 
       <div className="item-list">
-        {itens.map((item) => (
+        {produtos.map((item) => (
           <div key={item.itemId} className="item-card">
             <div className="item-left">
               <img src={item.imagem} alt={item.nomeItem} className="item-image" />
