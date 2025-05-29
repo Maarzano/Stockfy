@@ -7,8 +7,6 @@ import SearchLoader from "../Loaders/SearchLoader";
 const GalleryItenSection = () => {
     const { produtos, loading, erro } = useProdutos();
 
-    // if (erro) alert(`Não foi possível se conectar com o servidor: ${erro}`);
-
     return (
         <Wrapper>
             <p>Bem-vindo à tela de estoque. Nesta seção, é possível visualizar a quantidade atual de cada produto disponível na empresa. Este espaço foi desenvolvido para facilitar o acompanhamento dos itens armazenados e permitir o controle das saídas de produtos de forma prática e organizada. Mantenha-se sempre atualizado com as quantidades em tempo real e garanta uma gestão eficiente dos recursos.</p>
@@ -17,7 +15,7 @@ const GalleryItenSection = () => {
             </WrapperSearch>
             <WrapperInside>
             { loading && (<SearchLoader/>) }
-            { erro && (<ErrorMessage> Erro ao acessar o servidor</ErrorMessage>)}
+            { erro && (<ErrorMessage> Erro ao buscar itens</ErrorMessage>)}
                 { produtos.map((produto) => (
                     <CardItem 
                     key={produto.itemId}
