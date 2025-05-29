@@ -33,7 +33,8 @@ const GalleryItenSection = () => {
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 0px 150px 0px 150px;
+    margin: auto;
+    max-width: 1650px;
     background-color: black;
     color: wheat;
     padding: 100px 30px 30px 30px;
