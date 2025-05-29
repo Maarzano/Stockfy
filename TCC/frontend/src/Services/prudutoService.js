@@ -9,3 +9,13 @@ export const buscarProdutos = async () => {
     throw error;
   }
 }
+
+export const criarProduto = async (info) => {
+  try {
+    const response = await api.post("/Items", info);
+    return response;
+  } catch (e){
+    console.error(e);
+    throw e;
+  }
+}
