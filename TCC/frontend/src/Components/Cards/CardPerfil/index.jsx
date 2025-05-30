@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import LogoutBTN from "../../Buttons/LogoutBTN"
 import profilePictureWhite from "../../../Assets/SVGs/Icons/icon-profile-white&purple.svg";
+import Profile from "../../../Pages/Config/Profile";
+import { Link } from "react-router-dom";
 
 const CardPerfil = () => {
     
@@ -8,7 +10,7 @@ const CardPerfil = () => {
         <Wrapper>
             <ProfileWrapper>
                 <ProfilePciture src={profilePictureWhite}/>{/* TODO - ainda precisamos conectar isso ao backend */}
-                <ProfileName>Convidado</ProfileName>
+                <ProfileName><Link to={"/Config/Profile"}>Convidado</Link></ProfileName>
             </ProfileWrapper>
             <LogoutBTN/>
         </Wrapper>
