@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import LogoutBTN from "../../Buttons/LogoutBTN"
 import profilePictureWhite from "../../../Assets/SVGs/Icons/icon-profile-white&purple.svg";
-import Profile from "../../../Pages/Config/Profile";
 import { Link } from "react-router-dom";
 
 const CardPerfil = () => {
@@ -26,7 +25,7 @@ const Wrapper = styled.div`
     justify-content: right;
     align-items: center;
     width: fit-content;
-    height: 73%;
+    height: 85%;
     background-color: #000000;
     border-radius: 0.79rem;
     margin: 7px;
