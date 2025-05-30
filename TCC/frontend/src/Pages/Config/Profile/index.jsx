@@ -2,7 +2,7 @@ import { href } from "react-router-dom";
 import WorkingOn from "../../WorkingOn";
 import styled from "styled-components";
 import imagemProfile from "../../../Assets/SVGs/Icons/icon-profile-white&purple.svg"
-import SaveBTN from "../../../Components/Buttons/SaveBTN";
+import SaveCancelBTN from "../../../Components/Buttons/SaveCancelBTN";
 
 const Profile = () => {
     return (
@@ -35,9 +35,10 @@ const Profile = () => {
                         <Label htmlFor="Senha">Senha</Label>
                         <Input value={"1234.."} id="Senha" type="password"/>
                     </DivInputLabel>
-                    <div>
-                        <SaveBTN />
-                    </div>
+                    <DivBTN>
+                        <SaveCancelBTN type="cancel"/>
+                        <SaveCancelBTN />
+                    </DivBTN>
                 </Form>
             </Main>
         </Wrapper>
@@ -52,12 +53,14 @@ const Wrapper = styled.div`
     color: white;
     height: 100%;
     padding: 40px;
+    padding-top: 100px;
 `
 
 const Header = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 0px 150px;
 `
 
 const NamePage = styled.h1`
@@ -94,6 +97,13 @@ const LadoDoOutro = styled.div`
     & > div {
         flex: 1;
     }
+`
+
+const DivBTN = styled.div`
+    margin: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 `
 
 const Input = styled.input`
