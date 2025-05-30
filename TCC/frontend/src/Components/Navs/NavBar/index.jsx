@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import CardPerfil from "../../Cards/CardPerfil";
 import Cart from "../../../Assets/SVGs/Icons/icon-cart-black.svg";
 import { Link, useLocation } from "react-router-dom";

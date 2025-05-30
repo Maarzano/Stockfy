@@ -30,7 +30,7 @@ export const ResetStyles = createGlobalStyle`
 
   html, body, #root {
     background-color: #1a1a1a;
-    height: 100%;
+    min-height: 100%;
   }
 
   /* Tipografia consistente */

@@ -38,7 +38,7 @@ const Wrapper = styled.div`
     background-color: black;
     color: wheat;
     padding: 100px 30px 30px 30px;
-    height: 100%;
+    height: 100vh;
 `
 
 const WrapperInside = styled.div`
@@ -47,7 +47,7 @@ const WrapperInside = styled.div`
     margin: 20px 40px 40px 40px;
     background-color: #1a1a1a;
     border-radius: 15px;
-    min-height: 67vh;
+    min-height: 65vh;
     padding: 20px;
 `
 

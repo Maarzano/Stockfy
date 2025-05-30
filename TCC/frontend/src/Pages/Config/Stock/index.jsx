@@ -70,7 +70,7 @@ const Wrapper = styled.div`
   max-width: 1650px;
   margin: auto;
   position: relative;
-  height: 100%;
+  height: 100vh;
 
   h2 {
     margin-bottom: 10px;
