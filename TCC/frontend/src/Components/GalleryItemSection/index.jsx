@@ -38,7 +38,7 @@ const Wrapper = styled.div`
     background-color: black;
     color: wheat;
     padding: 100px 30px 30px 30px;
-    height: 100vh;
+    min-height: 100vh;
 `
 
 const WrapperInside = styled.div`

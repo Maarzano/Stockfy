@@ -70,7 +70,7 @@ const Wrapper = styled.div`
   max-width: 1650px;
   margin: auto;
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
 
   h2 {
     margin-bottom: 10px;
@@ -114,6 +114,7 @@ const Wrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     transition: 0.5s all ease;
+    cursor: default;
 
     &:hover{
         transform: scale(1.015);
