@@ -22,7 +22,7 @@ const StyledWrapper = styled.div`
   button {
     font-family: inherit;
     font-size: 20px;
-    background: ${props => props.$type === "save" ? "purple" : "#212121"};
+    background: ${props => props.$type === "save" ? "#623bda" : "#212121"};
     color: white;
     fill: rgb(155, 153, 153);
     padding: 0.7em 1em;
