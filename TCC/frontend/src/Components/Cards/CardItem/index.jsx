@@ -7,7 +7,7 @@ const CardItem = ({imgURL, tittle, description}) => {
                 <Img src= {imgURL === "string" ? "https://cdn-icons-png.flaticon.com/512/8136/8136031.png" : imgURL}/>
             </ImgDiv>
             <Text>
-                <Tittle>{tittle === undefined ? "Sem título" : tittle}</Tittle>
+                <Tittle title={tittle}>{tittle === undefined ? "Sem título" : tittle}</Tittle>
                 <Descrição>{description === undefined ? "Sem descrição" : description}</Descrição>
             </Text>
         </Wrapper>
@@ -16,7 +16,7 @@ const CardItem = ({imgURL, tittle, description}) => {
 
 
 const Wrapper = styled.div`
-    width: 336px;
+    width: 347.5px;
     height: 300px;
     display: flex;
     flex-direction: column;
@@ -57,6 +57,8 @@ const Text = styled.div`
 
 const Tittle = styled.h1`
     font-size: 34px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `
 
 const Descrição = styled.p`
