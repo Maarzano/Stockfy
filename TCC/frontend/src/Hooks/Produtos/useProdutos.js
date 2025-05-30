@@ -10,7 +10,7 @@ export const useProdutos = () => {
     useEffect(() => {
         async function carregarDados() {
             try{
-                await new Promise(resolve => setTimeout(resolve, 2650));
+                //await new Promise(resolve => setTimeout(resolve, 2650));
                 const dados = await buscarProdutos();
                 setProdutos(dados);
             } catch (e){
