@@ -24,17 +24,19 @@ export const ResetStyles = createGlobalStyle`
   html, body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    height: 100%;
+    background-color: #1a1a1a;
   }
 
-  html{
+  html, body, #root {
     background-color: #1a1a1a;
+    height: 100%;
   }
 
   /* Tipografia consistente */
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: #fff;
     color: #000;
     overflow-x: hidden;
     overflow-y: scroll;

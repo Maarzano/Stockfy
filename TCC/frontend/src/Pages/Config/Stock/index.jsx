@@ -66,10 +66,11 @@ const Stock = () => {
 const Wrapper = styled.div`
   background-color: black;
   color: wheat;
-  padding: 30px 100px;
+  padding: 100px 100px 30px 100px;
   max-width: 1650px;
   margin: auto;
   position: relative;
+  height: 100%;
 
   h2 {
     margin-bottom: 10px;
