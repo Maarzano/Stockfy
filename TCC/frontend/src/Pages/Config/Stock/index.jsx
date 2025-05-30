@@ -67,8 +67,8 @@ const Wrapper = styled.div`
   background-color: black;
   color: wheat;
   padding: 30px 100px;
-  max-width: 100%;
-  margin: 77px 150px 0px 150px;
+  max-width: 1650px;
+  margin: auto;
   position: relative;
 
   h2 {
