@@ -12,7 +12,7 @@ const SaveCancelBTN = ({ type = "save" }) => {
             {type === "save" ? <CloudIcon className='Icon' /> : <CloseIcon className='Icon'/>}
           </div>
         </div>
-        <span>{type === "save" ? "Save" : "Cancel"}</span>
+        <span>{type === "save" ? "Salvar" : "Cancelar"}</span>
       </button>
     </StyledWrapper>
   );
@@ -66,7 +66,7 @@ const StyledWrapper = styled.div`
   }
 
   button:hover .Icon {
-    transform: translateX(1.2em) scale(1.1);
+    transform: ${props => props.$type === "save" ? "translateX(1.5em)" : "translateX(2em)"} scale(1.1);
     fill: #fff;
   }
 

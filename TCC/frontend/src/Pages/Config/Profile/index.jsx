@@ -1,5 +1,3 @@
-import { href } from "react-router-dom";
-import WorkingOn from "../../WorkingOn";
 import styled from "styled-components";
 import imagemProfile from "../../../Assets/SVGs/Icons/icon-profile-white&purple.svg"
 import SaveCancelBTN from "../../../Components/Buttons/SaveCancelBTN";
@@ -7,11 +5,9 @@ import SaveCancelBTN from "../../../Components/Buttons/SaveCancelBTN";
 const Profile = () => {
     return (
         <Wrapper>
-            <Header>
-                <NamePage>Seu Perfil</NamePage>
-                <ImgProfile src={imagemProfile}/>
-            </Header>
+            <NamePage>Seu Perfil</NamePage>
             <Main>
+                <ImgProfile src={imagemProfile}/>
                 <Form>
                     <DivInputLabel>
                         <Label htmlFor="NomeCompleto">Nome Completo</Label>
@@ -56,22 +52,20 @@ const Wrapper = styled.div`
     padding-top: 100px;
 `
 
-const Header = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0px 150px;
-`
-
 const NamePage = styled.h1`
     font-size: 70px;
 `
 const ImgProfile = styled.img`
-    width: 200px;
+    max-width: 200px;
+    margin: auto;
+    width: 100%;
 `
 
 const Main = styled.main`
-    padding: 0px 400px;
+    padding: 40px;
+    margin: 0px 350px 100px 350px;
+    background-color: #1a1a1a;
+    border-radius: 20px;
 `
 
 const Form = styled.form`
