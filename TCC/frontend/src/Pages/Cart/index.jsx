@@ -1,23 +1,37 @@
+import { useState } from "react";
 import styled from "styled-components";
 import NavBar from "../../Components/Navs/NavBar";
 import Subnav from "../../Components/Navs/Subnav";
 import BackButton from "../../Components/Carting/BackButton";
-import FuncionarioSelect from "../../Components/Carting/FuncionarioSelect";
+import ItemSearch from "../../Components/Carting/ItemSearch";
 import ActionButtons from "../../Components/Carting/ActionButtons";
+import CartItemList from "../../Components/Carting/CartItemList";
 
 const Cart = () => {
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const allItemNames = [
+        "Braçadeira", "Martelo", "Machado", "Roblox",
+        "Regua", "Vassoura", "Acabou criatividade"
+    ];
+
     return (
         <Wrapper>
-            <NavBar/>
+            <NavBar />
             <Content>
                 <Header>
                     <BackButton />
                     <h1>Carrinho</h1>
                 </Header>
-                <FuncionarioSelect />
+                <ItemSearch
+                    itemNames={allItemNames}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <CartItemList searchTerm={searchTerm} />
                 <ActionButtons />
             </Content>
-            <Subnav/>
+            <Subnav />
         </Wrapper>
     );
 };
@@ -26,7 +40,7 @@ export default Cart;
 
 const Wrapper = styled.div`
     background-color: #1a1a1a;
-`
+`;
 
 const Content = styled.div`
     margin: 77px 150px 0px 150px;

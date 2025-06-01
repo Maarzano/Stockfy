@@ -20,7 +20,7 @@ const Button = styled.button`
     img {
         width: 24px;
         height: 24px;
-        transform: rotate(90deg); 
+        transform: rotate(90deg);
     }
 `;
 

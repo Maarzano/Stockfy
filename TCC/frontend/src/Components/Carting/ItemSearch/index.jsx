@@ -1,21 +1,16 @@
 import styled from "styled-components";
 
-const FuncionarioSelect = () => {
-    const funcionarios = [
-        "Gabriel",
-        "Armazano",
-        "Calanguinho",
-        "Fedorento"
-    ];
-
+const ItemSearch = ({ value, onChange, itemNames }) => {
     return (
         <Wrapper>
             <input
-                list="funcionarios"
-                placeholder="Funcionário que está realizando a ação"
+                list="itens"
+                placeholder="Filtrar itens do carrinho"
+                value={value}
+                onChange={onChange}
             />
-            <datalist id="funcionarios">
-                {funcionarios.map((nome, index) => (
+            <datalist id="itens">
+                {itemNames.map((nome, index) => (
                     <option key={index} value={nome} />
                 ))}
             </datalist>
@@ -37,8 +32,8 @@ const Wrapper = styled.div`
     }
 
     input::placeholder {
-        color: #d2b48c;
+        color:rgb(255, 255, 255);
     }
 `;
 
-export default FuncionarioSelect;
+export default ItemSearch;
