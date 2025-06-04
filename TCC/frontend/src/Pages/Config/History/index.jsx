@@ -10,7 +10,9 @@ const History = () => {
             <WrapperSearch>
                 <Search/>
             </WrapperSearch>
-            <CardHistory/>
+            <AreaCardHistory>
+                <CardHistory/>
+            </AreaCardHistory>
         </Wrapper>
     )
 }
@@ -32,6 +34,15 @@ const WrapperSearch = styled.div`
     align-items: flex-start;
     justify-content: left;
     margin-bottom: 20px;
+`
+
+const AreaCardHistory = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 80%;
+    margin: auto;
 `
 
 export default History;
