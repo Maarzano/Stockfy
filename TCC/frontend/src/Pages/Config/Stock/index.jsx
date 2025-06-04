@@ -1,47 +1,80 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Arrow from "../../../Assets/SVGs/Icons/Arrow.svg"
+import Arrow from "../../../Assets/SVGs/Icons/Arrow.svg";
+import Lupa from "../../../Assets/SVGs/Icons/lupa.svg";
 import { useProdutos } from '../../../Hooks/Produtos/useProdutos';
 import SearchLoader from '../../../Components/Loaders/SearchLoader';
+import SaveCancelBTN from '../../../Components/Buttons/SaveCancelBTN';
 
 const Stock = () => {
-  const { produtos, loading, erro} = useProdutos([]);
-  const [showForm, setShowForm] = useState("");
+  const { produtos, loading, erro } = useProdutos([]);
+  const [showForm, setShowForm] = useState(false);
+  const [expandedItemId, setExpandedItemId] = useState(null);
+
+  const toggleExpand = (itemId) => {
+    setExpandedItemId(prev => (prev === itemId ? null : itemId));
+  };
 
   return (
     <Wrapper>
       <h2>Itens do estoque</h2>
 
       <div className="search-box">
-        <img className="search-icon" src="lupa" alt="" />
+        <img className="search-icon" src={Lupa} alt="Pesquisar Item" />
         <input type="text" placeholder="Nome Item" className="search-input" />
       </div>
 
-      {
-        loading &&
+      {loading && (
         <>
           <p>Carregando itens...</p>
-          <SearchLoader/>
+          <SearchLoader />
         </>
-      }
+      )}
       {erro && <p style={{ color: 'red' }}>{erro}</p>}
 
       <div className="item-list">
-        {produtos.map((item) => (
-          <div key={item.itemId} className="item-card">
-            <div className="item-left">
-              <img src={item.imagem} alt={item.nomeItem} className="item-image" />
-              <div className="item-info">
-                <span className="item-name">{item.nomeItem}</span>
-                <span className="item-description">{item.descricao}</span>
+        {produtos.map((item) => {
+          const isExpanded = expandedItemId === item.itemId;
+
+          return (
+            <div
+              key={item.itemId}
+              className={`item-card ${isExpanded ? 'expanded' : ''}`}
+              onClick={() => toggleExpand(item.itemId)}
+            >
+              <div className="item-top">
+                <div className="item-left">
+                  <img src={item.imagem} alt={item.nomeItem} className="item-image" />
+                  <div className="item-info">
+                    <span className="item-name">{item.nomeItem}</span>
+                    <span className="item-description">{item.descricao}</span>
+                  </div>
+                </div>
+                <div className="item-right">
+                  <span>Quantidade: {item.quantidade}</span>
+                  <img
+                    className={`img-Arrow ${isExpanded ? 'rotated' : ''}`}
+                    src={Arrow}
+                    alt="Expandir"
+                  />
+                </div>
+              </div>
+
+              <div className={`extra-content-wrapper ${isExpanded ? 'expanded' : ''}`}>
+                <div className="extra-content">
+                  <SaveCancelBTN type='delete'
+                    onClick={(e) => {
+                      e.stopPropagation(); // evita recolher o card
+                      // ação de excluir
+                    }}
+                  >
+                
+                  </SaveCancelBTN >
+                </div>
               </div>
             </div>
-            <div className="item-right">
-              <span>Quantidade: {item.quantidade}</span>
-              <img className="img-Arrow" src={Arrow} alt="Expandir" />
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <button className="add-btn" onClick={() => setShowForm(true)}>➕</button>
@@ -83,19 +116,19 @@ const Wrapper = styled.div`
 
   .search-input {
     width: 500px;
-    padding: 10px 15px 10px 35px;
-    border: 1px solid #ccc;
+    padding: 10px 15px 10px 50px;
+    border: 1px solid wheat;
     border-radius: 9999px;
     outline: none;
+    color: wheat;
   }
 
   .search-icon {
     position: absolute;
+    width: 35px;
     top: 50%;
     left: 10px;
     transform: translateY(-50%);
-    font-size: 14px;
-    color: wheat;
   }
 
   .item-list {
@@ -111,14 +144,20 @@ const Wrapper = styled.div`
     padding: 15px 20px;
     margin-bottom: 10px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: 0.5s all ease;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    overflow: hidden;
     cursor: default;
 
-    &:hover{
-        transform: scale(1.015);
+    &:hover {
+      transform: scale(1.015);
     }
+  }
+
+  .item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .item-left {
@@ -156,8 +195,41 @@ const Wrapper = styled.div`
     gap: 10px;
   }
 
-  .arrow {
-    font-size: 14px;
+  .img-Arrow {
+    width: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .img-Arrow.rotated {
+    transform: rotate(180deg);
+  }
+
+  .extra-content-wrapper {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+  }
+
+  .extra-content-wrapper.expanded {
+    max-height: 150px;
+    opacity: 1;
+  }
+
+  .extra-content {
+    padding-top: 15px;
+    border-top: 1px solid #444;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .delete-btn {
+    background-color: #8b0000;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
     cursor: pointer;
   }
 
@@ -201,10 +273,6 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-  }
-
-  .img-Arrow{
-    width: 20px;
   }
 `;
 
