@@ -16,6 +16,7 @@ const Wrapper = styled.div`
     justify-content: center;
     background-color:#535353;
     color: #ffffff;
+    width: 100%;
 `
 
 export default CardHistory;
