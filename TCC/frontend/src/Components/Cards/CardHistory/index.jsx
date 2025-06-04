@@ -14,8 +14,7 @@ const Wrapper = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: #000000;
-    width: 100%;
+    background-color:#535353;
     color: #ffffff;
 `
 
