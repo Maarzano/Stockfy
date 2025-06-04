@@ -1,9 +1,15 @@
 import styled from "styled-components";
 import CardHistory from "../../../Components/Cards/CardHistory";
+import HeaderHistory from "../../../Components/Headers/HeaderHistory";
+import Search from "../../../Components/Search";
 
 const History = () => {
     return (
         <Wrapper>
+            <HeaderHistory/>
+            <WrapperSearch>
+                <Search/>
+            </WrapperSearch>
             <CardHistory/>
         </Wrapper>
     )
@@ -17,7 +23,15 @@ const Wrapper = styled.div`
     height: 100%;
     min-height: 100vh;
     padding: 40px;
-    padding-top: 100px;
+    padding-top: 90px;
+`
+
+const WrapperSearch = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: left;
+    margin-bottom: 20px;
 `
 
 export default History;
