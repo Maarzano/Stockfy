@@ -63,9 +63,10 @@ const ImgProfile = styled.img`
 
 const Main = styled.main`
     padding: 40px;
-    margin: 0px 350px 100px 350px;
+    margin: 0px auto 100px auto;
     background-color: #1a1a1a;
     border-radius: 20px;
+    max-width: 870px;
 `
 
 const Form = styled.form`
