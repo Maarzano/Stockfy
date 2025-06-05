@@ -5,6 +5,15 @@ import Search from "../../../Components/Search";
 import ExcelBTN from "../../../Components/Buttons/ExcelBTN";
 
 const mockData = [
+
+
+    /*
+    Temos um puta problema no backend... vou incluir como se esta tela estivesse feito e pronta por enquanto, mas ainda não está
+    pois a tabela de movimentações está deixando incluir apenas um item, temos que criar um tabela de relação, criar DTOs para trazer trazer de forma completa e facilitar 
+    a utilização no componente...
+    - FIXME
+    */
+
   {
     id: "#001",
     image: "https://randomuser.me/api/portraits/women/1.jpg",
