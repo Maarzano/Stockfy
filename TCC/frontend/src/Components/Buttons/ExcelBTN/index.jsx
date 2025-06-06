@@ -2,15 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import * as XLSX from 'xlsx';
 
-const ExcelBTN = () => {
+const ExcelBTN = ({ data }) => {
   const handleExport = () => {
-    const data = [
-      { Nome: 'João', Idade: 25, Email: 'joao@email.com' },
-      { Nome: 'Maria', Idade: 30, Email: 'maria@email.com' },
-      { Nome: 'Carlos', Idade: 22, Email: 'carlos@email.com' },
-    ];
 
-    const worksheet = XLSX.utils.json_to_sheet(data);
+    const transformedData = data.map(entry => ({
+      ID: entry.id,
+      Nome: entry.name,
+      Ação: entry.actionType,
+      Itens: entry.items.map(i => `${i.quantity}x ${i.name}`).join(", "),
+      "Data e Hora": entry.dateTime
+    }));
+
+
+    const worksheet = XLSX.utils.json_to_sheet(transformedData);
     const workbook = XLSX.utils.book_new();
 
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Dados');

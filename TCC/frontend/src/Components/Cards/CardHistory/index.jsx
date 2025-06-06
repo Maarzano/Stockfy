@@ -52,8 +52,8 @@ const Row = styled.div`
     align-items: center;
     width: 80%;
     padding: 15px;
-    border-bottom: 1px solid #444;
-    background-color: #2c2c2c;
+    border-bottom: 1px solid #444444;
+    background-color:rgb(0, 0, 0);
     margin: auto;
 `;
 

@@ -221,7 +221,7 @@ const History = () => {
             <HeaderHistory />
             <WrapperSearch>
                 <Search />
-                <ExcelBTN/>
+                <ExcelBTN data={mockData}/>
             </WrapperSearch>
             <Table>
                 <HeaderRow>
