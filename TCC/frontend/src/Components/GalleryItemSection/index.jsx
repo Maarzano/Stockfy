@@ -56,7 +56,6 @@ const WrapperSearch = styled.div`
     flex-direction: row;
     align-items: start;
     justify-content: center;
-    margin: 10px;
     width: 100%;
 `
 

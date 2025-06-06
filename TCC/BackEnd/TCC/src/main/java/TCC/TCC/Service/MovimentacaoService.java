@@ -110,7 +110,7 @@ public class MovimentacaoService {
                 itensDTO,
                 mov.getDataMovimentacao()
             );
-        }).collect(Collectors.toList());
+        }).collect(Collectors.toList()).reversed();
     }
 
 
