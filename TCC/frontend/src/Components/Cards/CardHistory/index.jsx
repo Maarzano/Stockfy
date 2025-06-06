@@ -1,30 +1,33 @@
 import { useState } from "react";
 import styled from "styled-components";
+import Profile from "../../../Assets/SVGs/Icons/icon-profile-white&purple.svg"
 
 const CardHistory = ({ data }) => {
     const [expanded, setExpanded] = useState(false);
 
-    const visibleItems = expanded ? data.items : data.items.slice(0, 3);
-    const showExpand = data.items.length > 3;
+    const visibleItems = expanded ? data.itens : data.itens.slice(0, 3);
+    const showExpand = data.itens.length > 3;
+
+    if (data || Array.isArray(data.itens)) console.log("passou aqui");
 
     return (
         <Row>
-            <Cell width="7%">{data.id}</Cell>
+            <Cell width="7%">{data.idMovimentacao}</Cell>
 
             <Cell width="20%" flex>
-                <UserImage src={data.image} alt={data.name} />
-                <UserName>{data.name}</UserName>
+                <UserImage src={Profile} />
+                <UserName>{data.funcionario?.nomeFuncionario || "_"}</UserName>
             </Cell>
 
             <Cell width="20%">
-                <ActionType>{data.actionType}</ActionType>
+                <ActionType>{data.tipoMovimentacao}</ActionType>
             </Cell>
 
             <Cell width="40%">
                 <InlineItemList>
                     {visibleItems.map((item, index) => (
                     <span key={index}>
-                        {item.name} (x{item.quantity}){index < visibleItems.length - 1 ? ', ' : ''}
+                        {item.nomeItem} (x{item.quantidade}) {index < visibleItems.length - 1 ? ', ' : ''}
                     </span>
                     ))}
 
@@ -40,8 +43,8 @@ const CardHistory = ({ data }) => {
                 </InlineItemList>
             </Cell>
 
-            <Cell width="10%">
-                <DateTime>{data.dateTime}</DateTime>
+            <Cell width="11%">
+                <DateTime>{new Date(data.dataMovimentacao).toLocaleString("pt-BR")}</DateTime>
             </Cell>
         </Row>
     );
@@ -78,8 +81,8 @@ const UserName = styled.span`
 const ActionType = styled.span`
     font-weight: bold;
     color: ${({ children }) =>
-        children === "Retirada" ? "#4caf50" :
-        children === "Devolução" ? "#2196f3" : "#fff"};
+        children === "SAIDA" ? "#4caf50" :
+        children === "ENTRADA" ? "#2196f3" : "#fff"};
 `;
 
 const InlineItemList = styled.div`
