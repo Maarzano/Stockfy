@@ -4,23 +4,30 @@ import * as XLSX from 'xlsx';
 
 const ExcelBTN = ({ data }) => {
   const handleExport = () => {
+    if (!data || data.length === 0) return;
 
     const transformedData = data.map(entry => ({
-      ID: entry.id,
-      Nome: entry.name,
-      Ação: entry.actionType,
-      Itens: entry.items.map(i => `${i.quantity}x ${i.name}`).join(", "),
-      "Data e Hora": entry.dateTime
+      'ID Movimentação': entry.idMovimentacao,
+      'Funcionário': entry.funcionario.nomeFuncionario,
+      'Tipo de Movimentação': entry.tipoMovimentacao,
+      'Itens': entry.itens.map(item => `${item.quantidade}x ${item.nomeItem}`).join(", "),
+      'Data e Hora': new Date(entry.dataMovimentacao).toLocaleString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      })
     }));
-
 
     const worksheet = XLSX.utils.json_to_sheet(transformedData);
     const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Movimentações');
 
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Dados');
-
-    XLSX.writeFile(workbook, 'dados_exportados.xlsx');
+    XLSX.writeFile(workbook, 'movimentacoes_exportadas.xlsx');
   };
+
 
   return (
     <StyledWrapper>
