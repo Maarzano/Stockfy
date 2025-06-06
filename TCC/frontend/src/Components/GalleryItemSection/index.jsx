@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import CardItem from "../Cards/CardItem";
-import Search from "../Search";
 import { useProdutos } from "../../Hooks/Produtos/useProdutos";
 import SearchLoader from "../Loaders/SearchLoader";
+import Search2 from "../Searchs/Search2";
 
 const GalleryItenSection = () => {
     const { produtos, loading, erro } = useProdutos();
@@ -11,7 +11,7 @@ const GalleryItenSection = () => {
         <Wrapper>
             <p>Bem-vindo à tela de estoque. Nesta seção, é possível visualizar a quantidade atual de cada produto disponível na empresa. Este espaço foi desenvolvido para facilitar o acompanhamento dos itens armazenados e permitir o controle das saídas de produtos de forma prática e organizada. Mantenha-se sempre atualizado com as quantidades em tempo real e garanta uma gestão eficiente dos recursos.</p>
             <WrapperSearch>
-                <Search />
+                <Search2 />
             </WrapperSearch>
             <WrapperInside>
             { loading && (<SearchLoader/>) }
@@ -44,7 +44,7 @@ const Wrapper = styled.div`
 const WrapperInside = styled.div`
     display: flex;
     flex-wrap: wrap;
-    margin: 20px 40px 40px 40px;
+    margin: 0px 40px 40px 40px;
     background-color: #1a1a1a;
     border-radius: 15px;
     min-height: 65vh;
@@ -55,7 +55,9 @@ const WrapperSearch = styled.div`
     display: flex;
     flex-direction: row;
     align-items: start;
-    justify-content: left;
+    justify-content: center;
+    margin: 10px;
+    width: 100%;
 `
 
 const ErrorMessage = styled.p`
