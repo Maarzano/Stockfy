@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { buscarMovimentacao } from "../../Services/movimentacaoService";
 
-export const useMovientacao = () => {
+export const useMovimentacao = () => {
     const [loading, setLoading] = useState(true);
     const [erro, setErro] = useState(null);
     const [data, setData] = useState([]);
@@ -10,7 +10,7 @@ export const useMovientacao = () => {
         async function carregarDados() {
             try{
                 const dados = await buscarMovimentacao();
-                setData(dados);
+                setData(dados.data);
             }catch(e){
                 console.error("Ocorreu um erro ao usar o hook de buscar movimentacoes: ", e);
                 setErro(e);

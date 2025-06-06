@@ -3,7 +3,7 @@ import api from "./api"
 export const buscarMovimentacao = () => {
     try {
         const response = api.get("movimentacoes");
-        return response.data;
+        return response;
     }catch (e){
         console.error("Ocorreu um erro:", e);
         throw e;
