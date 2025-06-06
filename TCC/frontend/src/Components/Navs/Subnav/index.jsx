@@ -7,6 +7,7 @@ import { ReactComponent as ProfileIcon } from "../../../Assets/SVGs/Icons/icon-p
 import { ReactComponent as EmployeIcon } from "../../../Assets/SVGs/Icons/icon-employes.svg";
 import ToolTipTab from '../../ToolTipTab';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import CreateBTN from '../../Buttons/CreateBTN';
 
 const ANIMATION_DURATION = 500;
 
@@ -46,6 +47,7 @@ const Subnav = () => {
   };
 
   const isStock = location.pathname === '/Config/Stock';
+  const isEmployes = location.pathname === '/Config/Employe';
 
   return (
     <StyledWrapper>
@@ -124,6 +126,12 @@ const Subnav = () => {
           </div>
         )}
       </div>
+      {(isEmployes || isStock) &&
+      <StyledCreateBTN>
+        <CreateBTN/>
+      </StyledCreateBTN>
+      }
+      
     </StyledWrapper>
   );
 }
@@ -186,6 +194,14 @@ const StyledWrapper = styled.div`
     gap: 20px;
     transition: all 0.3s;
   }
+`
+
+const StyledCreateBTN = styled.div`
+  position: fixed;
+  bottom: 70px;
+  left: 91%;
+  transform: translateX(-50%);
+  z-index: 10;
 `
 
 export default Subnav;
