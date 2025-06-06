@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import CardHistory from "../../../Components/Cards/CardHistory";
 import HeaderHistory from "../../../Components/Headers/HeaderHistory";
-import Search from "../../../Components/Search";
+import Search from "../../../Components/Searchs/Search";
 import ExcelBTN from "../../../Components/Buttons/ExcelBTN";
 import { useMovimentacao } from "../../../Hooks/Movimentacao/useMovimentacao";
 import SearchLoader from "../../../Components/Loaders/SearchLoader";
