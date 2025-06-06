@@ -44,7 +44,7 @@ const Stock = () => {
             >
               <div className="item-top">
                 <div className="item-left">
-                  <img src={item.imagem} alt={item.nomeItem} className="item-image" />
+                  <img src={item.imagem === "string" ? "https://cdn-icons-png.flaticon.com/512/8136/8136031.png" : item.imagem} alt={item.nomeItem} className="item-image" />
                   <div className="item-info">
                     <span className="item-name">{item.nomeItem}</span>
                     <span className="item-description">{item.descricao}</span>
