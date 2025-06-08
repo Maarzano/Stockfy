@@ -82,10 +82,15 @@ const Stock = () => {
               <div className={`extra-content-wrapper ${isExpanded ? 'expanded' : ''}`}>
                 <div className="extra-content">
                   <SaveCancelBTN
+                    type='edit'
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  />  
+                  <SaveCancelBTN
                     type='delete'
                     onClick={(e) => {
                       e.stopPropagation();
-                      // ação de excluir
                     }}
                   />
                 </div>
@@ -251,7 +256,7 @@ const Wrapper = styled.div`
     border-top: 1px solid #444;
     margin-top: 10px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 
   .delete-btn {
