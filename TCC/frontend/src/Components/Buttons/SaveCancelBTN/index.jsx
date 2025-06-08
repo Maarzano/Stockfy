@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as CloudIcon } from "../../../Assets/SVGs/Icons/icon-cloud.svg";
 import { ReactComponent as CloseIcon } from "../../../Assets/SVGs/Icons/icon-x-close-black.svg";
+import { ReactComponent as EditIcon } from "../../../Assets/SVGs/Icons/edit.svg";
 import { ReactComponent as Trash} from "../../../Assets/SVGs/Icons/Trash.svg"
 
 const SaveCancelBTN = ({ type = "save", onClick }) => {
@@ -10,10 +11,10 @@ const SaveCancelBTN = ({ type = "save", onClick }) => {
       <button onClick={onClick}>
         <div className="svg-wrapper-1">
           <div className="svg-wrapper">
-            {type === "save" ? <CloudIcon className='Icon' /> : type === "delete" ? <Trash className='Icon'/> : <CloseIcon className='Icon'/>}
+            {type === "save" ? <CloudIcon className='Icon' /> : type === "delete" ? <Trash className='Icon'/> : type ==="edit" ? <EditIcon class ='Icon'/> : <CloseIcon className='Icon'/>}
           </div>
         </div>
-        <span>{type === "save" ? "Salvar" :  type === "delete" ? "Excluir" : "Cancelar"}</span>
+        <span>{type === "save" ? "Salvar" :  type === "delete" ? "Excluir" : type === "edit" ? "Editar" : "Cancelar"}</span>
       </button>
     </StyledWrapper>
   );
@@ -23,7 +24,7 @@ const StyledWrapper = styled.div`
   button {
     font-family: inherit;
     font-size: 20px;
-    background: ${props => props.$type === "save" ? "#623bda" : props.$type === "delete" ? "#b31414" : "#212121"};
+  background: ${props => props.$type === "save" ? "#623bda" : props.$type === "delete" ? "#b31414" : props.$type === "edit" ? "#039dfc" : "#212121"};
     color: white;
     fill: rgb(155, 153, 153);
     padding: 0.7em 1em;
@@ -67,7 +68,7 @@ const StyledWrapper = styled.div`
   }
 
   button:hover .Icon {
-    transform: ${props => props.$type === "save" ? "translateX(1.5em)" : props.$type === "delete" ? "translateX(1.75em)" : "translateX(2em)"} scale(1.1);
+    transform: ${props => props.$type === "save" ? "translateX(1.5em)" : props.$type === "delete" ? "translateX(1.60em)" : props.$type === "edit" ? "translateX(1.30em)" : "translateX(2em)"} scale(1.1);
     fill: #fff;
   }
 
