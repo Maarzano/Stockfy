@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import Arrow from "../../../Assets/SVGs/Icons/Arrow.svg";
 import Lupa from "../../../Assets/SVGs/Icons/lupa.svg";
 import { useProdutos } from '../../../Hooks/Produtos/useProdutos';
 import SearchLoader from '../../../Components/Loaders/SearchLoader';
 import SaveCancelBTN from '../../../Components/Buttons/SaveCancelBTN';
+import Search2 from '../../../Components/Searchs/Search2';
 
 const Stock = () => {
   const { produtos, loading, erro } = useProdutos([]);
   const [showForm, setShowForm] = useState(false);
   const [expandedItemId, setExpandedItemId] = useState(null);
+  const [busca, setBusca] = useState("");
+
+  const produtosFiltrados = useMemo(() => {
+    const termo = busca.toLowerCase();
+    return produtos.filter((item) =>
+      item.nomeItem.toLowerCase().includes(termo) ||
+      item.descricao?.toLowerCase().includes(termo)
+    );
+  }, [busca, produtos]);
 
   const toggleExpand = (itemId) => {
     setExpandedItemId(prev => (prev === itemId ? null : itemId));
@@ -19,10 +29,13 @@ const Stock = () => {
     <Wrapper>
       <h2>Itens do estoque</h2>
 
-      <div className="search-box">
-        <img className="search-icon" src={Lupa} alt="Pesquisar Item" />
-        <input type="text" placeholder="Nome Item" className="search-input" />
-      </div>
+      <WrapperSearch>
+        <Search2
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+          placeholder="Buscar no estoque..."
+        />
+      </WrapperSearch>
 
       {loading && (
         <>
@@ -33,7 +46,7 @@ const Stock = () => {
       {erro && <p style={{ color: 'red' }}>{erro}</p>}
 
       <div className="item-list">
-        {produtos.map((item) => {
+        {produtosFiltrados.map((item) => {
           const isExpanded = expandedItemId === item.itemId;
 
           return (
@@ -44,7 +57,13 @@ const Stock = () => {
             >
               <div className="item-top">
                 <div className="item-left">
-                  <img src={item.imagem === "string" ? "https://cdn-icons-png.flaticon.com/512/8136/8136031.png" : item.imagem} alt={item.nomeItem} className="item-image" />
+                  <img
+                    src={item.imagem === "string"
+                      ? "https://cdn-icons-png.flaticon.com/512/8136/8136031.png"
+                      : item.imagem}
+                    alt={item.nomeItem}
+                    className="item-image"
+                  />
                   <div className="item-info">
                     <span className="item-name">{item.nomeItem}</span>
                     <span className="item-description">{item.descricao}</span>
@@ -62,19 +81,21 @@ const Stock = () => {
 
               <div className={`extra-content-wrapper ${isExpanded ? 'expanded' : ''}`}>
                 <div className="extra-content">
-                  <SaveCancelBTN type='delete'
+                  <SaveCancelBTN
+                    type='delete'
                     onClick={(e) => {
-                      e.stopPropagation(); // evita recolher o card
+                      e.stopPropagation();
                       // ação de excluir
                     }}
-                  >
-                
-                  </SaveCancelBTN >
+                  />
                 </div>
               </div>
             </div>
           );
         })}
+        {!loading && produtosFiltrados.length === 0 && (
+          <p style={{ color: 'red', textAlign: 'center' }}>Nenhum produto encontrado</p>
+        )}
       </div>
 
       <button className="add-btn" onClick={() => setShowForm(true)}>➕</button>
@@ -95,6 +116,15 @@ const Stock = () => {
     </Wrapper>
   );
 };
+
+
+const WrapperSearch = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+`
 
 const Wrapper = styled.div`
   background-color: black;

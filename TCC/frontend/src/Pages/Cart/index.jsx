@@ -3,17 +3,13 @@ import styled from "styled-components";
 import NavBar from "../../Components/Navs/NavBar";
 import Subnav from "../../Components/Navs/Subnav";
 import BackButton from "../../Components/Carting/BackButton";
-import ItemSearch from "../../Components/Carting/ItemSearch";
 import ActionButtons from "../../Components/Carting/ActionButtons";
 import CartItemList from "../../Components/Carting/CartItemList";
+import Search2 from "../../Components/Searchs/Search2/index.jsx"; 
+
 
 const Cart = () => {
     const [searchTerm, setSearchTerm] = useState("");
-
-    const allItemNames = [
-        "Braçadeira", "Martelo", "Machado", "Roblox",
-        "Regua", "Vassoura", "Acabou criatividade"
-    ];
 
     return (
         <Wrapper>
@@ -23,11 +19,12 @@ const Cart = () => {
                     <BackButton />
                     <h1>Carrinho</h1>
                 </Header>
-                <ItemSearch
-                    itemNames={allItemNames}
+                <Search2
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Pesquisar item no carrinho..."
                 />
+
                 <CartItemList searchTerm={searchTerm} />
                 <ActionButtons />
             </Content>
