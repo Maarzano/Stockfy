@@ -47,7 +47,7 @@ const Search2 = ({ value, onChange, placeholder = "Pesquisar..." }) => {
 };
 
 const StyledWrapper = styled.div`
-  width: 90%;
+  width: 100%;
 
   .navbar-container {
     display: flex;

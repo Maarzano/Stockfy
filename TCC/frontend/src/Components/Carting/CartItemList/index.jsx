@@ -52,8 +52,8 @@ const Item = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #d3d3d3;
-    padding: 12px 18px;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 20px 18px;
     border-radius: 15px;
 `;
 
@@ -73,11 +73,11 @@ const Info = styled.div`
 
 const Nome = styled.div`
     font-weight: bold;
-    color: #000;
+    color: rgb(255, 255, 255);
 `;
 
 const Quantidade = styled.div`
-    color: #333;
+    color: rgba(255, 255, 255, 0.35);
 `;
 
 const DeleteButton = styled.button`

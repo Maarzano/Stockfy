@@ -1,22 +1,6 @@
+import { useState } from "react";
 import styled from "styled-components";
-
-const ActionButtons = () => {
-       
-    const handleDevolucao = () => {
-        alert("Você realizou a devolução");
-    };
-
-    const handleRetirada = () => {
-        alert("Você realizou a retirada");
-    };
-    
-    return (
-        <Wrapper>
-            <button onClick={handleDevolucao}>Devolução</button>
-            <button onClick={handleRetirada}>Retirada</button>
-        </Wrapper>
-    );
-};
+import ActionModal from "../ActionModal";
 
 const Wrapper = styled.div`
     display: flex;
@@ -37,5 +21,36 @@ const Wrapper = styled.div`
         background-color: #5a3be0;
     }
 `;
+
+const ActionButtons = ({ onActionConfirmed }) => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [tipoAcao, setTipoAcao] = useState("");
+    
+    const abrirModal = (tipo) => {
+        setTipoAcao(tipo);
+        setModalOpen(true);
+    };
+    const confirmarAcao = (responsavel) => {
+        alert(`Você realizou a ${tipoAcao.toLowerCase()} por: ${responsavel}`);
+        setModalOpen(false);
+
+        if (onActionConfirmed) {
+            onActionConfirmed(tipoAcao, responsavel);
+        }
+    };
+    return (
+        <Wrapper>
+            <button onClick={() => abrirModal("Devolução")}>Devolução</button>
+            <button onClick={() => abrirModal("Retirada")}>Retirada</button>
+
+            <ActionModal
+                isOpen={modalOpen}
+                onClose={() => setModalOpen(false)}
+                onConfirm={confirmarAcao}
+                tipo={tipoAcao}
+            />
+        </Wrapper>
+    );
+};
 
 export default ActionButtons;
