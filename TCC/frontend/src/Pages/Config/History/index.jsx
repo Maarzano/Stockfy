@@ -12,10 +12,30 @@ const History = () => {
   const { loading, erro, data } = useMovimentacao();
 
   const filteredData = Array.isArray(data)
-    ? data.filter((item) =>
-        item.nome?.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    ? data.filter((item) => {
+        const termo = searchTerm.toLowerCase();
+
+        const idMatch = item.idMovimentacao?.toString().includes(termo);
+        const nomeFuncionarioMatch = item.funcionario?.nomeFuncionario?.toLowerCase().includes(termo);
+        const tipoMatch = item.tipoMovimentacao?.toLowerCase().includes(termo);
+        const dataFormatada = new Date(item.dataMovimentacao).toLocaleDateString("pt-BR");
+        const dataMatch = dataFormatada.toLowerCase().includes(termo);
+
+        
+        const itemNomeMatch = item.itens?.some((i) =>
+          i.nomeItem?.toLowerCase().includes(termo)
+        );
+
+        return (
+          idMatch ||
+          nomeFuncionarioMatch ||
+          tipoMatch ||
+          dataMatch ||
+          itemNomeMatch
+        );
+      })
     : [];
+
 
   return (
     <Wrapper>

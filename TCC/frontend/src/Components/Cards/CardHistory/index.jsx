@@ -8,8 +8,6 @@ const CardHistory = ({ data }) => {
     const visibleItems = expanded ? data.itens : data.itens.slice(0, 3);
     const showExpand = data.itens.length > 3;
 
-    if (data || Array.isArray(data.itens)) console.log("passou aqui");
-
     return (
         <Row>
             <Cell width="7%">{data.idMovimentacao}</Cell>
