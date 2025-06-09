@@ -36,7 +36,6 @@ public class Funcionario {
     @Column(name = "id_funcionario")
     private long funcionarioId;
 
-
     @Column(name = "nome_funcionario", unique = true, nullable = false)
     private String nomeFuncionario;
 
@@ -57,6 +56,9 @@ public class Funcionario {
 
     @Column(name = "ativo_desativo_funcionario", nullable = false)
     private Boolean ativo = true;
+
+    @Column(name = "image_profile", nullable = true)
+    private String image;
 
 
 }
