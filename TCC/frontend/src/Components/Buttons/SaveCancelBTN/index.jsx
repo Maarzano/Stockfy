@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as CloudIcon } from "../../../Assets/SVGs/Icons/icon-cloud.svg";
 import { ReactComponent as CloseIcon } from "../../../Assets/SVGs/Icons/icon-x-close-black.svg";
@@ -12,15 +12,57 @@ const SaveCancelBTN = ({ type = "save" }) => {
     e.preventDefault();
   }
 
+  const { icon: ComponentIcon, text, color, hoverTransform, modal } = useMemo(() => {
+    let icon = undefined;
+    let btnText = "";
+    let btnColor = "";
+    let btnHoverTransform = "";
+    let modal = undefined;
+
+    switch(type){
+      case "save":
+        icon = <CloudIcon className='Icon' />
+        btnText = 'Salvar';
+        btnColor = "#623bda";
+        btnHoverTransform = "translateX(1.5em)";
+        break;
+      case "delete":
+        icon = <Trash className='Icon' />
+        btnText = 'Excluir';
+        btnColor = "#b31414";
+        btnHoverTransform = "translateX(1.60em)";
+        break;
+      case "edit":
+        icon = <EditIcon className='Icon' />
+        btnText = 'Editar';
+        btnColor = "#039dfc";
+        btnHoverTransform = "translateX(1.30em)";
+        break;
+      case "cancel":
+        icon = <CloseIcon className='Icon' />
+        btnText='Cancelar';
+        btnColor = "#212121";
+        btnHoverTransform = "translateX(2em)";
+        break;
+      default:
+        icon = <CloudIcon className='Icon' />
+        btnText = 'Salvar';
+        btnColor = "#623bda";
+        btnHoverTransform = "translateX(1.5em)";
+        break;
+    }
+    return { icon, text: btnText, color: btnColor, hoverTransform: btnHoverTransform, modal: modal }
+  }, [type]);
+
   return (
-    <StyledWrapper $type={type}>
+    <StyledWrapper $type={type} $color={color} $hover={hoverTransform}>
       <button onClick={handlerOnClick}>
         <div className="svg-wrapper-1">
           <div className="svg-wrapper">
-            {type === "save" ? <CloudIcon className='Icon' /> : type === "delete" ? <Trash className='Icon'/> : type ==="edit" ? <EditIcon class ='Icon'/> : <CloseIcon className='Icon'/>}
+            {ComponentIcon}
           </div>
         </div>
-        <span>{type === "save" ? "Salvar" :  type === "delete" ? "Excluir" : type === "edit" ? "Editar" : "Cancelar"}</span>
+        <span>{text}</span>
       </button>
     </StyledWrapper>
   );
@@ -30,7 +72,7 @@ const StyledWrapper = styled.div`
   button {
     font-family: inherit;
     font-size: 20px;
-  background: ${props => props.$type === "save" ? "#623bda" : props.$type === "delete" ? "#b31414" : props.$type === "edit" ? "#039dfc" : "#212121"};
+    background: ${props => props.$color};
     color: white;
     fill: rgb(155, 153, 153);
     padding: 0.7em 1em;
@@ -74,7 +116,7 @@ const StyledWrapper = styled.div`
   }
 
   button:hover .Icon {
-    transform: ${props => props.$type === "save" ? "translateX(1.5em)" : props.$type === "delete" ? "translateX(1.60em)" : props.$type === "edit" ? "translateX(1.30em)" : "translateX(2em)"} scale(1.1);
+    transform: ${props => props.$hover} scale(1.1);
     fill: #fff;
   }
 
