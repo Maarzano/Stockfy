@@ -1,23 +1,29 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as CloudIcon } from "../../../Assets/SVGs/Icons/icon-cloud.svg";
 import { ReactComponent as CloseIcon } from "../../../Assets/SVGs/Icons/icon-x-close-black.svg";
 import { ReactComponent as EditIcon } from "../../../Assets/SVGs/Icons/edit.svg";
 import { ReactComponent as Trash} from "../../../Assets/SVGs/Icons/Trash.svg"
+import ConfirmActionModal from '../../Modal/ConfirmActionModal';
 
 const SaveCancelBTN = ({ type = "save" }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handlerOnClick = (e) =>{
     e.stopPropagation();
     e.preventDefault();
+    setIsModalOpen(true);
   }
 
-  const { icon: ComponentIcon, text, color, hoverTransform, modal } = useMemo(() => {
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const { icon: ComponentIcon, text, color, hoverTransform } = useMemo(() => {
     let icon = undefined;
     let btnText = "";
     let btnColor = "";
     let btnHoverTransform = "";
-    let modal = undefined;
 
     switch(type){
       case "save":
@@ -51,10 +57,11 @@ const SaveCancelBTN = ({ type = "save" }) => {
         btnHoverTransform = "translateX(1.5em)";
         break;
     }
-    return { icon, text: btnText, color: btnColor, hoverTransform: btnHoverTransform, modal: modal }
+    return { icon, text: btnText, color: btnColor, hoverTransform: btnHoverTransform }
   }, [type]);
 
   return (
+    <>
     <StyledWrapper $type={type} $color={color} $hover={hoverTransform}>
       <button onClick={handlerOnClick}>
         <div className="svg-wrapper-1">
@@ -65,6 +72,12 @@ const SaveCancelBTN = ({ type = "save" }) => {
         <span>{text}</span>
       </button>
     </StyledWrapper>
+    <ConfirmActionModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        type={type}
+      />
+    </>
   );
 };
 
