@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Modal from "..";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 const ConfirmActionModal = ({ isOpen, onClose, type = 'save', onConfirm, data }) => {
   const { title, confirmColor, confirmLabel } = useMemo(() => {
@@ -37,6 +37,18 @@ const ConfirmActionModal = ({ isOpen, onClose, type = 'save', onConfirm, data })
         };
     }
   }, [type]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
