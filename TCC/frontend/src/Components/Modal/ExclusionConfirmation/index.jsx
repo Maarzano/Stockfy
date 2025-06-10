@@ -1,9 +1,0 @@
-
-
-const DeleteConfirmation = () => {
-
-    return (
-        <>
-        </>
-    )
-}
