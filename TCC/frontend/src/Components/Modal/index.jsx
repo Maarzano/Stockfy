@@ -34,11 +34,8 @@ const ModalOverlay = styled.div`
 
 const ModalContainer = styled.div`
   background-color: white;
-  border-radius: 8px;
+  border-radius: 50%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 500px;
-  padding: 20px;
   animation: fadeIn 0.3s;
 
   @keyframes fadeIn {
