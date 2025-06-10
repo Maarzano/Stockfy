@@ -1,21 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactDOM from "react-dom"
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
+      e.stopPropagation();
       onClose();
     }
   };
 
-  return (
+  return ReactDOM.createPortal(
     <ModalOverlay onClick={handleOverlayClick}>
-      <ModalContainer>
+      <ModalContainer onClick={(e) => e.stopPropagation()}>
         {children}
       </ModalContainer>
-    </ModalOverlay>
+    </ModalOverlay>,
+    document.body
   );
 };
 
