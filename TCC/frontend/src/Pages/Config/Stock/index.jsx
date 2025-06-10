@@ -81,18 +81,8 @@ const Stock = () => {
 
               <div className={`extra-content-wrapper ${isExpanded ? 'expanded' : ''}`}>
                 <div className="extra-content">
-                  <SaveCancelBTN
-                    type='edit'
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                  />  
-                  <SaveCancelBTN
-                    type='delete'
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                  />
+                  <SaveCancelBTN type='edit' />
+                  <SaveCancelBTN type='delete' />
                 </div>
               </div>
             </div>

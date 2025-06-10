@@ -32,8 +32,8 @@ const Profile = () => {
                         <Input value={"1234.."} id="Senha" type="password"/>
                     </DivInputLabel>
                     <DivBTN>
-                        <SaveCancelBTN type="cancel" onClick={(e) => { e.preventDefault()}}/>
-                        <SaveCancelBTN onClick={(e) => { e.preventDefault()}} />
+                        <SaveCancelBTN type="cancel"/>
+                        <SaveCancelBTN />
                     </DivBTN>
                 </Form>
             </Main>

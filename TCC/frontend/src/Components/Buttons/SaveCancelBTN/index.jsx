@@ -5,10 +5,16 @@ import { ReactComponent as CloseIcon } from "../../../Assets/SVGs/Icons/icon-x-c
 import { ReactComponent as EditIcon } from "../../../Assets/SVGs/Icons/edit.svg";
 import { ReactComponent as Trash} from "../../../Assets/SVGs/Icons/Trash.svg"
 
-const SaveCancelBTN = ({ type = "save", onClick }) => {
+const SaveCancelBTN = ({ type = "save" }) => {
+
+  const handlerOnClick = (e) =>{
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
   return (
     <StyledWrapper $type={type}>
-      <button onClick={onClick}>
+      <button onClick={handlerOnClick}>
         <div className="svg-wrapper-1">
           <div className="svg-wrapper">
             {type === "save" ? <CloudIcon className='Icon' /> : type === "delete" ? <Trash className='Icon'/> : type ==="edit" ? <EditIcon class ='Icon'/> : <CloseIcon className='Icon'/>}
