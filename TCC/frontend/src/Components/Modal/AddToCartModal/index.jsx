@@ -23,9 +23,9 @@ const AddToCartModal = ({ isOpen, onClose, item, onAddToCart }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <Container>
-        <Image src={item.image} alt={item.title} />
-        <h2>{item.title}</h2>
-        <p>{item.description}</p>
+        <Image src={item.imagem} alt={item.nomeItem} />
+        <h2>{item.nomeItem}</h2>
+        <p>{item.descricao}</p>
         <QuantityContainer>
           <button onClick={handleDecrement}>-</button>
           <span>{quantity}</span>
@@ -41,76 +41,81 @@ const AddToCartModal = ({ isOpen, onClose, item, onAddToCart }) => {
 };
 
 const Container = styled.div`
-  background: #fff;
-  padding: 20px;
+  background: #10101f;
+  padding: 24px;
   width: 100%;
-  max-width: 400px;
-  border-radius: 12px;
+  max-width: 420px;
+  border-radius: 16px;
   text-align: center;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+  color: #f1f1f1;
   font-family: 'Segoe UI', sans-serif;
 `;
 
 const Image = styled.img`
   width: 100%;
   height: auto;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
 `;
 
 const QuantityContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 20px;
+  margin-bottom: 24px;
 
   button {
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 10px 14px;
+    border: none;
     border-radius: 8px;
-    background-color: #f5f5f5;
+    background-color: #2c2c3e;
+    color: #fff;
+    font-size: 20px;
     cursor: pointer;
-    font-size: 18px;
+    transition: background-color 0.2s;
 
     &:hover {
-      background-color: #ddd;
+      background-color: #3a3a4d;
     }
   }
 
   span {
     font-size: 24px;
-    font-weight: 600;
+    font-weight: bold;
   }
 `;
 
 const ButtonRow = styled.div`
   display: flex;
   justify-content: space-around;
-  gap: 10px;
+  gap: 12px;
+  margin-top: 16px;
 
   button {
-    padding: 10px 20px;
+    padding: 12px 22px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-weight: 600;
     font-size: 18px;
     cursor: pointer;
-    color: white;
     transition: background-color 0.3s;
+    color: #fff;
 
     &:first-child {
-      background-color: #888;
+      background-color: #3a3a4d;
     }
 
     &:last-child {
-      background-color: #0074e4;
+      background-color: #6c47ff;
     }
 
     &:hover {
-      opacity: 0.85;
+      opacity: 0.9;
     }
   }
 `;
+
 
 export default AddToCartModal;

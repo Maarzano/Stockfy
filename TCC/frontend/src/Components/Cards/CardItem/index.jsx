@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const CardItem = ({imgURL, tittle, description}) => {
+const CardItem = ({imgURL, tittle, description, onClick}) => {
     return (
-        <Wrapper>
+        <Wrapper onClick={onClick}>
             <ImgDiv>
                 <Img src= {imgURL === "string" ? "https://cdn-icons-png.flaticon.com/512/8136/8136031.png" : imgURL}/>
             </ImgDiv>
