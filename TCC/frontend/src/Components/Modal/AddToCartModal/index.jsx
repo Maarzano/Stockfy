@@ -24,7 +24,7 @@ const AddToCartModal = ({ isOpen, onClose, item, onAddToCart }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <Container>
-        <Image src={ placeholder(item.imagem)} alt={item.nomeItem} />
+        <Image src={ placeholder(item.imagem)} alt={item.nomeItem} draggable={false}/>
         <h2>{item.nomeItem}</h2>
         <p>{item.descricao}</p>
         <QuantityContainer>
