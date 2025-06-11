@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Modal from '..';
+import { placeholder } from '../../../Utils/verificandoImagem';
 
 const AddToCartModal = ({ isOpen, onClose, item, onAddToCart }) => {
   const [quantity, setQuantity] = useState(1);
@@ -23,7 +24,7 @@ const AddToCartModal = ({ isOpen, onClose, item, onAddToCart }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <Container>
-        <Image src={item.imagem} alt={item.nomeItem} />
+        <Image src={ placeholder(item.imagem)} alt={item.nomeItem} />
         <h2>{item.nomeItem}</h2>
         <p>{item.descricao}</p>
         <QuantityContainer>
