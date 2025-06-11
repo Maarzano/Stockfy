@@ -3,7 +3,7 @@ import Modal from "..";
 import { useEffect, useMemo } from "react";
 
 const ConfirmActionModal = ({ isOpen, onClose, type = 'save', onConfirm, data }) => {
-  const { title, confirmColor, confirmLabel } = useMemo(() => {
+  const { title, confirmColor, confirmLabel, p } = useMemo(() => {
     switch (type) {
       case "save":
         return {
@@ -16,12 +16,14 @@ const ConfirmActionModal = ({ isOpen, onClose, type = 'save', onConfirm, data })
           title: "Deseja editar este registro?",
           confirmColor: "#0074e4",
           confirmLabel: "Editar",
+          p: "editar"
         };
       case "delete":
         return {
           title: "Tem certeza que deseja excluir?",
           confirmColor: "#b31414",
           confirmLabel: "Excluir",
+          p: "excluir"
         };
       case "cancel":
         return {
@@ -54,7 +56,7 @@ const ConfirmActionModal = ({ isOpen, onClose, type = 'save', onConfirm, data })
     <Modal isOpen={isOpen} onClose={onClose}>
       <Container>
         <h2>{title}</h2>
-        <p>Esta ação não poderá ser desfeita.</p>
+        <p>{data != null && `realmente deseja ${p} ${data.nomeFuncionario}?`} esta ação não poderá ser desfeita.</p>
         <ButtonRow $confirmColor={confirmColor}>
           <button onClick={onClose}>Voltar</button>
           <button onClick={() => { onConfirm?.(); onClose(); }}>

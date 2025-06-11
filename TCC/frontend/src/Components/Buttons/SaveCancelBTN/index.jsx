@@ -6,7 +6,7 @@ import { ReactComponent as EditIcon } from "../../../Assets/SVGs/Icons/edit.svg"
 import { ReactComponent as Trash} from "../../../Assets/SVGs/Icons/Trash.svg"
 import ConfirmActionModal from '../../Modal/ConfirmActionModal';
 
-const SaveCancelBTN = ({ type = "save" }) => {
+const SaveCancelBTN = ({ type = "save", data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handlerOnClick = (e) =>{
@@ -75,7 +75,7 @@ const SaveCancelBTN = ({ type = "save" }) => {
     <ConfirmActionModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        type={type}
+        type={type} data={data}
       />
     </>
   );

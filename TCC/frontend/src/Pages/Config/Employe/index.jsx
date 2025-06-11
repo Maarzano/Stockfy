@@ -68,8 +68,8 @@ const Funcionarios = () => {
 
                 <div className={`extra-content-wrapper ${isExpanded ? 'expanded' : ''}`}>
                   <div className="extra-content">
-                    <SaveCancelBTN type='edit' />
-                    <SaveCancelBTN type='delete' />
+                    <SaveCancelBTN type='edit' data={funcionario}/>
+                    <SaveCancelBTN type='delete' data={funcionario}/>
                   </div>
                 </div>
               </div>
