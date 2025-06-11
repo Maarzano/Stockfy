@@ -103,7 +103,6 @@ const StyledWrapper = styled.div`
     width: 30px;
     height: 30px;
     transition: transform 0.3s ease-in-out, fill 0.3s ease-in-out;
-    fill: white;
   }
 
   .svg-wrapper-1,
