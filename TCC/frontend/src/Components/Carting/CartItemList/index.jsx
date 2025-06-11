@@ -1,36 +1,25 @@
 // Components/Carting/CartItemList/index.jsx
 import styled from "styled-components";
 import TrashIcon from "../../../Assets/SVGs/Icons/Trash.svg";
+import { useCart } from "../../../Context/Cart";
 
 const CartItemList = ({ searchTerm }) => {
-    const items = [
-        { id: 1, nome: "Braçadeira", quantidade: 2 },
-        { id: 2, nome: "Martelo", quantidade: 1 },
-        { id: 3, nome: "Machado", quantidade: 3 },
-        { id: 4, nome: "Roblox", quantidade: 2 },
-        { id: 5, nome: "Regua", quantidade: 3 },
-        { id: 6, nome: "Vassoura", quantidade: 3 },
-        { id: 7, nome: "Acabou criatividade", quantidade: 3 },
-    ];
+    const { cartItems, removeItemFromCart } = useCart();
 
-    const filteredItems = items.filter(item =>
-        item.nome.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredItems = cartItems.filter(item =>
+        item.nomeItem.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
-    const handleDelete = (id) => {
-        alert(`Remover item com ID: ${id}`);
-    };
 
     return (
         <List>
             {filteredItems.map((item) => (
-                <Item key={item.id}>
+                <Item key={item.itemId}>
                     <Image />
                     <Info>
-                        <Nome>{item.nome}</Nome>
-                        <Quantidade>Quantidade: {item.quantidade}</Quantidade>
+                        <Nome>{item.nomeItem}</Nome>
+                        <Quantidade>Quantidade: {item.quantity}</Quantidade>
                     </Info>
-                    <DeleteButton onClick={() => handleDelete(item.id)}>
+                    <DeleteButton onClick={() => removeItemFromCart(item.itemId)}>
                         <img src={TrashIcon} alt="Excluir" />
                     </DeleteButton>
                 </Item>
