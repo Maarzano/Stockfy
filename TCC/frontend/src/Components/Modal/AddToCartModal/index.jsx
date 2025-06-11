@@ -33,7 +33,6 @@ const AddToCartModal = ({ isOpen, onClose, item, onAddToCart }) => {
           <button onClick={handleIncrement}>+</button>
         </QuantityContainer>
         <ButtonRow>
-          <button onClick={onClose}>Cancelar</button>
           <button onClick={handleAddToCart}>Adicionar ao Carrinho</button>
         </ButtonRow>
       </Container>
@@ -51,6 +50,7 @@ const Container = styled.div`
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
   color: #f1f1f1;
   font-family: 'Segoe UI', sans-serif;
+  position: relative;
 `;
 
 const Image = styled.img`
