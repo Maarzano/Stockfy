@@ -6,6 +6,7 @@ import { useProdutos } from '../../../Hooks/Produtos/useProdutos';
 import SearchLoader from '../../../Components/Loaders/SearchLoader';
 import SaveCancelBTN from '../../../Components/Buttons/SaveCancelBTN';
 import Search2 from '../../../Components/Searchs/Search2';
+import { placeholder } from "../../../Utils/verificandoImagem";
 
 const Stock = () => {
   const { produtos, loading, erro } = useProdutos([]);
@@ -58,9 +59,7 @@ const Stock = () => {
               <div className="item-top">
                 <div className="item-left">
                   <img
-                    src={item.imagem === "string"
-                      ? "https://cdn-icons-png.flaticon.com/512/8136/8136031.png"
-                      : item.imagem}
+                    src={placeholder(item.imagem)}
                     alt={item.nomeItem}
                     className="item-image"
                   />
