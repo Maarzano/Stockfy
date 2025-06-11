@@ -1,10 +1,14 @@
 import styled from "styled-components";
 
 const CardItem = ({imgURL, tittle, description, onClick}) => {
+
+    const temHttp = (str) => {
+        return str.includes("http");
+    }
     return (
         <Wrapper onClick={onClick}>
             <ImgDiv>
-                <Img src= {imgURL === "string" ? "https://cdn-icons-png.flaticon.com/512/8136/8136031.png" : imgURL}/>
+                <Img src= {temHttp(imgURL) ? imgURL : (imgURL = "https://cdn-icons-png.flaticon.com/512/8136/8136031.png") }/>
             </ImgDiv>
             <Text>
                 <Tittle title={tittle}>{tittle === undefined ? "Sem título" : tittle}</Tittle>
