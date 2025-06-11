@@ -5,6 +5,7 @@ import { useProdutos } from "../../Hooks/Produtos/useProdutos";
 import SearchLoader from "../Loaders/SearchLoader";
 import Search2 from "../Searchs/Search2";
 import AddToCartModal from "../Modal/AddToCartModal";
+import { useCart } from "../../Context/Cart";
 
 const GalleryItenSection = () => {
     const { produtos, loading, erro } = useProdutos();
@@ -12,6 +13,8 @@ const GalleryItenSection = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+
+    const { addItemToCart } = useCart();
 
     const produtosFiltrados = useMemo(() => {
         const termo = busca.toLowerCase();
@@ -34,7 +37,9 @@ const GalleryItenSection = () => {
         };
 
         const handleAddToCart = (item, quantity) => {
-            alert(`Adicionando ao carrinho: ${item.nomeItem} - Quantidade: ${quantity}`);
+            addItemToCart(item, quantity);
+            setIsModalOpen(false);
+            setSelectedItem(null);
         };
 
     return (
