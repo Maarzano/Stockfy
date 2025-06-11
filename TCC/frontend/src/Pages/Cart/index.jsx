@@ -12,8 +12,9 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled.div`
-    margin: 77px 150px 0px 150px;
+    margin: 77px auto 0px auto;
     padding: 30px;
+    max-width: 1650px;
     color: wheat;
 `;
 
@@ -23,19 +24,8 @@ const Header = styled.div`
     gap: 15px;
 `;
 
-const Status = styled.p`
-    margin-top: 20px;
-    font-size: 16px;
-    color: #a5a5a5;
-`;
-
 const Cart = () => {
     const [searchTerm, setSearchTerm] = useState("");
-    const [ultimaAcao, setUltimaAcao] = useState(null);
-    const handleAcaoConfirmada = (tipoAcao, responsavel) => {
-        setUltimaAcao({ tipo: tipoAcao, responsavel });
-        alert(`Ação confirmada na tela principal: ${tipoAcao} por ${responsavel}`);
-    };
     return (
         <Wrapper>
             <NavBar />
@@ -50,12 +40,7 @@ const Cart = () => {
                     placeholder="Pesquisar item no carrinho..."
                 />
                 <CartItemList searchTerm={searchTerm} />
-                <ActionButtons onActionConfirmed={handleAcaoConfirmada} />
-                {ultimaAcao && (
-                    <Status>
-                        Última ação: <strong>{ultimaAcao.tipo}</strong> por <strong>{ultimaAcao.responsavel}</strong>
-                    </Status>
-                )}
+                <ActionButtons  />
             </Content>
             <Subnav />
         </Wrapper>
