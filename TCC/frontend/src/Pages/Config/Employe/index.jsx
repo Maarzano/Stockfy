@@ -8,7 +8,6 @@ import Search2 from '../../../Components/Searchs/Search2';
 
 const Funcionarios = () => {
   const { funcionarios, loading, erro } = useFuncionarios();
-  const [showForm, setShowForm] = useState(false);
   const [expandedId, setExpandedId] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -76,22 +75,6 @@ const Funcionarios = () => {
             );
           })}
       </div>
-
-      <button className="add-btn" onClick={() => setShowForm(true)}>➕</button>
-
-      {showForm && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h3>Adicionar Novo Funcionário</h3>
-            <input type="text" placeholder="Nome do Funcionário" className="modal-input" />
-            <input type="text" placeholder="CPF" className="modal-input" />
-            <div className="modal-actions">
-              <button onClick={() => setShowForm(false)}>Cancelar</button>
-              <button>Salvar</button>
-            </div>
-          </div>
-        </div>
-      )}
     </Wrapper>
   );
 };
@@ -187,48 +170,6 @@ const Wrapper = styled.div`
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
-    gap: 10px;
-  }
-
-  .add-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    font-size: 32px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: wheat;
-  }
-
-  .modal-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .modal {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    width: 300px;
-  }
-
-  .modal-input {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-
-  .modal-actions {
-    display: flex;
-    justify-content: flex-end;
     gap: 10px;
   }
 `;
