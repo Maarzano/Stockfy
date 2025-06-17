@@ -1,5 +1,5 @@
 const temHttp = (str) => {
-    return str.includes("http");
+    return str?.includes("http");
 }
 
 export const placeholder = (str) => {
