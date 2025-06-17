@@ -21,7 +21,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Funcionario {
 
-    public Funcionario(String nomeFuncionario, String emailFuncionario, String cpfFuncionario, String celularFuncionario, Date dataNascimentoFuncionario, String descricaoFuncionario, Boolean ativo) {
+    public Funcionario(String nomeFuncionario, String emailFuncionario, String cpfFuncionario,
+                         String celularFuncionario, Date dataNascimentoFuncionario, 
+                         String descricaoFuncionario, Boolean ativo, String image) {
         this.nomeFuncionario = nomeFuncionario;
         this.emailFuncionario = emailFuncionario;
         this.cpfFuncionario = cpfFuncionario;
@@ -29,6 +31,7 @@ public class Funcionario {
         this.dataNascimentoFuncionario = dataNascimentoFuncionario;
         this.descricaoFuncionario = descricaoFuncionario;
         this.ativo = ativo;
+        this.image = image;
     }
 
     @Id
