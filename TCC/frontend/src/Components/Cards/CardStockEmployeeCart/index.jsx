@@ -2,31 +2,28 @@ import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import Arrow from '../../../Assets/SVGs/Icons/Arrow.svg';
 import SaveCancelBTN from '../../Buttons/SaveCancelBTN';
+import { placeholder } from '../../../Utils/verificandoImagem';
 
 const CardStockEmployeeCart = ({ data, type }) => {
   const [expanded, setExpanded] = useState(false);
 
   const toggleExpand = () => setExpanded(prev => !prev);
 
-  const temHttp = url => typeof url === 'string' && url.includes('http');
-
-  // Ajusta os dados conforme o type, usando useMemo para otimizar
   const { nome, descricao, imagemSrc, infoExtra } = useMemo(() => {
-    const defaultImg = 'https://cdn-icons-png.flaticon.com/512/8136/8136031.png';
 
     switch (type) {
       case 'employee':
         return {
           nome: data?.nome || data?.nomeFuncionario || 'Sem nome',
           descricao: data?.email || 'Sem descrição',
-          imagemSrc: temHttp(data?.imagem) ? data.imagem : defaultImg,
+          imagemSrc: data?.imagem,
           infoExtra: data?.funcionarioId ? `ID: ${data.funcionarioId}` : null,
         };
       case 'stock':
         return {
           nome: data?.nomeItem || data?.nome || 'Sem nome',
           descricao: data?.descricao || 'Sem descrição',
-          imagemSrc: temHttp(data?.imagem) ? data.imagem : defaultImg,
+          imagemSrc: data?.imagem,
           infoExtra: data?.quantidade !== undefined && data?.quantidade !== null
             ? `Quantidade: ${data.quantidade}`
             : null,
@@ -36,7 +33,7 @@ const CardStockEmployeeCart = ({ data, type }) => {
         return {
           nome: data?.nome || 'Sem nome',
           descricao: data?.descricao || 'Sem descrição',
-          imagemSrc: temHttp(data?.imagem) ? data.imagem : defaultImg,
+          imagemSrc: data?.imagem,
           infoExtra: null,
         };
     }
@@ -51,7 +48,7 @@ const CardStockEmployeeCart = ({ data, type }) => {
     <Wrapper onClick={toggleExpand} className={expanded ? 'expanded' : ''} aria-expanded={expanded}>
       <div className="item-top">
         <div className="item-left">
-          <img src={imagemSrc} alt={nome} className="item-image" />
+          <img src={placeholder(imagemSrc)} alt={nome} className="item-image" />
           <div className="item-info">
             <span className="item-name">{nome}</span>
             <span className="item-description">{descricao}</span>
