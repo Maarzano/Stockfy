@@ -20,24 +20,35 @@ const Wrapper = styled.div`
     button:hover {
         background-color: #5a3be0;
     }
+
+    .secondary {
+        background-color: #42404db7;
+    }
+
+    .secondary:hover {
+        background-color: #3c3131;
+    }
 `;
 
 const ActionButtons = ({ onActionConfirmed }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [tipoAcao, setTipoAcao] = useState("");
-    
+
     const abrirModal = (tipo) => {
         setTipoAcao(tipo);
         setModalOpen(true);
     };
+
     const confirmarAcao = (responsavel) => {
-        alert(`Você realizou a ${tipoAcao.toLowerCase()} por: ${responsavel}`);
+            alert(`Você realizou a ${tipoAcao.toLowerCase()} por: ${responsavel}`);
+        
         setModalOpen(false);
 
         if (onActionConfirmed) {
             onActionConfirmed(tipoAcao, responsavel);
         }
     };
+
     return (
         <Wrapper>
             <button onClick={() => abrirModal("Devolução")}>Devolução</button>

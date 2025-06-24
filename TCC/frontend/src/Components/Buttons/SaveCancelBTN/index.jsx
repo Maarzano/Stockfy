@@ -6,7 +6,7 @@ import { ReactComponent as EditIcon } from "../../../Assets/SVGs/Icons/edit.svg"
 import { ReactComponent as Trash} from "../../../Assets/SVGs/Icons/Trash.svg"
 import ConfirmActionModal from '../../Modal/ConfirmActionModal';
 
-const SaveCancelBTN = ({ type = "save", data }) => {
+const  SaveCancelBTN = ({ type = "save", data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handlerOnClick = (e) =>{
@@ -35,13 +35,19 @@ const SaveCancelBTN = ({ type = "save", data }) => {
       case "delete":
         icon = <Trash className='Icon' />
         btnText = 'Excluir';
-        btnColor = "#b31414";
+        btnColor = "#d32d2d";
         btnHoverTransform = "translateX(1.60em)";
+        break;
+      case "clear":
+        icon = <Trash className='Icon' />
+        btnText = 'Limpar Carrinho';
+        btnColor = "#514b4b79";
+        btnHoverTransform = "translateX(3.23em)";
         break;
       case "edit":
         icon = <EditIcon className='Icon' />
         btnText = 'Editar';
-        btnColor = "#039dfc";
+        btnColor = "#039dfc"; 
         btnHoverTransform = "translateX(1.30em)";
         break;
       case "cancel":

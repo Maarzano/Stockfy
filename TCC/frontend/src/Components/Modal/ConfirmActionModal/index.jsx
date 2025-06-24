@@ -34,7 +34,7 @@ const ConfirmActionModal = ({ isOpen, onClose, type = 'save', onConfirm, data })
       default:
         return {
           title: "Confirmar ação?",
-          confirmColor: "#666",
+          confirmColor: "#ff0000",
           confirmLabel: "Confirmar",
         };
     }
