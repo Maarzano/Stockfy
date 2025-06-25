@@ -1,22 +1,22 @@
+// CardStockEmployeeCart.jsx
 import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import Arrow from '../../../Assets/SVGs/Icons/Arrow.svg';
 import SaveCancelBTN from '../../Buttons/SaveCancelBTN';
 import { placeholder } from '../../../Utils/verificandoImagem';
 
-const CardStockEmployeeCart = ({ data, type }) => {
+const CardStockEmployeeCart = ({ data, type, onDelete }) => {
   const [expanded, setExpanded] = useState(false);
 
   const toggleExpand = () => setExpanded(prev => !prev);
 
   const { nome, descricao, imagemSrc, infoExtra } = useMemo(() => {
-
     switch (type) {
       case 'employee':
         return {
           nome: data?.nome || data?.nomeFuncionario || 'Sem nome',
           descricao: data?.email || 'Sem descrição',
-          imagemSrc: data?.imagem,
+          imagemSrc: data?.imagem || data?.image,
           infoExtra: data?.funcionarioId ? `ID: ${data.funcionarioId}` : null,
         };
       case 'stock':
@@ -24,11 +24,11 @@ const CardStockEmployeeCart = ({ data, type }) => {
           nome: data?.nomeItem || data?.nome || 'Sem nome',
           descricao: data?.descricao || 'Sem descrição',
           imagemSrc: data?.imagem,
-          infoExtra: data?.quantidade !== undefined && data?.quantidade !== null
-            ? `Quantidade: ${data.quantidade}`
-            : null,
+          infoExtra:
+            data?.quantidade !== undefined && data?.quantidade !== null
+              ? `Quantidade: ${data.quantidade}`
+              : null,
         };
-      // Pode adicionar outros tipos aqui conforme necessidade
       default:
         return {
           nome: data?.nome || 'Sem nome',
@@ -39,7 +39,6 @@ const CardStockEmployeeCart = ({ data, type }) => {
     }
   }, [data, type]);
 
-  // Para evitar que o clique nos botões dispare toggleExpand
   const onBtnClick = e => {
     e.stopPropagation();
   };
@@ -67,7 +66,7 @@ const CardStockEmployeeCart = ({ data, type }) => {
       <div className={`extra-content-wrapper ${expanded ? 'expanded' : ''}`}>
         <div className="extra-content">
           <SaveCancelBTN type="edit" data={data} onClick={onBtnClick} />
-          <SaveCancelBTN type="delete" data={data} onClick={onBtnClick} />
+          <SaveCancelBTN type="delete" data={data} onConfirm={onDelete} onClick={onBtnClick} />
         </div>
       </div>
     </Wrapper>
