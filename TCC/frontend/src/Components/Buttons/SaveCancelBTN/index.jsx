@@ -3,20 +3,32 @@ import styled from 'styled-components';
 import { ReactComponent as CloudIcon } from "../../../Assets/SVGs/Icons/icon-cloud.svg";
 import { ReactComponent as CloseIcon } from "../../../Assets/SVGs/Icons/icon-x-close-black.svg";
 import { ReactComponent as EditIcon } from "../../../Assets/SVGs/Icons/edit.svg";
-import { ReactComponent as Trash} from "../../../Assets/SVGs/Icons/Trash.svg"
+import { ReactComponent as Trash } from "../../../Assets/SVGs/Icons/Trash.svg";
 import ConfirmActionModal from '../../Modal/ConfirmActionModal';
 
-const SaveCancelBTN = ({ type = "save", data }) => {
+const SaveCancelBTN = ({ type = "save", data, onConfirm }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handlerOnClick = (e) =>{
+  const handlerOnClick = (e) => {
     e.stopPropagation();
     e.preventDefault();
     setIsModalOpen(true);
-  }
+  };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleConfirmAction = async () => {
+    try {
+      if (onConfirm) {
+        await onConfirm(data);
+      } else {
+        console.warn("Nenhuma funcao de onConfirm foi passada.");
+      }
+    } finally {
+      setIsModalOpen(false);
+    }
   };
 
   const { icon: ComponentIcon, text, color, hoverTransform } = useMemo(() => {
@@ -25,57 +37,61 @@ const SaveCancelBTN = ({ type = "save", data }) => {
     let btnColor = "";
     let btnHoverTransform = "";
 
-    switch(type){
+    switch (type) {
       case "save":
-        icon = <CloudIcon className='Icon' />
+        icon = <CloudIcon className='Icon' />;
         btnText = 'Salvar';
         btnColor = "#623bda";
         btnHoverTransform = "translateX(1.5em)";
         break;
       case "delete":
-        icon = <Trash className='Icon' />
+        icon = <Trash className='Icon' />;
         btnText = 'Excluir';
         btnColor = "#b31414";
         btnHoverTransform = "translateX(1.60em)";
         break;
       case "edit":
-        icon = <EditIcon className='Icon' />
+        icon = <EditIcon className='Icon' />;
         btnText = 'Editar';
         btnColor = "#039dfc";
         btnHoverTransform = "translateX(1.30em)";
         break;
       case "cancel":
-        icon = <CloseIcon className='Icon' />
-        btnText='Cancelar';
+        icon = <CloseIcon className='Icon' />;
+        btnText = 'Cancelar';
         btnColor = "#212121";
         btnHoverTransform = "translateX(2em)";
         break;
       default:
-        icon = <CloudIcon className='Icon' />
+        icon = <CloudIcon className='Icon' />;
         btnText = 'Salvar';
         btnColor = "#623bda";
         btnHoverTransform = "translateX(1.5em)";
         break;
     }
-    return { icon, text: btnText, color: btnColor, hoverTransform: btnHoverTransform }
+
+    return { icon, text: btnText, color: btnColor, hoverTransform: btnHoverTransform };
   }, [type]);
 
   return (
     <>
-    <StyledWrapper $type={type} $color={color} $hover={hoverTransform}>
-      <button onClick={handlerOnClick}>
-        <div className="svg-wrapper-1">
-          <div className="svg-wrapper">
-            {ComponentIcon}
+      <StyledWrapper $type={type} $color={color} $hover={hoverTransform}>
+        <button onClick={handlerOnClick}>
+          <div className="svg-wrapper-1">
+            <div className="svg-wrapper">
+              {ComponentIcon}
+            </div>
           </div>
-        </div>
-        <span>{text}</span>
-      </button>
-    </StyledWrapper>
-    <ConfirmActionModal
+          <span>{text}</span>
+        </button>
+      </StyledWrapper>
+
+      <ConfirmActionModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        type={type} data={data}
+        onConfirm={handleConfirmAction}
+        type={type}
+        data={data}
       />
     </>
   );
