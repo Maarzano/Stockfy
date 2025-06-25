@@ -9,3 +9,13 @@ export const getFuncionarios = async () => {
     throw error;
   }
 };
+
+export const deletarFuncionarioPorId = async (id) => {
+  try {
+    const response = await api.delete(`/Funcionarios/${id}`);
+    return response;
+  } catch (error) {
+    console.error('Erro ao deletar funcionário:', error);
+    throw error;
+  }
+};

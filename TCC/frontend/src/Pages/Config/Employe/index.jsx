@@ -1,13 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import styled from 'styled-components';
-import { useFuncionarios } from '../../../Hooks/Funcionarios/useFuncionarios';
 import SearchLoader from '../../../Components/Loaders/SearchLoader';
 import Search2 from '../../../Components/Searchs/Search2';
 import CardStockEmployeeCart from '../../../Components/Cards/CardStockEmployeeCart';
+import { deletarFuncionarioPorId } from '../../../Services/funcionarioService';
+import { useFuncionarios } from '../../../Hooks/Funcionarios/useFuncionarios';
 
 const Funcionarios = () => {
-  const { funcionarios, loading, erro } = useFuncionarios();
+  const { funcionarios: funcionariosOriginais, loading, erro } = useFuncionarios();
   const [searchTerm, setSearchTerm] = useState('');
+  const [funcionarios, setFuncionarios] = useState([]);
+
+  useEffect(() => {
+    if (funcionariosOriginais.length > 0) {
+      setFuncionarios(funcionariosOriginais);
+    }
+  }, [funcionariosOriginais]);
+
+  const deletarFuncionario = async (id) => {
+    try {
+      await deletarFuncionarioPorId(id);
+      setFuncionarios((prev) => prev.filter((f) => f.funcionarioId !== id));
+    } catch (error) {
+      console.error('Erro ao deletar funcionário:', error);
+      alert('Erro ao deletar funcionário. Verifique se o servidor está ativo.');
+    }
+  };
+
+  const funcionariosFiltrados = useMemo(() => {
+    return funcionarios.filter((funcionario) =>
+      funcionario.nomeFuncionario.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [searchTerm, funcionarios]);
 
   return (
     <Wrapper>
@@ -28,24 +52,25 @@ const Funcionarios = () => {
       {erro && <p style={{ color: 'red' }}>{erro}</p>}
 
       <div className="item-list">
-        {funcionarios
-          .filter((funcionario) =>
-            funcionario.nomeFuncionario.toLowerCase().includes(searchTerm.toLowerCase())
-          )
-          .map((funcionario) => {
-            console.log(funcionario);
-            return (
-            <CardStockEmployeeCart
-              key={funcionario.funcionarioId}
-              type="employee"
-              data={{
-                nome: funcionario.nomeFuncionario,
-                email: funcionario.email,
-                imagem: funcionario.image,
-                funcionarioId: funcionario.funcionarioId,
+        {funcionariosFiltrados.map((funcionario) => (
+          <CardStockEmployeeCart
+            key={funcionario.funcionarioId}
+            type="employee"
+            data={{
+              nome: funcionario.nomeFuncionario,
+              email: funcionario.email,
+              imagem: funcionario.image,
+              funcionarioId: funcionario.funcionarioId,
             }}
-            />
-          )})}
+            onDelete={() => deletarFuncionario(funcionario.funcionarioId)}
+          />
+        ))}
+
+        {!loading && funcionariosFiltrados.length === 0 && (
+          <p style={{ color: 'red', textAlign: 'center' }}>
+            Nenhum funcionário encontrado
+          </p>
+        )}
       </div>
     </Wrapper>
   );
