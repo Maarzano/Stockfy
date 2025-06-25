@@ -41,12 +41,7 @@ const ConfirmActionModal = ({ isOpen, onClose, type = 'save', onConfirm, data })
   }, [type]);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -56,10 +51,15 @@ const ConfirmActionModal = ({ isOpen, onClose, type = 'save', onConfirm, data })
     <Modal isOpen={isOpen} onClose={onClose}>
       <Container>
         <h2>{title}</h2>
-        <p>{data != null && `realmente deseja ${p} ${data.nomeFuncionario}?`} esta ação não poderá ser desfeita.</p>
+        <p>
+          {data?.nomeFuncionario || data?.nomeItem
+            ? `Realmente deseja ${p} ${data?.nomeFuncionario || data?.nomeItem}? `
+            : null}
+          Esta ação não poderá ser desfeita.
+        </p>
         <ButtonRow $confirmColor={confirmColor}>
           <button onClick={onClose}>Voltar</button>
-          <button onClick={() => { onConfirm?.(); onClose(); }}>
+          <button onClick={() => onConfirm?.()}>
             {confirmLabel}
           </button>
         </ButtonRow>
