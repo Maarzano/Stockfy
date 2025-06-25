@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import SaveCancelBTN from '../../Buttons/SaveCancelBTN';
 
-const BackButton = () => {
+const ClearButton = () => {
     return (
         <ButtonWrapper>
             <SaveCancelBTN type="clear" />
@@ -24,4 +24,4 @@ const ButtonWrapper = styled.div`
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 `;
 
-export default BackButton;
+export default ClearButton;
