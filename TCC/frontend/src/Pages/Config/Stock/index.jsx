@@ -1,16 +1,32 @@
-import React, { useState, useMemo } from 'react';
+// Stock.jsx
+import React, { useState, useMemo, useEffect } from 'react';
 import styled from 'styled-components';
 import { useProdutos } from '../../../Hooks/Produtos/useProdutos';
 import SearchLoader from '../../../Components/Loaders/SearchLoader';
 import Search2 from '../../../Components/Searchs/Search2';
-// TODO transformar esse componente de item em reutilizável
-import { placeholder } from "../../../Utils/verificandoImagem";
-
 import CardStockEmployeeCart from '../../../Components/Cards/CardStockEmployeeCart';
+import { deletarProdutoPorId } from '../../../Services/prudutoService';
 
 const Stock = () => {
-  const { produtos, loading, erro } = useProdutos([]);
+  const { produtos: produtosOriginais, loading, erro } = useProdutos([]);
   const [busca, setBusca] = useState("");
+  const [produtos, setProdutos] = useState([]);
+
+  useEffect(() => {
+    if (produtosOriginais.length > 0) {
+      setProdutos(produtosOriginais);
+    }
+  }, [produtosOriginais]);
+
+  const deletarProduto = async (id) => {
+    try {
+      await deletarProdutoPorId(id);
+      setProdutos((prev) => prev.filter((p) => p.itemId !== id));
+    } catch (error) {
+      console.error('Erro ao deletar produto:', error);
+      alert('Erro ao deletar produto. Verifique se o servidor está ativo.');
+    }
+  };
 
   const produtosFiltrados = useMemo(() => {
     const termo = busca.toLowerCase();
@@ -43,11 +59,18 @@ const Stock = () => {
 
       <div className="item-list">
         {produtosFiltrados.map((item) => (
-          <CardStockEmployeeCart key={item.itemId} data={item} type="stock" />
+          <CardStockEmployeeCart
+            key={item.itemId}
+            data={item}
+            type="stock"
+            onDelete={() => deletarProduto(item.itemId)}
+          />
         ))}
 
         {!loading && produtosFiltrados.length === 0 && (
-          <p style={{ color: 'red', textAlign: 'center' }}>Nenhum produto encontrado</p>
+          <p style={{ color: 'red', textAlign: 'center' }}>
+            Nenhum produto encontrado
+          </p>
         )}
       </div>
     </Wrapper>
