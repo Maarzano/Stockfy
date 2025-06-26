@@ -11,6 +11,7 @@ const Stock = () => {
   const { produtos: produtosOriginais, loading, erro } = useProdutos([]);
   const [busca, setBusca] = useState("");
   const [produtos, setProdutos] = useState([]);
+  const [expandedId, setExpandedId] = useState(null); // Novo estado para controlar expansão
 
   useEffect(() => {
     if (produtosOriginais.length > 0) {
@@ -64,6 +65,9 @@ const Stock = () => {
             data={item}
             type="stock"
             onDelete={() => deletarProduto(item.itemId)}
+            expanded={expandedId === item.itemId}
+            onExpand={() => setExpandedId(item.itemId)}
+            onCollapse={() => setExpandedId(null)}
           />
         ))}
 
