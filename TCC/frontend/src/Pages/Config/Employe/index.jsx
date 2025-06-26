@@ -10,6 +10,7 @@ const Funcionarios = () => {
   const { funcionarios: funcionariosOriginais, loading, erro } = useFuncionarios();
   const [searchTerm, setSearchTerm] = useState('');
   const [funcionarios, setFuncionarios] = useState([]);
+  const [expandedId, setExpandedId] = useState(null); // Novo estado para controlar expansão
 
   useEffect(() => {
     if (funcionariosOriginais.length > 0) {
@@ -63,6 +64,9 @@ const Funcionarios = () => {
               funcionarioId: funcionario.funcionarioId,
             }}
             onDelete={() => deletarFuncionario(funcionario.funcionarioId)}
+            expanded={expandedId === funcionario.funcionarioId}
+            onExpand={() => setExpandedId(funcionario.funcionarioId)}
+            onCollapse={() => setExpandedId(null)}
           />
         ))}
 

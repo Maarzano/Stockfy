@@ -1,14 +1,23 @@
 // CardStockEmployeeCart.jsx
-import React, { useState, useMemo } from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Arrow from '../../../Assets/SVGs/Icons/Arrow.svg';
 import SaveCancelBTN from '../../Buttons/SaveCancelBTN';
 import { placeholder } from '../../../Utils/verificandoImagem';
 
-const CardStockEmployeeCart = ({ data, type, onDelete }) => {
-  const [expanded, setExpanded] = useState(false);
+const CardStockEmployeeCart = ({ data, type, onDelete, expanded, onExpand, onCollapse }) => {
+  const ref = useRef();
 
-  const toggleExpand = () => setExpanded(prev => !prev);
+  useEffect(() => {
+    if (!expanded) return;
+    const handleClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        onCollapse && onCollapse();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [expanded, onCollapse]);
 
   const { nome, descricao, imagemSrc, infoExtra } = useMemo(() => {
     switch (type) {
@@ -44,7 +53,12 @@ const CardStockEmployeeCart = ({ data, type, onDelete }) => {
   };
 
   return (
-    <Wrapper onClick={toggleExpand} className={expanded ? 'expanded' : ''} aria-expanded={expanded}>
+    <Wrapper
+      ref={ref}
+      onClick={() => (expanded ? onCollapse && onCollapse() : onExpand && onExpand())}
+      className={expanded ? 'expanded' : ''}
+      aria-expanded={expanded}
+    >
       <div className="item-top">
         <div className="item-left">
           <img src={placeholder(imagemSrc)} alt={nome} className="item-image" />
