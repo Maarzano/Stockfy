@@ -11,7 +11,8 @@ import CreateBTN from '../../Buttons/CreateBTN';
 
 const ANIMATION_DURATION = 500;
 
-const Subnav = () => {
+const Subnav = ({ onCreateItem }) => {
+  console.log('Subnav onCreateItem:', onCreateItem);
   const location = useLocation();
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(location.pathname.startsWith('/Config'));
@@ -128,7 +129,7 @@ const Subnav = () => {
       </div>
       {(isEmployes || isStock) &&
       <StyledCreateBTN>
-        <CreateBTN/>
+        <CreateBTN onClick={onCreateItem} />
       </StyledCreateBTN>
       }
       

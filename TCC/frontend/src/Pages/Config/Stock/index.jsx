@@ -6,12 +6,15 @@ import SearchLoader from '../../../Components/Loaders/SearchLoader';
 import Search2 from '../../../Components/Searchs/Search2';
 import CardStockEmployeeCart from '../../../Components/Cards/CardStockEmployeeCart';
 import { deletarProdutoPorId } from '../../../Services/prudutoService';
+import AddItemToStockModal from '../../../Components/Modal/AddItemToStock';
+import Subnav from '../../../Components/Navs/Subnav';
 
 const Stock = () => {
   const { produtos: produtosOriginais, loading, erro } = useProdutos([]);
   const [busca, setBusca] = useState("");
   const [produtos, setProdutos] = useState([]);
   const [expandedId, setExpandedId] = useState(null); // Novo estado para controlar expansão
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (produtosOriginais.length > 0) {
@@ -29,6 +32,13 @@ const Stock = () => {
     }
   };
 
+  // Função para recarregar produtos após criar
+  const reloadProdutos = () => {
+    if (produtosOriginais.length > 0) {
+      setProdutos(produtosOriginais);
+    }
+  };
+
   const produtosFiltrados = useMemo(() => {
     const termo = busca.toLowerCase();
     return produtos.filter((item) =>
@@ -37,10 +47,21 @@ const Stock = () => {
     );
   }, [busca, produtos]);
 
+  useEffect(() => {
+    console.log('modalOpen:', modalOpen);
+  }, [modalOpen]);
+
+  console.log('Renderizando Stock, modalOpen:', modalOpen);
+
   return (
     <Wrapper>
       <h2>Itens do estoque</h2>
-
+      <Subnav onCreateItem={() => { console.log('onCreateItem chamado'); setModalOpen(true); }} />
+      <AddItemToStockModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSuccess={reloadProdutos}
+      />
       <WrapperSearch>
         <Search2
           value={busca}

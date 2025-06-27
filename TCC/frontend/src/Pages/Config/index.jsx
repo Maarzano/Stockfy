@@ -7,10 +7,10 @@ const Config = () => {
     return (
         <>
             <NavBar/>
+            <Subnav />
             <Wrapper>
                 <Outlet/>
             </Wrapper>
-            <Subnav/>
         </>
     )
 }
