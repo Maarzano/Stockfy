@@ -32,6 +32,13 @@ const ConfirmActionModal = ({ isOpen, onClose, type = 'save', onConfirm, data })
           confirmLabel: "Remover",
           p: "remover"
         };
+      case "clear":  
+        return {
+          title: "Tem certeza que deseja limpar?",
+          confirmColor: "#b31414",
+          confirmLabel: "Limpar",
+          p: "limpar"
+        };
       case "cancel":
         return {
           title: "Cancelar ação?",
