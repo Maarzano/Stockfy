@@ -51,7 +51,7 @@ const SaveCancelBTN = ({ type = "save", data, onConfirm }) => {
         btnHoverTransform = "translateX(1.60em)";
         break;
       case "clear":
-        icon = <Trash className='Icon' />
+        icon = <Trash className='Icon' />;
         btnText = 'Limpar Carrinho';
         btnColor = "#514b4b79";
         btnHoverTransform = "translateX(3.23em)";
