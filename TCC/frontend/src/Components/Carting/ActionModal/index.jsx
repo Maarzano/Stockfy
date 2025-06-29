@@ -19,7 +19,7 @@ const Container = styled.div`
     width: 350px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 
-    input {
+    select {
         margin-top: 15px;
         padding: 10px;
         width: 100%;
@@ -27,6 +27,12 @@ const Container = styled.div`
         border: none;
         font-size: 16px;
         margin-bottom: 20px;
+        background-color: #444;
+        color: white;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        cursor: pointer;
     }
 
     h2 {
@@ -65,7 +71,7 @@ const ButtonRow = styled.div`
     }
 `;
 
-const ActionModal = ({ isOpen, onClose, onConfirm, tipo }) => {
+const ActionModal = ({ isOpen, onClose, onConfirm, tipo, funcionarios = [] }) => {
     const [responsavel, setResponsavel] = useState("");
 
     useEffect(() => {
@@ -80,13 +86,20 @@ const ActionModal = ({ isOpen, onClose, onConfirm, tipo }) => {
         <Overlay onClick={onClose}>
             <Container onClick={(e) => e.stopPropagation()}>
                 <h2>{tipo} de Itens</h2>
-                <p>Informe o responsável pela {tipo.toLowerCase()}:</p>
-                <input
-                    type="text"
-                    placeholder="Nome do responsável"
+                <p>Selecione o responsável pela {tipo.toLowerCase()}:</p>
+
+                <select
                     value={responsavel}
                     onChange={(e) => setResponsavel(e.target.value)}
-                />
+                >
+                    <option value="">Selecione um funcionário</option>
+                    {funcionarios.map((func) => (
+                        <option key={func.id} value={func.nome}>
+                            {func.nome}
+                        </option>
+                    ))}
+                </select>
+
                 <ButtonRow>
                     <button onClick={onClose}>Cancelar</button>
                     <button
@@ -95,7 +108,7 @@ const ActionModal = ({ isOpen, onClose, onConfirm, tipo }) => {
                                 onConfirm(responsavel);
                                 setResponsavel("");
                             } else {
-                                alert("Por favor, preencha o nome do responsável.");
+                                alert("Por favor, selecione um responsável.");
                             }
                         }}
                     >
