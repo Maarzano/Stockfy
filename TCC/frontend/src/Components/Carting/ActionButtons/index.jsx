@@ -34,6 +34,12 @@ const ActionButtons = ({ onActionConfirmed }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [tipoAcao, setTipoAcao] = useState("");
 
+    const funcionariosExemplo = [
+    { id: 1, nome: "João Silva" },
+    { id: 2, nome: "Maria Oliveira" },
+    { id: 3, nome: "Carlos Santos" },
+    ];
+
     const abrirModal = (tipo) => {
         setTipoAcao(tipo);
         setModalOpen(true);
@@ -59,6 +65,7 @@ const ActionButtons = ({ onActionConfirmed }) => {
                 onClose={() => setModalOpen(false)}
                 onConfirm={confirmarAcao}
                 tipo={tipoAcao}
+                funcionarios={funcionariosExemplo}
             />
         </Wrapper>
     );
