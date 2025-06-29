@@ -1,17 +1,22 @@
 import styled from "styled-components";
-import SaveCancelBTN from '../../Buttons/SaveCancelBTN';
+import SaveCancelBTN from "../../Buttons/SaveCancelBTN";
+import { useCart } from "../../../Context/Cart";
 
 const ClearButton = () => {
-    return (
-        <ButtonWrapper>
-            <SaveCancelBTN type="clear" />
-        </ButtonWrapper>
-    );
+  const { clearCart } = useCart();
+
+  return (
+    <ButtonWrapper>
+      <SaveCancelBTN
+        type="clear"
+        onConfirm={clearCart}
+      />
+    </ButtonWrapper>
+  );
 };
 
 const ButtonWrapper = styled.div`
-  position: absolute; 
-  right: 0;
+  position: absolute;
   top: 100px;
   right: 45px;
 
@@ -20,7 +25,7 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 
   gap: 30px;
-  padding: 0px 20px; 
+  padding: 0px 20px;
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 `;
 
