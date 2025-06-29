@@ -4,20 +4,22 @@ import CloseIcon from "../../../Assets/SVGs/Icons/icon-x-close-black.svg";
 import { useCart } from "../../../Context/Cart";
 import ConfirmActionModal from "../../Modal/ConfirmActionModal";
 
-
 const CartItemList = ({ searchTerm, onActionConfirmed }) => {
   const { cartItems, removeItemFromCart } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-    const handlerOnClick = (e) => {
-      e.stopPropagation();
-      e.preventDefault();
-      setIsModalOpen(true);
-    };
-  
-    const handleCloseModal = () => {
-      setIsModalOpen(false);
-    };
+  const [selectedItemId, setSelectedItemId] = useState(null);
+
+  const handlerOnClick = (e, itemId) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setSelectedItemId(itemId); 
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedItemId(null); 
+  };
 
   const filteredItems = cartItems.filter((item) =>
     item.nomeItem.toLowerCase().includes(searchTerm.toLowerCase())
@@ -25,25 +27,32 @@ const CartItemList = ({ searchTerm, onActionConfirmed }) => {
 
   return (
     <>
-    <List>
-      {filteredItems.map((item) => (
-        <Item key={item.itemId}>
-          <Image />
-          <Info>
-            <Nome>{item.nomeItem}</Nome>
-            <Quantidade>Quantidade: {item.quantity}</Quantidade>
-          </Info>
+      <List>
+        {filteredItems.map((item) => (
+          <Item key={item.itemId}>
+            <Image />
+            <Info>
+              <Nome>{item.nomeItem}</Nome>
+              <Quantidade>Quantidade: {item.quantity}</Quantidade>
+            </Info>
 
-            <DeleteButton onClick={handlerOnClick}>
+            <DeleteButton onClick={(e) => handlerOnClick(e, item.itemId)}>
               <img src={CloseIcon} alt="Excluir" />
             </DeleteButton>
-        </Item>
-      ))}
-    </List>
-    <ConfirmActionModal
+          </Item>
+        ))}
+      </List>
+
+      <ConfirmActionModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        onConfirm={onActionConfirmed}
+        onConfirm={() => {
+          if (selectedItemId) {
+            removeItemFromCart(selectedItemId);
+          }
+          handleCloseModal();
+          if (onActionConfirmed) onActionConfirmed(); 
+        }}
         type="remove"
       />
     </>
@@ -113,5 +122,4 @@ const DeleteButton = styled.button`
     filter: brightness(0) saturate(100%) invert(21%) sepia(94%)
       saturate(7456%) hue-rotate(357deg) brightness(91%) contrast(119%);
   }
-
 `;
