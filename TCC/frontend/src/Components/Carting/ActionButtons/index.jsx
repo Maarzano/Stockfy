@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import ActionModal from "../ActionModal";
+import { useFuncionarios } from "../../../Hooks/Funcionarios/useFuncionarios";
 
 const Wrapper = styled.div`
     display: flex;
@@ -33,12 +34,7 @@ const Wrapper = styled.div`
 const ActionButtons = ({ onActionConfirmed }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [tipoAcao, setTipoAcao] = useState("");
-
-    const funcionariosExemplo = [
-    { id: 1, nome: "João Silva" },
-    { id: 2, nome: "Maria Oliveira" },
-    { id: 3, nome: "Carlos Santos" },
-    ];
+    const { funcionarios } = useFuncionarios([]);
 
     const abrirModal = (tipo) => {
         setTipoAcao(tipo);
@@ -65,7 +61,7 @@ const ActionButtons = ({ onActionConfirmed }) => {
                 onClose={() => setModalOpen(false)}
                 onConfirm={confirmarAcao}
                 tipo={tipoAcao}
-                funcionarios={funcionariosExemplo}
+                funcionarios={funcionarios}
             />
         </Wrapper>
     );

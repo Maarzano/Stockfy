@@ -94,8 +94,8 @@ const ActionModal = ({ isOpen, onClose, onConfirm, tipo, funcionarios = [] }) =>
                 >
                     <option value="">Selecione um funcionário</option>
                     {funcionarios.map((func) => (
-                        <option key={func.id} value={func.nome}>
-                            {func.nome}
+                        <option key={func.funcionarioId} value={func.nomeFuncionario}>
+                            {func.nomeFuncionario}
                         </option>
                     ))}
                 </select>
