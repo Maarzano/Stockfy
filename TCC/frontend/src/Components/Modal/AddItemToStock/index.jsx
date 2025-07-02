@@ -192,4 +192,53 @@ const ErrorMsg = styled.div`
   text-align: center;
 `;
 
+const QuantityLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  font-weight: 600;
+  gap: 4px;
+`;
+
+const QuantityWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  input {
+    width: 75%;
+    text-align: center;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    -moz-appearance: textfield;
+  }
+
+  button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #623bda;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover:not(:disabled) {
+      background: #4b2bb3;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+`;
+
+
 export default AddItemToStockModal;
