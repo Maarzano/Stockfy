@@ -7,8 +7,8 @@ const Gallery = () => {
     return (
         <Wrapper>
             <NavBar/>
-            <Subnav />
             <GalleryItenSection/>
+            <Subnav />
         </Wrapper>
     )
 }

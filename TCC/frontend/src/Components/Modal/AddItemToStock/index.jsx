@@ -67,18 +67,33 @@ const AddItemToStockModal = ({ isOpen, onClose, onSuccess }) => {
               autoFocus
             />
           </label>
-          <label>
-            Quantidade*
-            <input
-              name="quantidade"
-              type="number"
-              min="0"
-              value={form.quantidade}
-              onChange={handleChange}
-              required
-              disabled={loading}
-            />
-          </label>
+          <QuantityLabel>
+              Quantidade*
+              <QuantityWrapper>
+                <input
+                  name="quantidade"
+                  type="number"
+                  min="0"
+                  value={form.quantidade}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                />
+                <button type="button" onClick={() =>
+                  setForm(prev => ({
+                    ...prev,
+                    quantidade: Math.max(Number(prev.quantidade) - 1, 0)
+                  }))
+                } disabled={loading}>-</button>
+
+                <button type="button" onClick={() =>
+                  setForm(prev => ({
+                    ...prev,
+                    quantidade: Number(prev.quantidade) + 1
+                  }))
+                } disabled={loading}>+</button>
+              </QuantityWrapper>
+            </QuantityLabel>
           <label>
             Imagem (URL)
             <input
@@ -122,10 +137,13 @@ const FormWrapper = styled.form`
   gap: 18px;
   min-width: 350px;
   padding: 30px 20px 20px 20px;
+  background: #1e1e1e;
+  border-radius: 12px;
   h2 {
     margin-bottom: 10px;
     color: #623bda;
     text-align: center;
+    font-size: 26px;
   }
   label {
     display: flex;
@@ -133,14 +151,15 @@ const FormWrapper = styled.form`
     font-weight: 600;
     color: #333;
     gap: 4px;
+    color: #fff;
   }
   input, textarea {
-    border: 1px solid #ccc;
+    border: 0.5px solid rgba(255, 255, 255, 0.09);
     border-radius: 8px;
     padding: 8px;
     font-size: 1rem;
-    background: #f8f8f8;
-    color: #222;
+    background: #1e1e1e;
+    color: #fff;
     resize: none;
   }
   input:disabled, textarea:disabled {
@@ -150,9 +169,11 @@ const FormWrapper = styled.form`
 
 const ButtonRow = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 12px;
   margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   button {
     padding: 8px 18px;
     border-radius: 8px;
@@ -171,10 +192,10 @@ const ButtonRow = styled.div`
       cursor: not-allowed;
     }
     &:first-child {
-      background: #aaa;
-      color: #222;
+      background: #333;
+      color: white;
       &:hover:not(:disabled) {
-        background: #888;
+        background:rgba(51, 51, 51, 0.84);
       }
     }
   }
@@ -185,5 +206,54 @@ const ErrorMsg = styled.div`
   font-weight: bold;
   text-align: center;
 `;
+
+const QuantityLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  font-weight: 600;
+  gap: 4px;
+`;
+
+const QuantityWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  input {
+    width: 75%;
+    text-align: center;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    -moz-appearance: textfield;
+  }
+
+  button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #623bda;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover:not(:disabled) {
+      background: #4b2bb3;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+`;
+
 
 export default AddItemToStockModal;
