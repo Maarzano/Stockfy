@@ -59,7 +59,10 @@ const ConfirmActionModal = ({ isOpen, onClose, type = 'save', onConfirm, data })
         </p>
         <ButtonRow $confirmColor={confirmColor}>
           <button onClick={onClose}>Voltar</button>
-          <button onClick={() => onConfirm?.()}>
+          <button onClick={() => {
+            onConfirm?.();
+            //window.location.reload();
+          }}>
             {confirmLabel}
           </button>
         </ButtonRow>
