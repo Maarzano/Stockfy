@@ -5,18 +5,27 @@ import Search2 from '../../../Components/Searchs/Search2';
 import CardStockEmployeeCart from '../../../Components/Cards/CardStockEmployeeCart';
 import { deletarFuncionarioPorId } from '../../../Services/funcionarioService';
 import { useFuncionarios } from '../../../Hooks/Funcionarios/useFuncionarios';
+import Subnav from '../../../Components/Navs/Subnav';
+import AddEmployee from '../../../Components/Modal/AddEmployee';
 
 const Funcionarios = () => {
   const { funcionarios: funcionariosOriginais, loading, erro } = useFuncionarios();
   const [searchTerm, setSearchTerm] = useState('');
   const [funcionarios, setFuncionarios] = useState([]);
-  const [expandedId, setExpandedId] = useState(null); // Novo estado para controlar expansão
+  const [expandedId, setExpandedId] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (funcionariosOriginais.length > 0) {
       setFuncionarios(funcionariosOriginais);
     }
   }, [funcionariosOriginais]);
+
+  const reloadFuncionarios = () => {
+    if (funcionariosOriginais.length > 0) {
+      setFuncionarios(funcionariosOriginais);
+    }
+  };
 
   const deletarFuncionario = async (id) => {
     try {
@@ -37,11 +46,19 @@ const Funcionarios = () => {
   return (
     <Wrapper>
       <h2>Funcionários</h2>
-      <Search2
-        placeholder="Nome do Funcionário"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <Subnav onCreateItem={() => { console.log('onCreateItem chamado'); setModalOpen(true); }} />
+      <AddEmployee
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSuccess={reloadFuncionarios}
+      />  
+      <WrapperSearch>
+        <Search2
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Buscar no estoque..."
+        />
+      </WrapperSearch>
 
       {loading && (
         <>
@@ -79,6 +96,14 @@ const Funcionarios = () => {
     </Wrapper>
   );
 };
+
+const WrapperSearch = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: center;
+  width: 100%;
+`;
 
 const Wrapper = styled.div`
   background-color: black;
