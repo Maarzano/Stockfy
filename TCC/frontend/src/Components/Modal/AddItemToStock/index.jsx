@@ -68,16 +68,16 @@ const AddItemToStockModal = ({ isOpen, onClose, onSuccess }) => {
             />
           </label>
           <label>
-            Quantidade*
-            <input
-              name="quantidade"
-              type="number"
-              min="0"
-              value={form.quantidade}
-              onChange={handleChange}
-              required
-              disabled={loading}
-            />
+              Quantidade*
+                <input
+                  name="quantidade"
+                  type="number"
+                  min="0"
+                  value={form.quantidade}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                />
           </label>
           <label>
             Imagem (URL)
@@ -122,10 +122,13 @@ const FormWrapper = styled.form`
   gap: 18px;
   min-width: 350px;
   padding: 30px 20px 20px 20px;
+  background: #1e1e1e;
+  border-radius: 12px;
   h2 {
     margin-bottom: 10px;
     color: #623bda;
     text-align: center;
+    font-size: 26px;
   }
   label {
     display: flex;
@@ -133,14 +136,15 @@ const FormWrapper = styled.form`
     font-weight: 600;
     color: #333;
     gap: 4px;
+    color: #fff;
   }
   input, textarea {
-    border: 1px solid #ccc;
+    border: 0.5px solid rgba(255, 255, 255, 0.09);
     border-radius: 8px;
     padding: 8px;
     font-size: 1rem;
-    background: #f8f8f8;
-    color: #222;
+    background: #1e1e1e;
+    color: #fff;
     resize: none;
   }
   input:disabled, textarea:disabled {
@@ -150,9 +154,11 @@ const FormWrapper = styled.form`
 
 const ButtonRow = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 12px;
   margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   button {
     padding: 8px 18px;
     border-radius: 8px;
@@ -171,10 +177,10 @@ const ButtonRow = styled.div`
       cursor: not-allowed;
     }
     &:first-child {
-      background: #aaa;
-      color: #222;
+      background: #333;
+      color: white;
       &:hover:not(:disabled) {
-        background: #888;
+        background:rgba(51, 51, 51, 0.84);
       }
     }
   }
