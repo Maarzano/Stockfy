@@ -39,10 +39,10 @@ const Cart = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="Pesquisar item no carrinho..."
                 />
-                <Subnav />
                 <CartItemList searchTerm={searchTerm} />
                 <ActionButtons  />
             </Content>
+            <Subnav />
         </Wrapper>
     );
 };
