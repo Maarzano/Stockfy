@@ -19,3 +19,13 @@ export const deletarFuncionarioPorId = async (id) => {
     throw error;
   }
 };
+
+export const criarFuncionario = async (info) => {
+  try {
+    const response = await api.post("Funcionarios", info);
+    return response;
+  } catch (e){
+    console.error(e);
+    throw e;
+  }
+}
