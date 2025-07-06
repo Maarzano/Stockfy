@@ -61,7 +61,7 @@ const CardStockEmployeeCart = ({ data, type, onDelete, expanded, onExpand, onCol
     >
       <div className="item-top">
         <div className="item-left">
-          <img src={placeholder(imagemSrc)} alt={nome} className="item-image" />
+          <img src={imagemSrc ? placeholder(imagemSrc) : undefined} alt={nome} className="item-image" />
           <div className="item-info">
             <span className="item-name">{nome}</span>
             <span className="item-description">{descricao}</span>

@@ -6,7 +6,7 @@ const CardItem = ({imgURL, tittle, description, onClick}) => {
     return (
         <Wrapper onClick={onClick}>
             <ImgDiv>
-                <Img src= {placeholder(imgURL)} draggable={false}/>
+                <Img src={imgURL ? placeholder(imgURL) : undefined} draggable={false}/>
             </ImgDiv>
             <Text>
                 <Tittle title={tittle}>{tittle === undefined ? "Sem título" : tittle}</Tittle>
