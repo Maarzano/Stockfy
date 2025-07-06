@@ -20,7 +20,7 @@ public class InserirFuncionario {
 
     @Test
     void testCriarFuncionario() {
-        System.out.println("[TESTE] Iniciando teste...");
+        System.out.println("[TESTE] Iniciando teste de inserção de funcionarios...");
 
         String cpfValido = ("" + System.currentTimeMillis()).substring(0, 11);
         CriarFuncionarioDTO funcionarioDTO = new CriarFuncionarioDTO(
