@@ -80,77 +80,78 @@ const AddEmployee = ({ isOpen, onClose, onSuccess }) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <FormWrapper onSubmit={handleSubmit}>
           <h2>Cadastrar novo funcionário</h2>
-          <label>
-            Nome*
-            <input
-              name="nomeFuncionario"
-              value={form.nomeFuncionario}
-              onChange={handleChange}
-              required
-              disabled={loading}
-              autoFocus
-            />
-          </label>
-          <label>
-            Email*
-            <input
-              name="emailFuncionario"
-              value={form.emailFuncionario}
-              onChange={handleChange}
-              required
-              disabled={loading}
-            />
-          </label>
-          <label>
-            CPF*
-            <input
-              name="cpfFuncionario"
-              value={form.cpfFuncionario}
-              onChange={handleChange}
-              required
-              disabled={loading}
-            />
-          </label>
-          <label>
-            Celular*
-            <input
-              name="celularFuncionario"
-              value={form.celularFuncionario}
-              onChange={handleChange}
-              required
-              disabled={loading}
-            />
-          </label>
-          <label>
-            Data de Nascimento
-            <input
-              name="dataNascimentoFuncionario"
-              value={form.dataNascimentoFuncionario}
-              onChange={handleChange}
-              type="datetime-local"
-              disabled={loading}
-            />
-          </label>
-          <label>
+          <FieldsGrid>
+            <label>
+              Nome*
+              <input
+                name="nomeFuncionario"
+                value={form.nomeFuncionario}
+                onChange={handleChange}
+                required
+                disabled={loading}
+                autoFocus
+              />
+            </label>
+            <label>
+              Email*
+              <input
+                name="emailFuncionario"
+                value={form.emailFuncionario}
+                onChange={handleChange}
+                required
+                disabled={loading}
+              />
+            </label>
+            <label>
+              CPF*
+              <input
+                name="cpfFuncionario"
+                value={form.cpfFuncionario}
+                onChange={handleChange}
+                required
+                disabled={loading}
+              />
+            </label>
+            <label>
+              Celular*
+              <input
+                name="celularFuncionario"
+                value={form.celularFuncionario}
+                onChange={handleChange}
+                required
+                disabled={loading}
+              />
+            </label>
+            <label>
+              Data de Nascimento
+              <input
+                name="dataNascimentoFuncionario"
+                value={form.dataNascimentoFuncionario}
+                onChange={handleChange}
+                type="date"
+                disabled={loading}
+              />
+            </label>
+            <label>
+              Imagem (URL)
+              <input
+                name="image"
+                value={form.image}
+                onChange={handleChange}
+                disabled={loading}
+              />
+            </label>
+          </FieldsGrid>
+          <DescricaoLabel>
             Descrição
             <textarea
               name="descricaoFuncionario"
               value={form.descricaoFuncionario}
               onChange={handleChange}
               disabled={loading}
-              rows={3}
+              rows={1}
             />
-          </label>
-          <label>
-            Imagem (URL)
-            <input
-              name="image"
-              value={form.image}
-              onChange={handleChange}
-              disabled={loading}
-            />
-          </label>
-          {erro && <ErrorMsg>{erro}</ErrorMsg>}
+          </DescricaoLabel>
           <ButtonRow>
             <button type="button" onClick={onClose} disabled={loading}>Cancelar</button>
             <button type="submit" disabled={loading}>{loading ? 'Salvando...' : 'Salvar'}</button>
@@ -190,13 +191,22 @@ const FormWrapper = styled.form`
     text-align: center;
     font-size: 26px;
   }
+`;
+
+// Adicione este novo styled-component para o grid de campos
+const FieldsGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
   label {
     display: flex;
     flex-direction: column;
     font-weight: 600;
-    color: #333;
-    gap: 4px;
     color: #fff;
+    gap: 4px;
   }
   input, textarea {
     border: 0.5px solid rgba(255, 255, 255, 0.09);
@@ -208,6 +218,28 @@ const FormWrapper = styled.form`
     resize: none;
   }
   input:disabled, textarea:disabled {
+    background: #eee;
+  }
+`;
+
+// Adicione este styled-component para o label da descrição
+const DescricaoLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: #fff;
+  gap: 4px;
+  width: 100%;
+  textarea {
+    border: 0.5px solid rgba(255, 255, 255, 0.09);
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 1rem;
+    background: #1e1e1e;
+    color: #fff;
+    resize: none;
+  }
+  textarea:disabled {
     background: #eee;
   }
 `;
@@ -251,54 +283,5 @@ const ErrorMsg = styled.div`
   font-weight: bold;
   text-align: center;
 `;
-
-const QuantityLabel = styled.label`
-  display: flex;
-  flex-direction: column;
-  color: #fff;
-  font-weight: 600;
-  gap: 4px;
-`;
-
-const QuantityWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  input {
-    width: 75%;
-    text-align: center;
-
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-    -moz-appearance: textfield;
-  }
-
-  button {
-    width: 32px;
-    height: 32px;
-    border: none;
-    border-radius: 6px;
-    font-size: 18px;
-    font-weight: bold;
-    background: #623bda;
-    color: white;
-    cursor: pointer;
-    transition: background 0.2s;
-
-    &:hover:not(:disabled) {
-      background: #4b2bb3;
-    }
-
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-  }
-`;
-
 
 export default AddEmployee;
