@@ -24,8 +24,8 @@ const Modal = ({ isOpen, onClose, children }) => {
   };
 
   return ReactDOM.createPortal(
-    <ModalOverlay onClick={handleOverlayClick}>
-      <ModalContainer onClick={(e) => e.stopPropagation()}>
+    <ModalOverlay className="modal-overlay" onClick={handleOverlayClick}>
+      <ModalContainer className="modal-container" onClick={(e) => e.stopPropagation()}>
         {onClose && (
           <CloseButton onClick={onClose} aria-label="Fechar modal">&times;</CloseButton>
         )}
