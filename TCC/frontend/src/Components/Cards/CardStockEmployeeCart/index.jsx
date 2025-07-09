@@ -14,7 +14,6 @@ const CardStockEmployeeCart = ({ data, type, onDelete, expanded, onExpand, onCol
   useEffect(() => {
     if (!expanded) return;
     const handleClickOutside = (e) => {
-      // Se clicar dentro de um modal, não fecha o card
       if (
         e.target.closest('.modal-overlay') ||
         e.target.closest('.modal-container')
@@ -30,11 +29,13 @@ const CardStockEmployeeCart = ({ data, type, onDelete, expanded, onExpand, onCol
   }, [expanded, onCollapse]);
 
   const { nome, descricao, imagemSrc, infoExtra } = useMemo(() => {
+    console.log(data);
+    
     switch (type) {
       case 'employee':
         return {
-          nome: data?.nome || data?.nomeFuncionario || 'Sem nome',
-          descricao: data?.email || 'Sem descrição',
+          nome: data?.nome || 'Sem nome',
+          descricao: data?.descricao || 'Sem descrição',
           imagemSrc: data?.imagem || data?.image,
           infoExtra: data?.funcionarioId ? `ID: ${data.funcionarioId}` : null,
         };
