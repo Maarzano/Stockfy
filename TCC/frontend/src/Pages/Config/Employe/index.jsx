@@ -77,6 +77,7 @@ const Funcionarios = () => {
             data={{
               nome: funcionario.nomeFuncionario,
               email: funcionario.email,
+              descricao: funcionario.descricaoFuncionario,
               imagem: funcionario.image,
               funcionarioId: funcionario.funcionarioId,
             }}
