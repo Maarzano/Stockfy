@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import Arrow from '../../../Assets/SVGs/Icons/Arrow.svg';
 import SaveCancelBTN from '../../Buttons/SaveCancelBTN';
 import { placeholder } from '../../../Utils/verificandoImagem';
-import AddItemToStock from '../../Modals/AddItemToStock';
-import AddEmployee from '../../Modals/AddEmployee';
+import AddItemToStock from '../../Modal/AddItemToStock';
+import AddEmployee from '../../Modal/AddEmployee';
 
 const CardStockEmployeeCart = ({ data, type, onDelete, expanded, onExpand, onCollapse }) => {
   const ref = useRef();
