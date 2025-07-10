@@ -159,6 +159,10 @@ const Wrapper = styled.div`
     color: wheat;
   }
 
+  .item-name::first-letter{
+    text-transform: uppercase;
+  }
+
   .item-description {
     font-size: 14px;
     color: wheat;
