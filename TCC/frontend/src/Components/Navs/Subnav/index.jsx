@@ -139,7 +139,6 @@ const Subnav = ({ onCreateItem }) => {
 
 const StyledWrapper = styled.div`
   .navigation-card {
-    z-index: 100;
     width: fit-content;
     height: fit-content;
     display: flex;
