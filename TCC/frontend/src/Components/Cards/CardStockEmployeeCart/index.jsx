@@ -169,6 +169,10 @@ const Wrapper = styled.div`
     margin-top: 4px;
   }
 
+  .item-description::first-letter{
+    text-transform: uppercase;
+  }
+
   .item-image {
     width: 60px;
     height: 60px;
