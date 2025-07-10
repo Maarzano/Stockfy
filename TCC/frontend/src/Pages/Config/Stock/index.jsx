@@ -148,7 +148,6 @@ const Wrapper = styled.div`
   .item-list {
     margin-bottom: 60px;
     color: wheat;
-    text-transform: capitalize;
     font-size: 20px;
   }
 `;
