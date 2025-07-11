@@ -67,18 +67,4 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     
     }
-
-    //login
-
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
-        Usuario usuario = usuarioService.validarLogin(loginDTO.login(), loginDTO.senha());
-
-        if (usuario != null) {
-            return ResponseEntity.ok(usuario);
-        } else {
-            return ResponseEntity.status(401).body("Usuário ou senha inválidos.");
-        }
-    }
-
 }
