@@ -4,12 +4,13 @@ import profilePictureWhite from "../../../Assets/SVGs/Icons/icon-profile-white&p
 import { Link } from "react-router-dom";
 
 const CardPerfil = () => {
-    
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+
     return (
         <Wrapper>
             <ProfileWrapper>
                 <ProfilePciture src={profilePictureWhite}/>{/* TODO - ainda precisamos conectar isso ao backend */}
-                <ProfileName><Link to={"/Config/Profile"}>Convidado</Link></ProfileName>
+                <ProfileName><Link to={"/Config/Profile"}>{usuario.nomeCompleto}</Link></ProfileName>
             </ProfileWrapper>
             <LogoutBTN/>
         </Wrapper>
