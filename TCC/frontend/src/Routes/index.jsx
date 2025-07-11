@@ -9,24 +9,41 @@ import Cart from "../Pages/Cart";
 import Stock from "../Pages/Config/Stock";
 import History from "../Pages/Config/History";
 import Profile from "../Pages/Config/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<Auth />} />
-            <Route path="/Gallery" element={<Gallery/>} />
-            <Route path="/Cart" element={<Cart/>} />
-            <Route path="/Config" element={<Config/>} >
+            <Route path="/Gallery" element={
+                <PrivateRoute>
+                    <Gallery />
+                </PrivateRoute>
+            } />
+            <Route path="/Cart" element={
+                <PrivateRoute>
+                    <Cart />
+                </PrivateRoute>
+            } />
+            <Route path="/Config" element={
+                <PrivateRoute>
+                    <Config />
+                </PrivateRoute>
+            }>
                 <Route index element={<Navigate to="Stock" replace />} />
-                <Route path="Employe" element={<Employe/>} />
-                <Route path="Stock" element={<Stock/>} />
-                <Route path="History" element={<History/>} />
-                <Route path="Profile" element={<Profile/>} />
+                <Route path="Employe" element={<Employe />} />
+                <Route path="Stock" element={<Stock />} />
+                <Route path="History" element={<History />} />
+                <Route path="Profile" element={<Profile />} />
             </Route>
-            <Route path="/Home" element={<Home/>} />
-            <Route path="*" element={<NotFound/>} />
+            <Route path="/Home" element={
+                <PrivateRoute>
+                    <Home />
+                </PrivateRoute>
+            } />
+            <Route path="*" element={<NotFound />} />
         </Routes>
-    )
+    );
 }
 
 export default AppRoutes;
