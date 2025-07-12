@@ -10,11 +10,13 @@ import Stock from "../Pages/Config/Stock";
 import History from "../Pages/Config/History";
 import Profile from "../Pages/Config/Profile";
 import PrivateRoute from "./PrivateRoute";
+import AuthCallback from "../Components/AuthCallBack";
 
 const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<Auth />} />
+            <Route path="/auth/callback" element={<AuthCallback />} />
             <Route path="/Gallery" element={
                 <PrivateRoute>
                     <Gallery />
