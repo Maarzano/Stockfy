@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import imagemProfile from "../../../Assets/SVGs/Icons/icon-profile-white&purple.svg";
 import SaveCancelBTN from "../../../Components/Buttons/SaveCancelBTN";
+import { placeholder } from "../../../Utils/verificandoImagem";
+import ajustarTamanhoImagemGoogle from "../../../Utils/ajustarTamanhoImagemGoogle";
 
 const Profile = () => {
     const [usuario, setUsuario] = useState({
@@ -9,22 +11,26 @@ const Profile = () => {
         email: "",
         cpf: "",
         celular: "",
-        senha: ""
+        senha: "", 
+        Imagem: ""
     });
 
     useEffect(() => {
         const usuarioSalvo = localStorage.getItem("usuario");
+        console.log(usuario);
+        
         if (usuarioSalvo) {
             const dados = JSON.parse(usuarioSalvo);
             setUsuario(dados);
         }
     }, []);
+    console.log(usuario); // aqui
 
     return (
         <Wrapper>
             <NamePage>Seu Perfil</NamePage>
             <Main>
-                <ImgProfile src={imagemProfile} alt="Perfil" />
+                <ImgProfile src={usuario.imagem ?  placeholder(ajustarTamanhoImagemGoogle(usuario.imagem, 256)) : imagemProfile} alt="Perfil" />
                 <Form>
                     <DivInputLabel>
                         <Label htmlFor="NomeCompleto">Nome Completo</Label>
@@ -76,6 +82,7 @@ const ImgProfile = styled.img`
     max-width: 200px;
     margin: auto;
     width: 100%;
+    border-radius: 5rem;
 `;
 
 const Main = styled.main`
