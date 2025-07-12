@@ -1,4 +1,3 @@
-// CardStockEmployeeCart.jsx
 import React, { useMemo, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Arrow from '../../../Assets/SVGs/Icons/Arrow.svg';

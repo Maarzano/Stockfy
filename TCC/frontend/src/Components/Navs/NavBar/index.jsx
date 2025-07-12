@@ -39,7 +39,6 @@ const NavBar = () => {
     );
 };
 
-// Estilo base
 const Wrapper = styled.div`
     display: flex;
     flex-direction: row;

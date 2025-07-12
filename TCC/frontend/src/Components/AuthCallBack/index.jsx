@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import api from '../../Services/api';  // Ajuste o caminho conforme seu projeto
+import api from '../../Services/api';
 
 const AuthCallback = () => {
   const navigate = useNavigate();
@@ -13,17 +13,13 @@ const AuthCallback = () => {
 
       if (token) {
         try {
-          // Salva o token no localStorage temporariamente
           localStorage.setItem('token', token);
           api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-          // Busca os dados do usuário no backend usando o token
-          const response = await api.get("/Usuarios/me");  // Endpoint que retorna o usuário logado
+          const response = await api.get("/Usuarios/me");
           
-          // Salva os dados do usuário no localStorage
           localStorage.setItem("usuario", JSON.stringify(response.data));
 
-          // Redireciona para a página principal
           navigate('/Gallery', { replace: true });
         } catch (error) {
           console.error("Falha ao buscar dados do usuário:", error);

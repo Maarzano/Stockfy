@@ -22,8 +22,8 @@ const CardLogin = ({ onSwitch }) => {
         return
       }
     const info = {
-      login: emailCpf, // ainda precisamos melhorar a lógica e outras coisas... 
-      senha: senha  // TODO - guardar token etc...
+      login: emailCpf,
+      senha: senha
     }
     login(info);
   };

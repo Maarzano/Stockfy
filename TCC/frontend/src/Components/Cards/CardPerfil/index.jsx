@@ -10,7 +10,7 @@ const CardPerfil = () => {
     return (
         <Wrapper>
             <ProfileWrapper>
-                <ProfilePciture src={usuario.imagem ?  placeholder(usuario.imagem) : profilePictureWhite}/>{/* TODO - ainda precisamos conectar isso ao backend */}
+                <ProfilePciture src={usuario.imagem ?  placeholder(usuario.imagem) : profilePictureWhite}/>
                 <ProfileName><Link to={"/Config/Profile"}>{usuario.nomeCompleto}</Link></ProfileName>
             </ProfileWrapper>
             <LogoutBTN/>
