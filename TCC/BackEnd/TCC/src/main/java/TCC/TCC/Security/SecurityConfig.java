@@ -1,23 +1,30 @@
 package TCC.TCC.Security;
 
-import org.springframework.http.HttpMethod;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
 
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
+
+    public SecurityConfig(OAuth2SuccessHandler oAuth2SuccessHandler) {
+        this.oAuth2SuccessHandler = oAuth2SuccessHandler;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-            .authorizeHttpRequests()
+        http
+            .cors().and().csrf().disable()
+            .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
-                    "/swagger-ui.html"
+                    "/swagger-ui.html",
+                    "/oauth2/**"
                 ).permitAll()
                 .requestMatchers("/v1/auth/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/v1/Usuarios").permitAll()
@@ -35,9 +42,13 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.DELETE, "/v1/movimentacoes/**").authenticated()
                 .requestMatchers(HttpMethod.PATCH, "/v1/movimentacoes/**").authenticated()
                 .anyRequest().authenticated()
-            .and()
-            .addFilterBefore(new JwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
-
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .successHandler(oAuth2SuccessHandler)
+            )
+            .oauth2ResourceServer(oauth2 -> oauth2
+                .jwt()
+            );
         return http.build();
     }
 }
