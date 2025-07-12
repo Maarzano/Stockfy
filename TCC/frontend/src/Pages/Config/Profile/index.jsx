@@ -17,14 +17,12 @@ const Profile = () => {
 
     useEffect(() => {
         const usuarioSalvo = localStorage.getItem("usuario");
-        console.log(usuario);
         
         if (usuarioSalvo) {
             const dados = JSON.parse(usuarioSalvo);
             setUsuario(dados);
         }
     }, []);
-    console.log(usuario); // aqui
 
     return (
         <Wrapper>
