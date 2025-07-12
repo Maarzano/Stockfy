@@ -66,11 +66,15 @@ public class UsuarioService {
     public Usuario buscarPorEmailESenha(String email, String senha) {
         return usuarioRepository.findByEmailAndSenha(email, senha).orElse(null);
     }
-    //login
+
+    public Usuario buscarPorEmail(String email) {
+        return usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    }
+    
     public Usuario validarLogin(String login, String senha) {
         return usuarioRepository.findByLoginAndSenha(login, senha).orElse(null);
     }
-    
     
 
 }
