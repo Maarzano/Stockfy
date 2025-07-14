@@ -7,7 +7,7 @@ import Search2 from '../../../Components/Searchs/Search2';
 import CardStockEmployeeCart from '../../../Components/Cards/CardStockEmployeeCart';
 import { deletarProdutoPorId } from '../../../Services/prudutoService';
 import AddItemToStockModal from '../../../Components/Modal/AddItemToStock';
-import Subnav from '../../../Components/Navs/Subnav';
+import CreateBTN from '../../../Components/Buttons/CreateBTN';
 
 const Stock = () => {
   const { produtos: produtosOriginais, loading, erro } = useProdutos([]);
@@ -56,7 +56,7 @@ const Stock = () => {
   return (
     <Wrapper>
       <h2>Itens do estoque</h2>
-      <Subnav onCreateItem={() => { console.log('onCreateItem chamado'); setModalOpen(true); }} />
+      <CreateBTN onClick={() => setModalOpen(true)} />
       <AddItemToStockModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}

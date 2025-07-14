@@ -5,8 +5,8 @@ import Search2 from '../../../Components/Searchs/Search2';
 import CardStockEmployeeCart from '../../../Components/Cards/CardStockEmployeeCart';
 import { deletarFuncionarioPorId } from '../../../Services/funcionarioService';
 import { useFuncionarios } from '../../../Hooks/Funcionarios/useFuncionarios';
-import Subnav from '../../../Components/Navs/Subnav';
 import AddEmployee from '../../../Components/Modal/AddEmployee';
+import CreateBTN from '../../../Components/Buttons/CreateBTN';
 
 const Funcionarios = () => {
   const { funcionarios: funcionariosOriginais, loading, erro } = useFuncionarios();
@@ -46,7 +46,7 @@ const Funcionarios = () => {
   return (
     <Wrapper>
       <h2>Funcionários</h2>
-      <Subnav onCreateItem={() => { console.log('onCreateItem chamado'); setModalOpen(true); }} />
+      <CreateBTN onClick={() => setModalOpen(true)} />
       <AddEmployee
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}

@@ -25,6 +25,12 @@ const CreateBTN = ({ onClick }) => {
 
 const StyledWrapper = styled.div`
 
+  position: fixed;
+  bottom: 13%;
+  right: 7%;
+  z-index: 1000;
+
+
   .plusButton {
     /* Config start */
     --plus_sideLength: 3.5rem;
