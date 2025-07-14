@@ -29,3 +29,13 @@ export const criarFuncionario = async (info) => {
     throw e;
   }
 }
+
+export const editarFuncionarioPorId = async (id, info) => {
+  try {
+    const response = await api.put(`/Funcionarios/${id}`, info);
+    return response;
+  } catch (error) {
+    console.error('Erro ao editar funcionário:', error);
+    throw error;
+  }
+};

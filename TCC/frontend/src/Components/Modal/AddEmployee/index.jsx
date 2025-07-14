@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../index';
 import ConfirmActionModal from '../ConfirmActionModal';
 import styled from 'styled-components';
-import { criarFuncionario } from '../../../Services/funcionarioService';
+import { criarFuncionario, editarFuncionarioPorId } from '../../../Services/funcionarioService';
 
-const AddEmployee = ({ isOpen, onClose, onSuccess }) => {
+const AddEmployee = ({ isOpen, onClose, onSuccess, initialData }) => {
   const [form, setForm] = useState({
     nomeFuncionario: '',
     emailFuncionario: '',
@@ -17,6 +17,43 @@ const AddEmployee = ({ isOpen, onClose, onSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState('');
   const [showConfirm, setShowConfirm] = useState(false);
+
+  const isEdit = !!initialData?.funcionarioId;
+
+  useEffect(() => {
+    if (initialData && isOpen) {
+      let dataNascimento = "";
+      if (initialData.dataNascimentoFuncionario) {
+        // Converte para string YYYY-MM-DD se vier como Date ou timestamp
+        const dateObj = new Date(initialData.dataNascimentoFuncionario);
+        if (!isNaN(dateObj.getTime())) {
+          dataNascimento = dateObj.toISOString().slice(0, 10);
+        } else if (typeof initialData.dataNascimentoFuncionario === "string") {
+          // Se já vier como string, tenta usar diretamente
+          dataNascimento = initialData.dataNascimentoFuncionario.slice(0, 10);
+        }
+      }
+      setForm({
+        nomeFuncionario: initialData.nomeFuncionario || initialData.nome || '',
+        emailFuncionario: initialData.emailFuncionario || initialData.email || '',
+        cpfFuncionario: initialData.cpfFuncionario || initialData.cpf || '',
+        celularFuncionario: initialData.celularFuncionario || initialData.celular || '',
+        dataNascimentoFuncionario: dataNascimento,
+        descricaoFuncionario: initialData.descricaoFuncionario || initialData.descricao || '',
+        image: initialData.image || initialData.imagem || ''
+      });
+    } else if (!isOpen) {
+      setForm({
+        nomeFuncionario: '',
+        emailFuncionario: '',
+        cpfFuncionario: '',
+        celularFuncionario: '',
+        dataNascimentoFuncionario: '',
+        descricaoFuncionario: '',
+        image: ''
+      });
+    }
+  }, [initialData, isOpen]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,18 +79,30 @@ const AddEmployee = ({ isOpen, onClose, onSuccess }) => {
   const handleConfirm = async () => {
     setLoading(true);
     setErro('');
-    console.log('handleConfirm chamado', form);
     try {
-      await criarFuncionario({
-        nomeFuncionario: form.nomeFuncionario,
-        emailFuncionario: form.emailFuncionario,
-        cpfFuncionario: form.cpfFuncionario,
-        ativo: true,
-        celularFuncionario: form.celularFuncionario,
-        dataNascimentoFuncionario: form.dataNascimentoFuncionario || undefined,
-        descricaoFuncionario: form.descricaoFuncionario || undefined,
-        image: form.image || undefined
-      });
+      if (isEdit) {
+        await editarFuncionarioPorId(initialData.funcionarioId, {
+          nomeFuncionario: form.nomeFuncionario,
+          emailFuncionario: form.emailFuncionario,
+          cpfFuncionario: form.cpfFuncionario,
+          ativo: true,
+          celularFuncionario: form.celularFuncionario,
+          dataNascimentoFuncionario: form.dataNascimentoFuncionario || undefined,
+          descricaoFuncionario: form.descricaoFuncionario || undefined,
+          image: form.image || undefined
+        });
+      } else {
+        await criarFuncionario({
+          nomeFuncionario: form.nomeFuncionario,
+          emailFuncionario: form.emailFuncionario,
+          cpfFuncionario: form.cpfFuncionario,
+          ativo: true,
+          celularFuncionario: form.celularFuncionario,
+          dataNascimentoFuncionario: form.dataNascimentoFuncionario || undefined,
+          descricaoFuncionario: form.descricaoFuncionario || undefined,
+          image: form.image || undefined
+        });
+      }
       console.log('Requisição enviada com sucesso');
       setForm({
         nomeFuncionario: '',
@@ -69,7 +118,7 @@ const AddEmployee = ({ isOpen, onClose, onSuccess }) => {
       onClose();
     } catch (e) {
       console.error('Erro ao cadastrar funcionário:', e);
-      setErro('Erro ao cadastrar funcionário.');
+      setErro(isEdit ? 'Erro ao editar funcionário.' : 'Erro ao cadastrar funcionário.');
     } finally {
       setLoading(false);
     }
@@ -79,7 +128,7 @@ const AddEmployee = ({ isOpen, onClose, onSuccess }) => {
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <FormWrapper onSubmit={handleSubmit}>
-          <h2>Cadastrar novo funcionário</h2>
+          <h2>{isEdit ? "Editar funcionário" : "Cadastrar novo funcionário"}</h2>
           <FieldsGrid>
             <label>
               Nome*

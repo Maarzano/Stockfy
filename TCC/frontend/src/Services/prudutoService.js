@@ -29,3 +29,13 @@ export const deletarProdutoPorId = async (itemId) => {
     throw e;
   }
 };
+
+export const editarProdutoPorId = async (itemId, info) => {
+  try {
+    const response = await api.put(`/Items/${itemId}`, info);
+    return response;
+  } catch (e) {
+    console.error("Erro ao editar produto:", e);
+    throw e;
+  }
+};

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../index';
 import ConfirmActionModal from '../ConfirmActionModal';
 import styled from 'styled-components';
-import { criarProduto } from '../../../Services/prudutoService';
+import { criarProduto, editarProdutoPorId } from '../../../Services/prudutoService';
 
-const AddItemToStockModal = ({ isOpen, onClose, onSuccess }) => {
+const AddItemToStockModal = ({ isOpen, onClose, onSuccess, initialData }) => {
   const [form, setForm] = useState({
     nomeItem: '',
     quantidade: '',
@@ -14,6 +14,26 @@ const AddItemToStockModal = ({ isOpen, onClose, onSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState('');
   const [showConfirm, setShowConfirm] = useState(false);
+
+  useEffect(() => {
+    if (initialData && isOpen) {
+      setForm({
+        nomeItem: initialData.nomeItem || '',
+        quantidade: initialData.quantidade !== undefined ? initialData.quantidade : '',
+        imagem: initialData.imagem || '',
+        descricao: initialData.descricao || ''
+      });
+    } else if (!isOpen) {
+      setForm({
+        nomeItem: '',
+        quantidade: '',
+        imagem: '',
+        descricao: ''
+      });
+    }
+  }, [initialData, isOpen]);
+
+  const isEdit = !!initialData?.itemId;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,18 +54,27 @@ const AddItemToStockModal = ({ isOpen, onClose, onSuccess }) => {
     setLoading(true);
     setErro('');
     try {
-      await criarProduto({
-        nomeItem: form.nomeItem,
-        quantidade: Number(form.quantidade),
-        imagem: form.imagem || undefined,
-        descricao: form.descricao || undefined
-      });
+      if (isEdit) {
+        await editarProdutoPorId(initialData.itemId, {
+          nomeItem: form.nomeItem,
+          quantidade: Number(form.quantidade),
+          imagem: form.imagem || undefined,
+          descricao: form.descricao || undefined
+        });
+      } else {
+        await criarProduto({
+          nomeItem: form.nomeItem,
+          quantidade: Number(form.quantidade),
+          imagem: form.imagem || undefined,
+          descricao: form.descricao || undefined
+        });
+      }
       setForm({ nomeItem: '', quantidade: '', imagem: '', descricao: '' });
       setShowConfirm(false);
       if (onSuccess) onSuccess();
       onClose();
     } catch (e) {
-      setErro('Erro ao criar produto.');
+      setErro(isEdit ? 'Erro ao editar produto.' : 'Erro ao criar produto.');
     } finally {
       setLoading(false);
     }
@@ -55,7 +84,7 @@ const AddItemToStockModal = ({ isOpen, onClose, onSuccess }) => {
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <FormWrapper onSubmit={handleSubmit}>
-          <h2>Criar novo produto</h2>
+          <h2>{isEdit ? "Editar produto" : "Criar novo produto"}</h2>
           <label>
             Nome do item*
             <input

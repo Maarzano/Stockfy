@@ -29,34 +29,31 @@ const CardStockEmployeeCart = ({ data, type, onDelete, expanded, onExpand, onCol
   }, [expanded, onCollapse]);
 
   const { nome, descricao, imagemSrc, infoExtra } = useMemo(() => {
-    console.log(data);
-    
-    switch (type) {
-      case 'employee':
-        return {
-          nome: data?.nome || 'Sem nome',
-          descricao: data?.descricao || 'Sem descrição',
-          imagemSrc: data?.imagem || data?.image,
-          infoExtra: data?.funcionarioId ? `ID: ${data.funcionarioId}` : null,
-        };
-      case 'stock':
-        return {
-          nome: data?.nomeItem || data?.nome || 'Sem nome',
-          descricao: data?.descricao || 'Sem descrição',
-          imagemSrc: data?.imagem,
-          infoExtra:
-            data?.quantidade !== undefined && data?.quantidade !== null
-              ? `Quantidade: ${data.quantidade}`
-              : null,
-        };
-      default:
-        return {
-          nome: data?.nome || 'Sem nome',
-          descricao: data?.descricao || 'Sem descrição',
-          imagemSrc: data?.imagem,
-          infoExtra: null,
-        };
+    if (type === 'employee') {
+      return {
+        nome: data?.nomeFuncionario || 'Sem nome',
+        descricao: data?.descricaoFuncionario || 'Sem descrição',
+        imagemSrc: data?.image || '',
+        infoExtra: data?.funcionarioId ? `ID: ${data.funcionarioId}` : null,
+      };
     }
+    if (type === 'stock') {
+      return {
+        nome: data?.nomeItem || data?.nome || 'Sem nome',
+        descricao: data?.descricao || 'Sem descrição',
+        imagemSrc: data?.imagem,
+        infoExtra:
+          data?.quantidade !== undefined && data?.quantidade !== null
+            ? `Quantidade: ${data.quantidade}`
+            : null,
+      };
+    }
+    return {
+      nome: data?.nome || 'Sem nome',
+      descricao: data?.descricao || 'Sem descrição',
+      imagemSrc: data?.imagem,
+      infoExtra: null,
+    };
   }, [data, type]);
 
   const onBtnClick = e => {
@@ -96,8 +93,17 @@ const CardStockEmployeeCart = ({ data, type, onDelete, expanded, onExpand, onCol
 
         <div className={`extra-content-wrapper ${expanded ? 'expanded' : ''}`}>
           <div className="extra-content">
-            <SaveCancelBTN type="edit" data={data} onClick={onBtnClick} />
-            <SaveCancelBTN type="delete" data={data} onConfirm={onDelete} onClick={e => e.stopPropagation()} />
+            <SaveCancelBTN
+              type="edit"
+              data={data}
+              onClick={onBtnClick}
+            />
+            <SaveCancelBTN
+              type="delete"
+              data={data}
+              onConfirm={onDelete}
+              onClick={e => e.stopPropagation()}
+            />
           </div>
         </div>
       </Wrapper>

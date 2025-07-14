@@ -74,13 +74,7 @@ const Funcionarios = () => {
           <CardStockEmployeeCart
             key={funcionario.funcionarioId}
             type="employee"
-            data={{
-              nome: funcionario.nomeFuncionario,
-              email: funcionario.email,
-              descricao: funcionario.descricaoFuncionario,
-              imagem: funcionario.image,
-              funcionarioId: funcionario.funcionarioId,
-            }}
+            data={funcionario} // passa o objeto inteiro
             onDelete={() => deletarFuncionario(funcionario.funcionarioId)}
             expanded={expandedId === funcionario.funcionarioId}
             onExpand={() => setExpandedId(funcionario.funcionarioId)}
