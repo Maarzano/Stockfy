@@ -10,7 +10,7 @@ const Config = () => {
             <Wrapper>
                 <Outlet/>
             </Wrapper>
-            <Subnav/>
+            <Subnav />
         </>
     )
 }

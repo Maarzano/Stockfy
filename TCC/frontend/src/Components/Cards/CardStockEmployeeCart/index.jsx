@@ -4,13 +4,22 @@ import styled from 'styled-components';
 import Arrow from '../../../Assets/SVGs/Icons/Arrow.svg';
 import SaveCancelBTN from '../../Buttons/SaveCancelBTN';
 import { placeholder } from '../../../Utils/verificandoImagem';
+import AddItemToStock from '../../Modal/AddItemToStock';
+import AddEmployee from '../../Modal/AddEmployee';
 
 const CardStockEmployeeCart = ({ data, type, onDelete, expanded, onExpand, onCollapse }) => {
   const ref = useRef();
+  const [openEditModal, setOpenEditModal] = React.useState(false);
 
   useEffect(() => {
     if (!expanded) return;
     const handleClickOutside = (e) => {
+      if (
+        e.target.closest('.modal-overlay') ||
+        e.target.closest('.modal-container')
+      ) {
+        return;
+      }
       if (ref.current && !ref.current.contains(e.target)) {
         onCollapse && onCollapse();
       }
@@ -20,70 +29,101 @@ const CardStockEmployeeCart = ({ data, type, onDelete, expanded, onExpand, onCol
   }, [expanded, onCollapse]);
 
   const { nome, descricao, imagemSrc, infoExtra } = useMemo(() => {
-    switch (type) {
-      case 'employee':
-        return {
-          nome: data?.nome || data?.nomeFuncionario || 'Sem nome',
-          descricao: data?.email || 'Sem descrição',
-          imagemSrc: data?.imagem || data?.image,
-          infoExtra: data?.funcionarioId ? `ID: ${data.funcionarioId}` : null,
-        };
-      case 'stock':
-        return {
-          nome: data?.nomeItem || data?.nome || 'Sem nome',
-          descricao: data?.descricao || 'Sem descrição',
-          imagemSrc: data?.imagem,
-          infoExtra:
-            data?.quantidade !== undefined && data?.quantidade !== null
-              ? `Quantidade: ${data.quantidade}`
-              : null,
-        };
-      default:
-        return {
-          nome: data?.nome || 'Sem nome',
-          descricao: data?.descricao || 'Sem descrição',
-          imagemSrc: data?.imagem,
-          infoExtra: null,
-        };
+    if (type === 'employee') {
+      return {
+        nome: data?.nomeFuncionario || 'Sem nome',
+        descricao: data?.descricaoFuncionario || 'Sem descrição',
+        imagemSrc: data?.image || '',
+        infoExtra: data?.funcionarioId ? `ID: ${data.funcionarioId}` : null,
+      };
     }
+    if (type === 'stock') {
+      return {
+        nome: data?.nomeItem || data?.nome || 'Sem nome',
+        descricao: data?.descricao || 'Sem descrição',
+        imagemSrc: data?.imagem,
+        infoExtra:
+          data?.quantidade !== undefined && data?.quantidade !== null
+            ? `Quantidade: ${data.quantidade}`
+            : null,
+      };
+    }
+    return {
+      nome: data?.nome || 'Sem nome',
+      descricao: data?.descricao || 'Sem descrição',
+      imagemSrc: data?.imagem,
+      infoExtra: null,
+    };
   }, [data, type]);
 
   const onBtnClick = e => {
     e.stopPropagation();
+    setOpenEditModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenEditModal(false);
   };
 
   return (
-    <Wrapper
-      ref={ref}
-      onClick={() => (expanded ? onCollapse && onCollapse() : onExpand && onExpand())}
-      className={expanded ? 'expanded' : ''}
-      aria-expanded={expanded}
-    >
-      <div className="item-top">
-        <div className="item-left">
-          <img src={placeholder(imagemSrc)} alt={nome} className="item-image" />
-          <div className="item-info">
-            <span className="item-name">{nome}</span>
-            <span className="item-description">{descricao}</span>
+    <>
+      <Wrapper
+        ref={ref}
+        onClick={() => (expanded ? onCollapse && onCollapse() : onExpand && onExpand())}
+        className={expanded ? 'expanded' : ''}
+        aria-expanded={expanded}
+      >
+        <div className="item-top">
+          <div className="item-left">
+            <img src={placeholder(imagemSrc)} alt={nome} className="item-image" />
+            <div className="item-info">
+              <span className="item-name">{nome}</span>
+              <span className="item-description">{descricao}</span>
+            </div>
+          </div>
+          <div className="item-right">
+            {infoExtra && <span>{infoExtra}</span>}
+            <img
+              className={`img-Arrow ${expanded ? 'rotated' : ''}`}
+              src={Arrow}
+              alt="Expandir"
+            />
           </div>
         </div>
-        <div className="item-right">
-          {infoExtra && <span>{infoExtra}</span>}
-          <img
-            className={`img-Arrow ${expanded ? 'rotated' : ''}`}
-            src={Arrow}
-            alt="Expandir"
-          />
-        </div>
-      </div>
 
-      <div className={`extra-content-wrapper ${expanded ? 'expanded' : ''}`}>
-        <div className="extra-content">
-          <SaveCancelBTN type="edit" data={data} onClick={onBtnClick} />
-          <SaveCancelBTN type="delete" data={data} onConfirm={onDelete} onClick={onBtnClick} />
+        <div className={`extra-content-wrapper ${expanded ? 'expanded' : ''}`}>
+          <div className="extra-content">
+            <SaveCancelBTN
+              type="edit"
+              data={data}
+              onClick={onBtnClick}
+            />
+            <SaveCancelBTN
+              type="delete"
+              data={data}
+              onConfirm={onDelete}
+              onClick={e => e.stopPropagation()}
+            />
+          </div>
         </div>
-      </div>
-    </Wrapper>
+      </Wrapper>
+
+      {/* Modal de edição */}
+      {openEditModal && type === 'employee' && (
+        <AddEmployee
+          isOpen={openEditModal}
+          onClose={handleCloseModal}
+          initialData={data}
+        />
+      )}
+      {openEditModal && type === 'stock' && (
+        <AddItemToStock
+          isOpen={openEditModal}
+          onClose={handleCloseModal}
+          initialData={data}
+        />
+      )}
+    </>
   );
 };
 
@@ -125,10 +165,18 @@ const Wrapper = styled.div`
     color: wheat;
   }
 
+  .item-name::first-letter{
+    text-transform: uppercase;
+  }
+
   .item-description {
     font-size: 14px;
     color: wheat;
     margin-top: 4px;
+  }
+
+  .item-description::first-letter{
+    text-transform: uppercase;
   }
 
   .item-image {
