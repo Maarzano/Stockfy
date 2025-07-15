@@ -67,4 +67,14 @@ public class UsuarioService {
         return usuarioRepository.findByEmailAndSenha(email, senha).orElse(null);
     }
 
+    public Usuario buscarPorEmail(String email) {
+        return usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    }
+    
+    public Usuario validarLogin(String login, String senha) {
+        return usuarioRepository.findByLoginAndSenha(login, senha).orElse(null);
+    }
+    
+
 }

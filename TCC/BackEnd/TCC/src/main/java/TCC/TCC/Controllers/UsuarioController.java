@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import TCC.TCC.DTOs.UsuarioDTO.AtualizarUsuarioDTO;
 import TCC.TCC.DTOs.UsuarioDTO.CriarUsuarioDTO;
+import TCC.TCC.DTOs.UsuarioDTO.LoginDTO;
 import TCC.TCC.Entities.Usuario;
 import TCC.TCC.Service.UsuarioService;
 import jakarta.validation.Valid;
@@ -13,6 +14,8 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -66,5 +69,13 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<Usuario> getUsuarioAutenticado(@AuthenticationPrincipal Jwt jwt) {
+        String email = jwt.getSubject();
+        Usuario usuario = usuarioService.buscarPorEmail(email);
+        return ResponseEntity.ok(usuario);
+    }
+
 
 }
