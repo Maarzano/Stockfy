@@ -23,7 +23,3 @@ export const useProdutos = () => {
     }, []);
     return {produtos, loading, erro};
 }
-
-/* TODO - Melhorar tratamento de erros no geral, 
-o hook que tem que tratar erros enviadas da 
-API com códigos 400, 500 etc */
