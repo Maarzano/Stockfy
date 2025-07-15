@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { placeholder } from "../../../Utils/verificandoImagem";
 
-const CardItem = ({imgURL, tittle, description, onClick}) => {
+const CardItem = ({imgURL, tittle, description, quantity, onClick}) => {
 
     return (
         <Wrapper onClick={onClick}>
@@ -11,6 +11,9 @@ const CardItem = ({imgURL, tittle, description, onClick}) => {
             <Text>
                 <Tittle title={tittle}>{tittle === undefined ? "Sem título" : tittle}</Tittle>
                 <Descrição>{description === undefined ? "Sem descrição" : description}</Descrição>
+                <Quantidade>
+                  {quantity !== undefined ? `Qtd: ${quantity}` : ""}
+                </Quantidade>
             </Text>
         </Wrapper>
     )
@@ -55,6 +58,7 @@ const Text = styled.div`
     height: 30%;
     overflow: hidden;
     line-height: 1;
+    position: relative;
 `
 
 const Tittle = styled.h1`
@@ -66,6 +70,15 @@ const Tittle = styled.h1`
 const Descrição = styled.p`
     margin-top: 5px;
     font-size: 15px;
+`
+
+const Quantidade = styled.div`
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 15px;
+    color: wheat;
+    font-weight: bold;
 `
 
 

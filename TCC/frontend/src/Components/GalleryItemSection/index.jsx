@@ -64,6 +64,7 @@ const GalleryItenSection = () => {
                         imgURL={produto.imagem}
                         tittle={produto.nomeItem}
                         description={produto.descricao}
+                        quantity={produto.quantidade}
                         onClick={() => handlerCardClick(produto)}
                     />
                 ))}
