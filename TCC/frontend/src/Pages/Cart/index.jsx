@@ -6,6 +6,7 @@ import ActionButtons from "../../Components/Carting/ActionButtons";
 import CartItemList from "../../Components/Carting/CartItemList";
 import Search2 from "../../Components/Searchs/Search2/index.jsx";
 import Subnav from "../../Components/Navs/Subnav";
+import ClearButton from "../../Components/Carting/ClearButton/index.jsx";
 
 const Wrapper = styled.div`
     background-color: #1a1a1a;
@@ -33,6 +34,7 @@ const Cart = () => {
                 <Header>
                     <BackButton />
                     <h1>Carrinho</h1>
+                    <ClearButton />
                 </Header>
                 <Search2
                     value={searchTerm}

@@ -52,13 +52,19 @@ const SaveCancelBTN = ({ type = "save", data, onConfirm, onClick }) => {
       case "delete":
         icon = <Trash className='Icon' />;
         btnText = 'Excluir';
-        btnColor = "#b31414";
+        btnColor = "#d32d2d";
         btnHoverTransform = "translateX(1.60em)";
+        break;
+      case "clear":
+        icon = <Trash className='Icon' />;
+        btnText = 'Limpar Carrinho';
+        btnColor = "#514b4b79";
+        btnHoverTransform = "translateX(3.23em)";
         break;
       case "edit":
         icon = <EditIcon className='Icon' />;
         btnText = 'Editar';
-        btnColor = "#039dfc";
+        btnColor = "#039dfc"; 
         btnHoverTransform = "translateX(1.30em)";
         break;
       case "cancel":
