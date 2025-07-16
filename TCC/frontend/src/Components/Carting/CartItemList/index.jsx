@@ -3,22 +3,31 @@ import styled from "styled-components";
 import CloseIcon from "../../../Assets/SVGs/Icons/icon-x-close-black.svg";
 import { useCart } from "../../../Context/Cart";
 import ConfirmActionModal from "../../Modal/ConfirmActionModal";
+import { placeholder } from "../../../Utils/verificandoImagem";
 
 const CartItemList = ({ searchTerm, onActionConfirmed }) => {
   const { cartItems, removeItemFromCart } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
 
-  const handlerOnClick = (e, itemId) => {
+  const handleDeleteClick = (e, itemId) => {
     e.stopPropagation();
     e.preventDefault();
-    setSelectedItemId(itemId); 
+    setSelectedItemId(itemId);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setSelectedItemId(null); 
+    setSelectedItemId(null);
+  };
+
+  const handleConfirmRemove = () => {
+    if (selectedItemId) {
+      removeItemFromCart(selectedItemId);
+    }
+    handleCloseModal();
+    if (onActionConfirmed) onActionConfirmed();
   };
 
   const filteredItems = cartItems.filter((item) =>
@@ -30,13 +39,18 @@ const CartItemList = ({ searchTerm, onActionConfirmed }) => {
       <List>
         {filteredItems.map((item) => (
           <Item key={item.itemId}>
-            <Image />
+            <ImageWrapper>
+              <img
+                src={placeholder(item.imagem)}
+                alt={item.nomeItem}
+                draggable={false}
+              />
+            </ImageWrapper>
             <Info>
               <Nome>{item.nomeItem}</Nome>
               <Quantidade>Quantidade: {item.quantity}</Quantidade>
             </Info>
-
-            <DeleteButton onClick={(e) => handlerOnClick(e, item.itemId)}>
+            <DeleteButton onClick={(e) => handleDeleteClick(e, item.itemId)}>
               <img src={CloseIcon} alt="Excluir" />
             </DeleteButton>
           </Item>
@@ -46,13 +60,7 @@ const CartItemList = ({ searchTerm, onActionConfirmed }) => {
       <ConfirmActionModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        onConfirm={() => {
-          if (selectedItemId) {
-            removeItemFromCart(selectedItemId);
-          }
-          handleCloseModal();
-          if (onActionConfirmed) onActionConfirmed(); 
-        }}
+        onConfirm={handleConfirmRemove}
         type="remove"
       />
     </>
@@ -77,21 +85,18 @@ const Item = styled.div`
   border-radius: 15px;
 `;
 
-const Image = styled.div`
+const ImageWrapper = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
   background-color: #b0b0b0;
-  background-image: linear-gradient(
-    45deg,
-    #aaa 25%,
-    transparent 25%,
-    transparent 50%,
-    #aaa 50%,
-    #aaa 75%,
-    transparent 75%
-  );
-  background-size: 20px 20px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const Info = styled.div`
@@ -119,7 +124,7 @@ const DeleteButton = styled.button`
   }
 
   &:hover {
-    filter: brightness(0) saturate(100%) invert(21%) sepia(94%)
-      saturate(7456%) hue-rotate(357deg) brightness(91%) contrast(119%);
+    filter: brightness(0) saturate(100%) invert(21%) sepia(94%) saturate(7456%)
+      hue-rotate(357deg) brightness(91%) contrast(119%);
   }
 `;
