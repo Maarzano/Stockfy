@@ -40,12 +40,16 @@ const StyledWrapper = styled.div`
     overflow: hidden;
     transition-duration: .3s;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-    background-color:#623bda;
+    background-color:transparent; /*#623bda*/
+    border: 1px solid #850000;
     margin: 3px;
 
     &:hover {
-      box-shadow: 0 0 10px #623bda;
-      background-color: #4b2da7;
+      box-shadow: 0 0 10px #850000;
+      background-color: #d40000;
+      .sign svg path {
+        fill: #ffffff;
+      }
     }
   }
 
@@ -62,7 +66,7 @@ const StyledWrapper = styled.div`
   }
 
   .sign svg path {
-    fill: white;
+    fill: #d40000;
   }
 `;
 
