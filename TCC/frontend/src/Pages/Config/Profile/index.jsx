@@ -4,6 +4,7 @@ import imagemProfile from "../../../Assets/SVGs/Icons/icon-profile-white&purple.
 import SaveCancelBTN from "../../../Components/Buttons/SaveCancelBTN";
 import { placeholder } from "../../../Utils/verificandoImagem";
 import ajustarTamanhoImagemGoogle from "../../../Utils/ajustarTamanhoImagemGoogle";
+import { atualizarUsuario } from '../../../Services/usuarioService';
 
 const Profile = () => {
     const [usuario, setUsuario] = useState({
@@ -15,6 +16,9 @@ const Profile = () => {
         Imagem: ""
     });
 
+    const [isEditing, setIsEditing] = useState(false);
+    const [usuarioOriginal, setUsuarioOriginal] = useState(null);
+
     useEffect(() => {
         const usuarioSalvo = localStorage.getItem("usuario");
         
@@ -24,6 +28,37 @@ const Profile = () => {
         }
     }, []);
 
+    const handleEdit = () => {
+        setUsuarioOriginal(usuario); // backup
+        setIsEditing(true);
+    };
+
+    const confirmCancel = () => {
+        setUsuario(usuarioOriginal);
+        setIsEditing(false);
+    };
+
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        setUsuario((prev) => ({ ...prev, [id]: value }));
+    };
+
+    const handleConfirmSave = async () => {
+        try {
+            await atualizarUsuario(usuario.usuarioID, {
+                nomeCompleto: usuario.nomeCompleto,
+                senha: usuario.senha,
+                cpf: usuario.cpf,
+                celular: usuario.celular,
+                email: usuario.email
+            });
+            localStorage.setItem("usuario", JSON.stringify(usuario));
+            setIsEditing(false);
+        } catch (e) {
+            alert("Erro ao atualizar usuário");
+        }
+    };
+
     return (
         <Wrapper>
             <NamePage>Seu Perfil</NamePage>
@@ -31,30 +66,36 @@ const Profile = () => {
                 <ImgProfile src={usuario.imagem ?  placeholder(ajustarTamanhoImagemGoogle(usuario.imagem, 256)) : imagemProfile} alt="Perfil" />
                 <Form>
                     <DivInputLabel>
-                        <Label htmlFor="NomeCompleto">Nome Completo</Label>
-                        <Input id="NomeCompleto" value={usuario.nomeCompleto} readOnly />
+                        <Label htmlFor="nomeCompleto">Nome Completo</Label>
+                        <Input id="nomeCompleto" value={usuario.nomeCompleto} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
                     </DivInputLabel>
                     <DivInputLabel>
-                        <Label htmlFor="Email">Email</Label>
-                        <Input id="Email" value={usuario.email} readOnly />
+                        <Label htmlFor="email">Email</Label>
+                        <Input id="email" value={usuario.email} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
                     </DivInputLabel>
                     <LadoDoOutro>
                         <DivInputLabel>
-                            <Label htmlFor="CPF">CPF</Label>
-                            <Input id="CPF" value={usuario.cpf} readOnly />
+                            <Label htmlFor="cpf">CPF</Label>
+                            <Input id="cpf" value={usuario.cpf} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
                         </DivInputLabel>
                         <DivInputLabel>
-                            <Label htmlFor="Celular">Celular</Label>
-                            <Input id="Celular" value={usuario.celular} readOnly />
+                            <Label htmlFor="celular">Celular</Label>
+                            <Input id="celular" value={usuario.celular} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
                         </DivInputLabel>
                     </LadoDoOutro>
                     <DivInputLabel>
-                        <Label htmlFor="Senha">Senha</Label>
-                        <Input id="Senha" value={usuario.senha} type="password" readOnly />
+                        <Label htmlFor="senha">Senha</Label>
+                        <Input id="senha" value={usuario.senha} type="password" readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
                     </DivInputLabel>
-                    <DivBTN>
-                        <SaveCancelBTN type="cancel" />
-                        <SaveCancelBTN />
+                    <DivBTN center={!isEditing}>
+                        {!isEditing ? (
+                            <SaveCancelBTN type="edit" onClick={handleEdit} />
+                        ) : (
+                            <>
+                                <SaveCancelBTN type="cancel" onConfirm={confirmCancel} />
+                                <SaveCancelBTN type="save" data={usuario} onConfirm={handleConfirmSave} />
+                            </>
+                        )}
                     </DivBTN>
                 </Form>
             </Main>
@@ -118,7 +159,7 @@ const DivBTN = styled.div`
     margin: 25px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: ${props => props.center ? 'center' : 'space-between'};
 `;
 
 const Input = styled.input`
