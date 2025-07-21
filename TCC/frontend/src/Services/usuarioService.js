@@ -33,3 +33,13 @@ export const logarUsuario = async (info) => {
     }
 };
 
+export const atualizarUsuario = async (userId, info) => {
+    try {
+        const response = await api.put(`/Usuarios/${userId}`, info);
+        return response;
+    } catch (e) {
+        console.error("Erro ao atualizar usuario", e);
+        throw e;
+    }
+};
+
