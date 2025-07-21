@@ -48,20 +48,32 @@ public class UsuarioService {
     }
     public void AtualiazarUsuarioPorId(long userId, AtualizarUsuarioDTO atualizarUsuarioDTO){
         var usuarioExiste = usuarioRepository.findById(userId);
-
+    
         if (usuarioExiste.isPresent()){
             var usuario = usuarioExiste.get();
-
+    
             if (atualizarUsuarioDTO.nomeCompleto() != null){
                 usuario.setNomeCompleto(atualizarUsuarioDTO.nomeCompleto());
             }
-
+    
             if (atualizarUsuarioDTO.senha() != null){
                 usuario.setSenha(atualizarUsuarioDTO.senha());
             }
+    
+            if (atualizarUsuarioDTO.cpf() != null){
+                usuario.setCpf(atualizarUsuarioDTO.cpf());
+            }
+    
+            if (atualizarUsuarioDTO.celular() != null){
+                usuario.setCelular(atualizarUsuarioDTO.celular());
+            }
+    
+            if (atualizarUsuarioDTO.email() != null){
+                usuario.setEmail(atualizarUsuarioDTO.email());
+            }
+    
             usuarioRepository.save(usuario);
         }
-
     }
     public Usuario buscarPorEmailESenha(String email, String senha) {
         return usuarioRepository.findByEmailAndSenha(email, senha).orElse(null);
