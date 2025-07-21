@@ -13,7 +13,7 @@ const SummaryModal = ({isOpen, onClose, onConfirm = () => {}, tipo, responsavel,
 
   const handleConfirm = async () => {
     const obj = {
-      "funcionarioId": responsavel,
+      "funcionarioId": responsavel.id,
         "tipoMovimentacao": tipo,
         "itens": cartItems.map(item => ({
           IdItem: item.itemId,
@@ -40,7 +40,7 @@ const SummaryModal = ({isOpen, onClose, onConfirm = () => {}, tipo, responsavel,
 
         <Content>
           <Field>
-            <Label>Responsável:</Label> <Value>{responsavel}</Value>
+            <Label>Responsável:</Label> <Value>{responsavel.nome}</Value>
           </Field>
           <Field>
             <Label>Tipo de Ação:</Label> <Value>{tipo}</Value>
@@ -71,7 +71,7 @@ const SummaryModal = ({isOpen, onClose, onConfirm = () => {}, tipo, responsavel,
           <Confirmation>
             Você tem certeza que deseja realizar a{" "}
             <strong>{tipo.toLowerCase()}</strong> dos itens{" "}
-            <strong>{responsavel}</strong>?
+            <strong>{responsavel.nome}</strong>?
           </Confirmation>
         </Content>
 
