@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import ActionModal from "../ActionModal";
-import ResumoModal from "../SummaryModal";
+import SummaryModal from "../SummaryModal";
 import { useFuncionarios } from "../../../Hooks/Funcionarios/useFuncionarios";
 
 const ActionButtons = ({ onActionConfirmed }) => {
@@ -28,8 +28,8 @@ const ActionButtons = ({ onActionConfirmed }) => {
 
     return (
         <Wrapper>
-            <button onClick={() => abrirModal("Devolução")}>Devolução</button>
-            <button onClick={() => abrirModal("Retirada")}>Retirada</button>
+            <button onClick={() => abrirModal("ENTRADA")}>Devolução</button>
+            <button onClick={() => abrirModal("SAIDA")}>Retirada</button>
 
             <ActionModal
                 isOpen={modalOpen}
@@ -39,7 +39,7 @@ const ActionButtons = ({ onActionConfirmed }) => {
                 funcionarios={funcionarios}
             />
 
-            <ResumoModal
+            <SummaryModal
                 isOpen={resumoOpen}
                 onClose={() => setResumoOpen(false)}
                 tipo={tipoAcao}
