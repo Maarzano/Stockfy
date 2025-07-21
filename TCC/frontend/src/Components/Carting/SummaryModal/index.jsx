@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useCart } from "../../../Context/Cart";
+import { CriarMovimentacao } from "../../../Services/movimentacaoService";
 
 const SummaryModal = ({isOpen, onClose, onConfirm = () => {}, tipo, responsavel,}) => {
   const { cartItems, clearCart } = useCart();
@@ -10,18 +11,19 @@ const SummaryModal = ({isOpen, onClose, onConfirm = () => {}, tipo, responsavel,
   const dataFormatada = dataHoraAtual.toLocaleDateString();
   const horaFormatada = dataHoraAtual.toLocaleTimeString();
 
-  const handleConfirm = () => {
-    clearCart();
-
-    const acao = tipo.toLowerCase();
-    if (acao === "devolver") {
-      alert("Itens devolvidos com sucesso!");
-    } else if (acao === "retirar") {
-      alert("Itens retirados com sucesso!");
-    } else {
-      alert("Ação concluída com sucesso!");
+  const handleConfirm = async () => {
+    const obj = {
+      "funcionarioId": responsavel,
+        "tipoMovimentacao": tipo,
+        "itens": cartItems.map(item => ({
+          IdItem: item.itemId,
+          quantidade: item.quantity
+        }))
     }
 
+
+    await CriarMovimentacao(obj);
+    clearCart();
     onConfirm();
     onClose();
   };
