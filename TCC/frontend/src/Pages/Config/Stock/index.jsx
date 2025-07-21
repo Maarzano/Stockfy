@@ -47,12 +47,6 @@ const Stock = () => {
     );
   }, [busca, produtos]);
 
-  useEffect(() => {
-    console.log('modalOpen:', modalOpen);
-  }, [modalOpen]);
-
-  console.log('Renderizando Stock, modalOpen:', modalOpen);
-
   return (
     <Wrapper>
       <h2>Itens do estoque</h2>
