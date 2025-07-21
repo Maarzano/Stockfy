@@ -9,5 +9,6 @@ public record AtualizarFuncionarioDTO(
     String celularFuncionario,
     Date dataNascimentoFuncionario,
     String descricaoFuncionario,
-    Boolean ativo
+    Boolean ativo,
+    String image
 ) { }
