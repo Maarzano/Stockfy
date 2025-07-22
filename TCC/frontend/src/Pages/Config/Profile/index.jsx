@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import imagemProfile from "../../../Assets/SVGs/Icons/icon-profile-white&purple.svg";
 import SaveCancelBTN from "../../../Components/Buttons/SaveCancelBTN";
-import { placeholder } from "../../../Utils/verificandoImagem";
+import { placeholderProfile } from "../../../Utils/verificandoImagem";
 import ajustarTamanhoImagemGoogle from "../../../Utils/ajustarTamanhoImagemGoogle";
 import { atualizarUsuario } from '../../../Services/usuarioService';
+import EditImageProfileModal from '../../../Components/Modal/EditImageProfileModal';
 
 const Profile = () => {
     const [usuario, setUsuario] = useState({
@@ -18,6 +19,7 @@ const Profile = () => {
 
     const [isEditing, setIsEditing] = useState(false);
     const [usuarioOriginal, setUsuarioOriginal] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const usuarioSalvo = localStorage.getItem("usuario");
@@ -50,7 +52,8 @@ const Profile = () => {
                 senha: usuario.senha,
                 cpf: usuario.cpf,
                 celular: usuario.celular,
-                email: usuario.email
+                email: usuario.email,
+                imagem: usuario.imagem
             });
             localStorage.setItem("usuario", JSON.stringify(usuario));
             setIsEditing(false);
@@ -59,45 +62,69 @@ const Profile = () => {
         }
     };
 
+    const handleImageClick = () => {
+        if (isEditing) setShowModal(true);
+    };
+
+    const handleSaveImage = (newImageUrl) => {
+        if (newImageUrl) {
+            setUsuario(prev => ({ ...prev, imagem: newImageUrl }));
+        }
+    };
+
     return (
         <Wrapper>
-            <NamePage>Seu Perfil</NamePage>
             <Main>
-                <ImgProfile src={usuario.imagem ?  placeholder(ajustarTamanhoImagemGoogle(usuario.imagem, 256)) : imagemProfile} alt="Perfil" />
-                <Form>
-                    <DivInputLabel>
-                        <Label htmlFor="nomeCompleto">Nome Completo</Label>
-                        <Input id="nomeCompleto" value={usuario.nomeCompleto} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
-                    </DivInputLabel>
-                    <DivInputLabel>
-                        <Label htmlFor="email">Email</Label>
-                        <Input id="email" value={usuario.email} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
-                    </DivInputLabel>
-                    <LadoDoOutro>
+            <h2>Meu Perfil</h2>
+                <ProfileContent>
+                    <ImgProfile
+                        src={usuario.imagem ?  placeholderProfile(ajustarTamanhoImagemGoogle(usuario.imagem, 256)) : imagemProfile}
+                        alt="Perfil"
+                        style={{ cursor: isEditing ? 'pointer' : 'default' }}
+                        onClick={handleImageClick}
+                    />
+                    <EditImageProfileModal
+                        isOpen={showModal}
+                        onClose={() => setShowModal(false)}
+                        onSave={handleSaveImage}
+                        currentImage={usuario.imagem ? placeholderProfile(ajustarTamanhoImagemGoogle(usuario.imagem, 256)) : imagemProfile}
+                    />
+                    <Form>
+                        <DivInputLabelFirst>
+                            <Label htmlFor="nomeCompleto">Nome Completo</Label>
+                            <Input id="nomeCompleto" value={usuario.nomeCompleto} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
+                        </DivInputLabelFirst>
+                        
+                        <LadoDoOutro>
+                            <DivInputLabel>
+                                <Label htmlFor="cpf">CPF</Label>
+                                <Input id="cpf" value={usuario.cpf} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
+                            </DivInputLabel>
+                            <DivInputLabel>
+                                <Label htmlFor="celular">Celular</Label>
+                                <Input id="celular" value={usuario.celular} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
+                            </DivInputLabel>
+                        </LadoDoOutro>
                         <DivInputLabel>
-                            <Label htmlFor="cpf">CPF</Label>
-                            <Input id="cpf" value={usuario.cpf} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
+                            <Label htmlFor="email">Email</Label>
+                            <Input id="email" value={usuario.email} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
                         </DivInputLabel>
                         <DivInputLabel>
-                            <Label htmlFor="celular">Celular</Label>
-                            <Input id="celular" value={usuario.celular} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
+                            <Label htmlFor="senha">Senha</Label>
+                            <Input id="senha" value={usuario.senha} type="password" readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
                         </DivInputLabel>
-                    </LadoDoOutro>
-                    <DivInputLabel>
-                        <Label htmlFor="senha">Senha</Label>
-                        <Input id="senha" value={usuario.senha} type="password" readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
-                    </DivInputLabel>
-                    <DivBTN center={!isEditing}>
-                        {!isEditing ? (
-                            <SaveCancelBTN type="edit" onClick={handleEdit} />
-                        ) : (
-                            <>
-                                <SaveCancelBTN type="cancel" onConfirm={confirmCancel} />
-                                <SaveCancelBTN type="save" data={usuario} onConfirm={handleConfirmSave} />
-                            </>
-                        )}
-                    </DivBTN>
-                </Form>
+                    </Form>
+                </ProfileContent>
+                <DivBTN center={!isEditing}>
+                    {!isEditing ? (
+                        <SaveCancelBTN type="edit" onClick={handleEdit} />
+                    ) : (
+                        <>
+                            <SaveCancelBTN type="cancel" onConfirm={confirmCancel} />
+                            <SaveCancelBTN type="save" data={usuario} onConfirm={handleConfirmSave} />
+                        </>
+                    )}
+                </DivBTN>
             </Main>
         </Wrapper>
     );
@@ -107,21 +134,31 @@ const Wrapper = styled.div`
     max-width: 1650px;
     margin: auto;
     background-color: black;
-    color: white;
+    color: wheat;
     height: 100%;
-    padding: 40px;
-    padding-top: 100px;
+    padding: 100px 100px 30px 100px;
+
+    h2 {
+        margin-bottom: 20px;
+        color: wheat;
+        margin-left: 40px;
+    }
 `;
 
-const NamePage = styled.h1`
-    font-size: 70px;
+const ProfileContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
 `;
 
 const ImgProfile = styled.img`
     max-width: 200px;
-    margin: auto;
     width: 100%;
     border-radius: 5rem;
+    flex: 1;
+    object-fit: cover;
 `;
 
 const Main = styled.main`
@@ -132,12 +169,18 @@ const Main = styled.main`
     max-width: 870px;
 `;
 
-const Form = styled.form``;
+const Form = styled.form`
+    flex: 2;
+`;
 
 const Label = styled.label`
     margin-left: 3px;
     display: inline-block;
     width: 100%;
+`;
+
+const DivInputLabelFirst = styled.div`
+    margin-top: 0px;
 `;
 
 const DivInputLabel = styled.div`
@@ -169,7 +212,7 @@ const Input = styled.input`
     outline: 0;
     background-color: rgba(17, 24, 39, 1);
     padding: 0.75rem 1rem;
-    color: rgba(243, 244, 246, 1);
+    color: wheat;
 `;
 
 export default Profile;
