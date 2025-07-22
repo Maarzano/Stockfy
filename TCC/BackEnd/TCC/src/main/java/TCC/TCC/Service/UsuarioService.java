@@ -71,6 +71,10 @@ public class UsuarioService {
             if (atualizarUsuarioDTO.email() != null){
                 usuario.setEmail(atualizarUsuarioDTO.email());
             }
+
+            if (atualizarUsuarioDTO.imagem() != null){
+                usuario.setImagem(atualizarUsuarioDTO.imagem());
+            }
     
             usuarioRepository.save(usuario);
         }

@@ -5,5 +5,6 @@ public record AtualizarUsuarioDTO(
     String senha,
     String cpf,
     String celular,
-    String email
+    String email,
+    String imagem
 ) {}
