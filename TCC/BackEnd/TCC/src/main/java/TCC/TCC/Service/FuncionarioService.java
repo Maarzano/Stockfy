@@ -83,6 +83,9 @@ public class FuncionarioService {
         if (dto.descricaoFuncionario() != null) {
             funcionario.setDescricaoFuncionario(dto.descricaoFuncionario());
         }
+        if (dto.image() != null) {
+            funcionario.setImage(dto.image());
+        }
 
         funcionarioRepository.save(funcionario);
         return ResponseEntity.ok("Funcionário atualizado com sucesso");
