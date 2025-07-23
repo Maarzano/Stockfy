@@ -2,7 +2,7 @@ import styled from "styled-components";
 import LogoutBTN from "../../Buttons/LogoutBTN"
 import profilePictureWhite from "../../../Assets/SVGs/Icons/icon-profile-white&purple.svg";
 import { Link } from "react-router-dom";
-import { placeholder } from "../../../Utils/verificandoImagem";
+import { placeholderProfile } from "../../../Utils/verificandoImagem";
 
 const CardPerfil = () => {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -10,7 +10,7 @@ const CardPerfil = () => {
     return (
         <Wrapper>
             <ProfileWrapper>
-                <ProfilePciture src={usuario.imagem ?  placeholder(usuario.imagem) : profilePictureWhite}/>
+                <ProfilePciture src={usuario.imagem ?  placeholderProfile(usuario.imagem) : profilePictureWhite}/>
                 <ProfileName><Link to={"/Config/Profile"}>{usuario.nomeCompleto}</Link></ProfileName>
             </ProfileWrapper>
             <LogoutBTN/>
