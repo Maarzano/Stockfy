@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -53,6 +55,11 @@ public class Item {
     @Column(name = "data_de_criacao", updatable = false, nullable = false)
     @CreationTimestamp
     private OffsetDateTime dataDeCriacao;
+
+    @ManyToOne
+    @JoinColumn(name = "criado_por", referencedColumnName = "id_usuario", nullable = false)
+    private Usuario criadoPor;
+
 
     @PrePersist
     protected void onCreate() {
