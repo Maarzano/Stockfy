@@ -77,12 +77,16 @@ const Profile = () => {
             <Main>
             <h2>Meu Perfil</h2>
                 <ProfileContent>
+                    <div className="flex">
                     <ImgProfile
                         src={usuario.imagem ?  placeholderProfile(ajustarTamanhoImagemGoogle(usuario.imagem, 256)) : imagemProfile}
                         alt="Perfil"
                         style={{ cursor: isEditing ? 'pointer' : 'default' }}
                         onClick={handleImageClick}
                     />
+                    {isEditing && <p>Clique para editar</p>}
+                    </div>
+                    
                     <EditImageProfileModal
                         isOpen={showModal}
                         onClose={() => setShowModal(false)}
@@ -135,7 +139,7 @@ const Wrapper = styled.div`
     margin: auto;
     background-color: black;
     color: wheat;
-    height: 100%;
+    height: 100vh;
     padding: 100px 100px 30px 100px;
 
     h2 {
@@ -151,6 +155,12 @@ const ProfileContent = styled.div`
   align-items: flex-start;
   gap: 40px;
   width: 100%;
+
+  .flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const ImgProfile = styled.img`
@@ -163,7 +173,7 @@ const ImgProfile = styled.img`
 
 const Main = styled.main`
     padding: 40px;
-    margin: 0px auto 100px auto;
+    margin: auto;
     background-color: #1a1a1a;
     border-radius: 20px;
     max-width: 870px;
