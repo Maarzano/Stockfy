@@ -23,7 +23,7 @@ public class ItemService {
         this.itemRepository = itemRepository;
     }
 
-    public long criarItem(CriarItemDTO criarItemDTO){
+    public long criarItem(CriarItemDTO criarItemDTO, Usuario usuario){
 
         if(criarItemDTO.quantidade() < 0){
             throw new QuantidadeInvalida(criarItemDTO.quantidade());
@@ -34,6 +34,8 @@ public class ItemService {
 
         Item entity = new Item(criarItemDTO.nomeItem(), criarItemDTO.quantidade(),  
                                 criarItemDTO.imagem(), criarItemDTO.descricao());
+        
+        entity.setCriadoPor(usuario);
 
         Item itemSalvo = itemRepository.save(entity);
 
@@ -48,8 +50,8 @@ public class ItemService {
         return itemRepository.buscarPorNome(nome);
     }
 
-    public List<Item> listarItems(){
-        return itemRepository.findAll();
+    public List<Item> listarItems(Usuario usuario){
+        return itemRepository.findByCriadoPor(usuario);
     }
 
     public void deletarItem(long itemId){

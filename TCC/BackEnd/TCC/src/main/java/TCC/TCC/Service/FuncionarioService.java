@@ -12,6 +12,7 @@ import java.util.Optional;
 import TCC.TCC.DTOs.FuncionarioDTO.AtualizarFuncionarioDTO;
 import TCC.TCC.DTOs.FuncionarioDTO.CriarFuncionarioDTO;
 import TCC.TCC.Entities.Funcionario;
+import TCC.TCC.Entities.Usuario;
 import TCC.TCC.Repository.FuncionarioRepository;
 
 @Service
@@ -24,11 +25,13 @@ public class FuncionarioService {
         this.funcionarioRepository = repository;
     }
 
-    public long criarFuncionario(CriarFuncionarioDTO dto){
+    public long criarFuncionario(CriarFuncionarioDTO dto, Usuario usuario){
         var entity = new Funcionario(dto.nomeFuncionario(), dto.emailFuncionario(), 
                                     dto.cpfFuncionario(), dto.celularFuncionario(), 
                                     dto.dataNascimentoFuncionario(), 
                                     dto.descricaoFuncionario(), true, dto.image());
+
+        entity.setCriadoPor(usuario);
                                     
         var funcionarioSalvo = funcionarioRepository.save(entity);
         return funcionarioSalvo.getFuncionarioId();
@@ -38,9 +41,9 @@ public class FuncionarioService {
         return funcionarioRepository.findById(funcId);
     }
 
-    public List<Funcionario> listarFuncionario(){
+    public List<Funcionario> listarFuncionario(Usuario usuario){
         if(funcionarioRepository.count() <= 0) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não há nenhum funcionário");
-        return funcionarioRepository.findAll();
+        return funcionarioRepository.findByCriadoPor(usuario);
     }
 
     public void deletarFuncionario(long funcId){
