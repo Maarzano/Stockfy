@@ -84,7 +84,7 @@ const Profile = () => {
                         style={{ cursor: isEditing ? 'pointer' : 'default' }}
                         onClick={handleImageClick}
                     />
-                    {isEditing && <p>Clique para editar</p>}
+                    {isEditing && <EditHint>Clique para editar</EditHint>}
                     </div>
                     
                     <EditImageProfileModal
@@ -164,11 +164,13 @@ const ProfileContent = styled.div`
 `;
 
 const ImgProfile = styled.img`
-    max-width: 200px;
-    width: 100%;
-    border-radius: 5rem;
-    flex: 1;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
     object-fit: cover;
+    border: 3px solid #7c5cff;
+    background: #23272f;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
 `;
 
 const Main = styled.main`
@@ -217,12 +219,42 @@ const DivBTN = styled.div`
 
 const Input = styled.input`
     width: 100%;
-    border-radius: 0.375rem;
-    border: 1px solid rgba(55, 65, 81, 1);
-    outline: 0;
-    background-color: rgba(17, 24, 39, 1);
-    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1.5px solid #444;
+    outline: none;
+    background-color: #23272f;
+    padding: 0.85rem 1.1rem;
     color: wheat;
+    font-size: 1.08rem;
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+    
+    &:hover {
+        border: 1.5px solid #7c5cff;
+        background: #262a35;
+    }
+    &:focus {
+        border: 1.5px solid #a084ff;
+        box-shadow: 0 0 0 2px rgba(160,132,255,0.15);
+        background: #23272f;
+    }
+    &::placeholder {
+        color: #bca;
+        opacity: 0.7;
+        font-style: italic;
+    }
+`;
+
+const EditHint = styled.p`
+    margin-top: 22px;
+    font-size: 0.98rem;
+    color: #wheat;
+    text-align: center;
+    opacity: 0.85;
+    letter-spacing: 0.02em;
+    font-style: italic;
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
 `;
 
 export default Profile;
