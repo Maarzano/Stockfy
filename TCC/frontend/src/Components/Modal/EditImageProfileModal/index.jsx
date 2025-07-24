@@ -1,49 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Modal from '../index';
 
 const EditImageProfileModal = ({ isOpen, onClose, onSave, currentImage }) => {
     const [newImage, setNewImage] = useState("");
+    const [imgError, setImgError] = useState(false);
 
     useEffect(() => {
         setNewImage(""); // Limpa o input ao abrir
+        setImgError(false);
     }, [isOpen]);
 
-    if (!isOpen) return null;
+    // Decide qual imagem tentar mostrar
+    const imgSrc = newImage || currentImage;
+    const showFallback = !imgSrc || imgError;
+
     return (
-        <ModalOverlay>
-            <ModalContent>
+        <Modal isOpen={isOpen} onClose={onClose}>
+            <ContentWrapper>
                 <h3>Alterar Imagem de Perfil</h3>
-                <img src={newImage || currentImage} alt="Nova Imagem" style={{ maxWidth: 150, borderRadius: '5rem', marginBottom: 16, marginTop: 16 }} />
+                <PreviewImgWrapper>
+                    {showFallback ? (
+                        <FallbackText>Nova Imagem</FallbackText>
+                    ) : (
+                        <PreviewImg
+                            src={imgSrc}
+                            alt="Nova Imagem"
+                            onError={() => setImgError(true)}
+                        />
+                    )}
+                </PreviewImgWrapper>
                 <Input
                     type="text"
                     placeholder="Cole o link da nova imagem"
                     value={newImage}
-                    onChange={e => setNewImage(e.target.value)}
-                    style={{ marginBottom: 16 }}
+                    onChange={e => { setNewImage(e.target.value); setImgError(false); }}
                 />
                 <ButtonRow>
                     <CancelButton onClick={onClose}>Cancelar</CancelButton>
                     <SaveButton onClick={() => { onSave(newImage); onClose(); }}>Salvar</SaveButton>
                 </ButtonRow>
-            </ModalContent>
-        </ModalOverlay>
+            </ContentWrapper>
+        </Modal>
     );
 };
 
-const ModalOverlay = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-`;
-
-const ModalContent = styled.div`
+const ContentWrapper = styled.div`
     background: #222;
     color: #623bda;
     padding: 32px 24px 24px 24px;
@@ -55,6 +57,40 @@ const ModalContent = styled.div`
     align-items: center;
 `;
 
+const PreviewImgWrapper = styled.div`
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #23272f;
+    border: 2.5px solid #7c5cff;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+`;
+
+const PreviewImg = styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+`;
+
+const FallbackText = styled.span`
+    color: #bca;
+    font-size: 1.08rem;
+    opacity: 0.8;
+    text-align: center;
+    font-style: italic;
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    width: 100%;
+    padding: 0 10px;
+`;
+
 const Input = styled.input`
     width: 100%;
     border-radius: 0.375rem;
@@ -63,6 +99,7 @@ const Input = styled.input`
     background-color: rgba(17, 24, 39, 1);
     padding: 0.75rem 1rem;
     color: white;
+    margin-bottom: 16px;
 `;
 
 const ButtonRow = styled.div`
@@ -75,7 +112,7 @@ const ButtonRow = styled.div`
 const BaseButton = styled.button`
     padding: 8px 16px;
     color: #fff;
-    font-size: 1.17em; /* h3 size */
+    font-size: 1.17em;
     border-radius: 15px;
     border: none;
     font-weight: bold;
