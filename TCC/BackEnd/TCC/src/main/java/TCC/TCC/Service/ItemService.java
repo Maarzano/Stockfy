@@ -55,13 +55,11 @@ public class ItemService {
     }
 
     public void deletarItem(long itemId){
-        var itemExiste = itemRepository.existsById(itemId);
+        var item = itemRepository.findById(itemId)
+            .orElseThrow(() -> new ItemNaoEncontradoException(itemId));
 
-        if(itemExiste){
-            itemRepository.deleteById(itemId);
-        } else {
-            throw new ItemNaoEncontradoException(itemId);
-        }
+        item.setAtivo(false);
+        itemRepository.save(item);
     }
 
     public Item AtualizarItemPorId(long itemId, AtualizarItemDTO atualizarItemDTO) {

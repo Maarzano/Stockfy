@@ -47,13 +47,16 @@ public class FuncionarioService {
     }
 
     public void deletarFuncionario(long funcId){
-        var funcExist = funcionarioRepository.existsById(funcId);
+        var func = funcionarioRepository.findById(funcId);
 
-        if(funcExist){
-            funcionarioRepository.deleteById(funcId);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item com id "+ funcId + " não encontrado");
+        if (func.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Funcionário com id " + funcId + " não encontrado");
         }
+
+        var funcionario = func.get();
+        funcionario.setAtivo(false);
+
+        funcionarioRepository.save(funcionario);
     }
 
     public ResponseEntity<String> atualizarFuncionarioPeloId(long funcId, AtualizarFuncionarioDTO dto) {
