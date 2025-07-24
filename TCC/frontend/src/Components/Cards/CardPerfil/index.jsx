@@ -10,7 +10,9 @@ const CardPerfil = () => {
     return (
         <Wrapper>
             <ProfileWrapper>
-                <ProfilePciture src={usuario.imagem ?  placeholderProfile(usuario.imagem) : profilePictureWhite}/>
+                <Link to={'/Config/Profile'}>
+                    <ProfilePicture src={usuario.imagem ?  placeholderProfile(usuario.imagem) : profilePictureWhite}/>
+                </Link>
                 <ProfileName><Link to={"/Config/Profile"}>{usuario.nomeCompleto}</Link></ProfileName>
             </ProfileWrapper>
             <LogoutBTN/>
@@ -43,10 +45,12 @@ const ProfileWrapper = styled.div`
     justify-content: left;
 `
 
-const ProfilePciture = styled.img`
-    height: 80%;
+const ProfilePicture = styled.img`
+    width: 37px;
+    height: 37px;
     cursor: pointer;
-    border-radius: 50px;
+    border-radius: 50%;
+    object-fit: cover;
 `
 const ProfileName = styled.p`
     color: #FFF;
