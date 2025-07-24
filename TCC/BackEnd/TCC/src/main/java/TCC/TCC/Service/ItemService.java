@@ -43,7 +43,14 @@ public class ItemService {
     }
 
     public Item pegarItemPeloId(long itemId){
-        return itemRepository.findById(itemId).orElseThrow(() -> new ItemNaoEncontradoException(itemId));
+        var item = itemRepository.findById(itemId)
+            .orElseThrow(() -> new ItemNaoEncontradoException(itemId));
+
+        if (!item.getAtivo()) {
+            throw new ItemNaoEncontradoException(itemId);
+        }
+
+        return item;
     }
 
     public List<Item> buscarPorNome(String nome) {
@@ -51,7 +58,13 @@ public class ItemService {
     }
 
     public List<Item> listarItems(Usuario usuario){
-        return itemRepository.findByCriadoPor(usuario);
+        var itens = itemRepository.findByCriadoPorAndAtivoTrue(usuario);
+        
+        if (itens.isEmpty()) {
+            throw new ItemNaoEncontradoException("Nenhum item ativo encontrado para este usuário");
+        }
+
+        return itens;
     }
 
     public void deletarItem(long itemId){

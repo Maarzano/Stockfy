@@ -42,8 +42,14 @@ public class FuncionarioService {
     }
 
     public List<Funcionario> listarFuncionario(Usuario usuario){
-        if(funcionarioRepository.count() <= 0) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não há nenhum funcionário");
-        return funcionarioRepository.findByCriadoPor(usuario);
+        
+        var funcionariosAtivos = funcionarioRepository.findByCriadoPorAndAtivoTrue(usuario);
+
+        if (funcionariosAtivos.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não há nenhum funcionário ativo");
+        }
+
+        return funcionariosAtivos;
     }
 
     public void deletarFuncionario(long funcId){
