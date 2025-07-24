@@ -60,10 +60,14 @@ public class Item {
     @JoinColumn(name = "criado_por", referencedColumnName = "id_usuario", nullable = false)
     private Usuario criadoPor;
 
+    @Column(name = "ativo", nullable = false)
+    private Boolean ativo;
+
 
     @PrePersist
     protected void onCreate() {
         this.dataDeCriacao = OffsetDateTime.now(ZoneId.of("America/Sao_Paulo"));
+        this.ativo = true;
     }
 
 }
