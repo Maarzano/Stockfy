@@ -46,6 +46,17 @@ const Profile = () => {
     };
 
     const handleConfirmSave = async () => {
+        // Validação dos campos obrigatórios
+        if (
+            !usuario.nomeCompleto.trim() ||
+            !usuario.email.trim() ||
+            !usuario.cpf.trim() ||
+            !usuario.celular.trim() ||
+            !usuario.senha.trim()
+        ) {
+            alert("Por favor, preencha todos os campos obrigatórios.");
+            return;
+        }
         try {
             await atualizarUsuario(usuario.usuarioID, {
                 nomeCompleto: usuario.nomeCompleto,
@@ -96,26 +107,26 @@ const Profile = () => {
                     <Form>
                         <DivInputLabelFirst>
                             <Label htmlFor="nomeCompleto">Nome Completo</Label>
-                            <Input id="nomeCompleto" value={usuario.nomeCompleto} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
+                            <Input id="nomeCompleto" value={usuario.nomeCompleto} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} required/>
                         </DivInputLabelFirst>
                         
                         <LadoDoOutro>
                             <DivInputLabel>
                                 <Label htmlFor="cpf">CPF</Label>
-                                <Input id="cpf" value={usuario.cpf} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
+                                <Input id="cpf" value={usuario.cpf} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} required/>
                             </DivInputLabel>
                             <DivInputLabel>
                                 <Label htmlFor="celular">Celular</Label>
-                                <Input id="celular" value={usuario.celular} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
+                                <Input id="celular" value={usuario.celular} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} required />
                             </DivInputLabel>
                         </LadoDoOutro>
                         <DivInputLabel>
                             <Label htmlFor="email">Email</Label>
-                            <Input id="email" value={usuario.email} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
+                            <Input id="email" value={usuario.email} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} required/>
                         </DivInputLabel>
                         <DivInputLabel>
                             <Label htmlFor="senha">Senha</Label>
-                            <Input id="senha" value={usuario.senha} type="password" readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
+                            <Input id="senha" value={usuario.senha} type="password" readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} required/>
                         </DivInputLabel>
                     </Form>
                 </ProfileContent>
