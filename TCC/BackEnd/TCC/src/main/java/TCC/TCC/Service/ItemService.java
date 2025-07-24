@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import TCC.TCC.DTOs.ItemDTO.AtualizarItemDTO;
 import TCC.TCC.DTOs.ItemDTO.CriarItemDTO;
 import TCC.TCC.Entities.*;
-import TCC.TCC.Exceptions.ItemsException.ItemDuplicadoException;
 import TCC.TCC.Exceptions.ItemsException.ItemNaoEncontradoException;
 import TCC.TCC.Exceptions.ItemsException.QuantidadeInvalida;
 import TCC.TCC.Repository.*;
@@ -27,9 +26,6 @@ public class ItemService {
 
         if(criarItemDTO.quantidade() < 0){
             throw new QuantidadeInvalida(criarItemDTO.quantidade());
-        }
-        if (itemRepository.findBynomeItemIgnoreCase(criarItemDTO.nomeItem()).isPresent()) {
-            throw new ItemDuplicadoException(criarItemDTO.nomeItem());
         }
 
         Item entity = new Item(criarItemDTO.nomeItem(), criarItemDTO.quantidade(),  
@@ -81,13 +77,6 @@ public class ItemService {
     
         if (atualizarItemDTO.quantidade() != null && atualizarItemDTO.quantidade() < 0) {
             throw new QuantidadeInvalida(atualizarItemDTO.quantidade());
-        }
-        
-        if (atualizarItemDTO.nomeItem() != null && 
-            !atualizarItemDTO.nomeItem().equalsIgnoreCase(itemExiste.getNomeItem()) && 
-            itemRepository.findBynomeItemIgnoreCase(atualizarItemDTO.nomeItem()).isPresent()) {
-
-                throw new ItemDuplicadoException(atualizarItemDTO.nomeItem());
         }
 
         if (atualizarItemDTO.nomeItem() != null) {

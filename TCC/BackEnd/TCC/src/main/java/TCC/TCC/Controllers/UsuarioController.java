@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import TCC.TCC.DTOs.UsuarioDTO.AtualizarUsuarioDTO;
 import TCC.TCC.DTOs.UsuarioDTO.CriarUsuarioDTO;
-import TCC.TCC.DTOs.UsuarioDTO.LoginDTO;
 import TCC.TCC.Entities.Usuario;
 import TCC.TCC.Service.UsuarioService;
 import jakarta.validation.Valid;

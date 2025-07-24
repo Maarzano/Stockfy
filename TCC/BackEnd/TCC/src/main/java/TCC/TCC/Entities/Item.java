@@ -40,7 +40,10 @@ public class Item {
     @Column(name = "id_item")
     private long itemId;
 
-    @Column(name = "nome_item", nullable = false, unique = true)
+    /*estou mudando isso pois estava dando um problema bizarro 
+        (mas não sei se é a melhor forma de corrigir) */
+
+    @Column(name = "nome_item", nullable = false, unique = false) 
     private String nomeItem;
 
     @Column(name = "quantidade", nullable = false)
