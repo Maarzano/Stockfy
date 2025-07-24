@@ -15,4 +15,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 
     List<Funcionario> findByCriadoPor(Usuario criadoPor);
 
+    List<Funcionario> findByCriadoPorAndAtivoTrue(Usuario usuario);
+
 }

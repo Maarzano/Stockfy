@@ -21,4 +21,7 @@ public interface ItemRepository extends JpaRepository<Item, Long>{
 
     List<Item> findByCriadoPor(Usuario criadoPor);
 
+    List<Item> findByCriadoPorAndAtivoTrue(Usuario criadoPor);
+
+
 }
