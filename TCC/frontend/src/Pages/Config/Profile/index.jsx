@@ -95,7 +95,7 @@ const Profile = () => {
                         style={{ cursor: isEditing ? 'pointer' : 'default' }}
                         onClick={handleImageClick}
                     />
-                    {isEditing && <EditHint>Clique para editar</EditHint>}
+                    {isEditing && <EditHint>Clique na imagem para edita-la</EditHint>}
                     </div>
                     
                     <EditImageProfileModal
@@ -107,26 +107,26 @@ const Profile = () => {
                     <Form>
                         <DivInputLabelFirst>
                             <Label htmlFor="nomeCompleto">Nome Completo</Label>
-                            <Input id="nomeCompleto" value={usuario.nomeCompleto} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} required/>
+                            <Input id="nomeCompleto" value={usuario.nomeCompleto} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório"/>
                         </DivInputLabelFirst>
                         
                         <LadoDoOutro>
                             <DivInputLabel>
                                 <Label htmlFor="cpf">CPF</Label>
-                                <Input id="cpf" value={usuario.cpf} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} required/>
+                                <Input id="cpf" value={usuario.cpf} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório"/>
                             </DivInputLabel>
                             <DivInputLabel>
                                 <Label htmlFor="celular">Celular</Label>
-                                <Input id="celular" value={usuario.celular} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} required />
+                                <Input id="celular" value={usuario.celular} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório" />
                             </DivInputLabel>
                         </LadoDoOutro>
                         <DivInputLabel>
                             <Label htmlFor="email">Email</Label>
-                            <Input id="email" value={usuario.email} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} required/>
+                            <Input id="email" value={usuario.email} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório"/>
                         </DivInputLabel>
                         <DivInputLabel>
                             <Label htmlFor="senha">Senha</Label>
-                            <Input id="senha" value={usuario.senha} type="password" readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} required/>
+                            <Input id="senha" value={usuario.senha} type="password" readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório"/>
                         </DivInputLabel>
                     </Form>
                 </ProfileContent>

@@ -7,11 +7,10 @@ const EditImageProfileModal = ({ isOpen, onClose, onSave, currentImage }) => {
     const [imgError, setImgError] = useState(false);
 
     useEffect(() => {
-        setNewImage(""); // Limpa o input ao abrir
+        setNewImage(""); 
         setImgError(false);
     }, [isOpen]);
 
-    // Decide qual imagem tentar mostrar
     const imgSrc = newImage || currentImage;
     const showFallback = !imgSrc || imgError;
 
