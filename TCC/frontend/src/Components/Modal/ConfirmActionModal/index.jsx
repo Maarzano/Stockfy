@@ -75,7 +75,7 @@ const ConfirmActionModal = ({ isOpen, onClose, type = 'save', onConfirm, data })
           <button onClick={onClose}>Voltar</button>
           <button onClick={() => {
             onConfirm?.();
-            //window.location.reload();
+            window.location.reload();
           }}>
             {confirmLabel}
           </button>
