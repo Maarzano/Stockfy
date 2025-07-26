@@ -96,46 +96,26 @@ const Profile = () => {
                     <Form>
                         <DivInputLabelFirst>
                             <Label htmlFor="nomeCompleto">Nome Completo</Label>
-<<<<<<< HEAD
                             <Input id="nomeCompleto" value={usuario.nomeCompleto} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório"/>
-=======
-                            <Input id="nomeCompleto" value={usuario.nomeCompleto} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
->>>>>>> parent of 2f136af (Fazendo com que seja obrigatório todas as informações do usuario estarem preenchidas)
                         </DivInputLabelFirst>
                         
                         <LadoDoOutro>
                             <DivInputLabel>
                                 <Label htmlFor="cpf">CPF</Label>
-<<<<<<< HEAD
                                 <Input id="cpf" value={usuario.cpf} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório"/>
                             </DivInputLabel>
                             <DivInputLabel>
                                 <Label htmlFor="celular">Celular</Label>
                                 <Input id="celular" value={usuario.celular} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório" />
-=======
-                                <Input id="cpf" value={usuario.cpf} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
-                            </DivInputLabel>
-                            <DivInputLabel>
-                                <Label htmlFor="celular">Celular</Label>
-                                <Input id="celular" value={usuario.celular} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
->>>>>>> parent of 2f136af (Fazendo com que seja obrigatório todas as informações do usuario estarem preenchidas)
                             </DivInputLabel>
                         </LadoDoOutro>
                         <DivInputLabel>
                             <Label htmlFor="email">Email</Label>
-<<<<<<< HEAD
                             <Input id="email" value={usuario.email} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório"/>
                         </DivInputLabel>
                         <DivInputLabel>
                             <Label htmlFor="senha">Senha</Label>
                             <Input id="senha" value={usuario.senha} type="password" readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório"/>
-=======
-                            <Input id="email" value={usuario.email} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
-                        </DivInputLabel>
-                        <DivInputLabel>
-                            <Label htmlFor="senha">Senha</Label>
-                            <Input id="senha" value={usuario.senha} type="password" readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} />
->>>>>>> parent of 2f136af (Fazendo com que seja obrigatório todas as informações do usuario estarem preenchidas)
                         </DivInputLabel>
                     </Form>
                 </ProfileContent>
