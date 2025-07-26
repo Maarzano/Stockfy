@@ -260,7 +260,7 @@ const Input = styled.input`
 const EditHint = styled.p`
     margin-top: 22px;
     font-size: 0.98rem;
-    color: #wheat;
+    color: wheat;
     text-align: center;
     opacity: 0.85;
     letter-spacing: 0.02em;
