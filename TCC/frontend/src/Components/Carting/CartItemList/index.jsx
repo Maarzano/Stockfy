@@ -86,10 +86,11 @@ const Item = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #b0b0b0;
+
+  width: 60px;
+  height: 60px;
+  border-radius: 20%;
+  background-color: transparent;
   overflow: hidden;
 
   img {

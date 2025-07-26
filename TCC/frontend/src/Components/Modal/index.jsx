@@ -1,20 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ReactDOM from "react-dom"
 
 const Modal = ({ isOpen, onClose, children }) => {
+  const mouseDownTarget = React.useRef(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
+  const handleOverlayMouseDown = (e) => {
+    mouseDownTarget.current = e.target;
+  };
+
   const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
+    // Só fecha se mouseDown e click forem no mesmo alvo (evita fechar ao selecionar texto)
+    if (e.target === e.currentTarget && mouseDownTarget.current === e.currentTarget) {
       e.stopPropagation();
       onClose();
     }
   };
 
   return ReactDOM.createPortal(
-    <ModalOverlay onClick={handleOverlayClick}>
-      <ModalContainer onClick={(e) => e.stopPropagation()}>
+    <ModalOverlay
+      className="modal-overlay"
+      onMouseDown={handleOverlayMouseDown}
+      onClick={handleOverlayClick}
+    >
+      <ModalContainer className="modal-container" onClick={(e) => e.stopPropagation()}>
         {onClose && (
           <CloseButton onClick={onClose} aria-label="Fechar modal">&times;</CloseButton>
         )}

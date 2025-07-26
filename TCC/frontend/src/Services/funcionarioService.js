@@ -19,3 +19,23 @@ export const deletarFuncionarioPorId = async (id) => {
     throw error;
   }
 };
+
+export const criarFuncionario = async (info) => {
+  try {
+    const response = await api.post("Funcionarios", info);
+    return response;
+  } catch (e){
+    console.error(e);
+    throw e;
+  }
+}
+
+export const editarFuncionarioPorId = async (id, info) => {
+  try {
+    const response = await api.put(`/Funcionarios/${id}`, info);
+    return response;
+  } catch (error) {
+    console.error('Erro ao editar funcionário:', error);
+    throw error;
+  }
+};

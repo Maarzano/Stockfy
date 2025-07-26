@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import NavBar from "../../Components/Navs/NavBar"
-import Subnav from "../../Components/Navs/Subnav";
 import GalleryItenSection from "../../Components/GalleryItemSection";
+import Subnav from "../../Components/Navs/Subnav";
 
 const Gallery = () => {
     return (
         <Wrapper>
             <NavBar/>
             <GalleryItenSection/>
-            <Subnav/>
+            <Subnav />
         </Wrapper>
     )
 }

@@ -10,14 +10,20 @@ const CardLogin = ({ onSwitch }) => {
   const [senha, setSenha] = useState("");
   const {login, loading, erro, sucesso, dataRecebido} = useLoginUsuario();
   const navigate = useNavigate();
+  
+
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:8080/oauth2/authorization/google";
+  };
+
 
   const handleLogin = () => {
     if (emailCpf === "" || senha === ""){
         return
       }
     const info = {
-      login: emailCpf, // ainda precisamos melhorar a lógica e outras coisas... 
-      senha: senha  // TODO - guardar token etc...
+      login: emailCpf,
+      senha: senha
     }
     login(info);
   };
@@ -49,7 +55,7 @@ const CardLogin = ({ onSwitch }) => {
         <span>ou entre com</span>
       </div>
       <div className="social-buttons">
-        <button type="button" className="social google" aria-label="Log in with Google">
+        <button type="button" className="social google" aria-label="Log in with Google" onClick={handleGoogleLogin}>
           <span className="icon-google" />
           Google
         </button>

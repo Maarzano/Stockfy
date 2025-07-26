@@ -19,4 +19,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
     @Query("SELECT u FROM Usuario u WHERE (u.email = :login OR u.cpf = :login) AND u.senha = :senha")
     Optional<Usuario> findByLoginAndSenha(@Param("login") String login, @Param("senha") String senha);
 
+    Optional<Usuario> findByEmail(String email);
+
 }

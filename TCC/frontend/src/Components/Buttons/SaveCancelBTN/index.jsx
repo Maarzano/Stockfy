@@ -6,13 +6,18 @@ import { ReactComponent as EditIcon } from "../../../Assets/SVGs/Icons/edit.svg"
 import { ReactComponent as Trash } from "../../../Assets/SVGs/Icons/Trash.svg";
 import ConfirmActionModal from '../../Modal/ConfirmActionModal';
 
-const SaveCancelBTN = ({ type = "save", data, onConfirm }) => {
+const SaveCancelBTN = ({ type = "save", data, onConfirm, onClick }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handlerOnClick = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    setIsModalOpen(true);
+    if (type === "edit") {
+      // Chama o onClick diretamente para editar (abrir modal de edição)
+      onClick && onClick(e);
+    } else {
+      setIsModalOpen(true);
+    }
   };
 
   const handleCloseModal = () => {
@@ -92,13 +97,16 @@ const SaveCancelBTN = ({ type = "save", data, onConfirm }) => {
         </button>
       </StyledWrapper>
 
-      <ConfirmActionModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmAction}
-        type={type}
-        data={data}
-      />
+      {/* Só exibe o modal de confirmação se NÃO for edit */}
+      {type !== "edit" && (
+        <ConfirmActionModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onConfirm={handleConfirmAction}
+          type={type}
+          data={data}
+        />
+      )}
     </>
   );
 };

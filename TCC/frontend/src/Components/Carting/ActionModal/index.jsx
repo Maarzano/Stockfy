@@ -1,6 +1,62 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
+const ActionModal = ({ isOpen, onClose, onConfirm, tipo, funcionarios = [] }) => {
+    const [responsavelId, setResponsavelId] = useState("");
+
+    useEffect(() => {
+        if (isOpen) {
+            setResponsavelId("");
+        }
+    }, [isOpen]);
+
+    if (!isOpen) return null;
+
+    return (
+        <Overlay onClick={onClose}>
+            <Container onClick={(e) => e.stopPropagation()}>
+                <h2>{tipo} de Itens</h2>
+                <p>Selecione o responsável pela {tipo.toLowerCase()}:</p>
+
+                <select
+                    value={responsavelId}
+                    onChange={(e) => setResponsavelId(e.target.value)}
+                >
+                    <option value="">Selecione um funcionário</option>
+                    {funcionarios.map((func) => (
+                        <option key={func.funcionarioId} value={func.funcionarioId}>
+                            {func.nomeFuncionario}
+                        </option>
+                    ))}
+                </select>
+
+                <ButtonRow>
+                    <button onClick={onClose}>Cancelar</button>
+                    <button
+                        onClick={() => {
+                            const funcionarioSelecionado = funcionarios.find(
+                                (f) => f.funcionarioId === Number(responsavelId)
+                            );
+                            if (funcionarioSelecionado){
+                                onConfirm({
+                                    id: funcionarioSelecionado.funcionarioId,
+                                    nome: funcionarioSelecionado.nomeFuncionario
+                                })
+                            } else {
+                                alert("Por favor, selecione um responsável.");
+                            }
+                        }}
+                    >
+                        Confirmar
+                    </button>
+                </ButtonRow>
+            </Container>
+        </Overlay>
+    );
+};
+
+export default ActionModal;
+
 const Overlay = styled.div`
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -30,8 +86,6 @@ const Container = styled.div`
         background-color: #444;
         color: white;
         appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
         cursor: pointer;
     }
 
@@ -70,54 +124,3 @@ const ButtonRow = styled.div`
         }
     }
 `;
-
-const ActionModal = ({ isOpen, onClose, onConfirm, tipo, funcionarios = [] }) => {
-    const [responsavel, setResponsavel] = useState("");
-
-    useEffect(() => {
-        if (isOpen) {
-            setResponsavel("");
-        }
-    }, [isOpen]);
-
-    if (!isOpen) return null;
-
-    return (
-        <Overlay onClick={onClose}>
-            <Container onClick={(e) => e.stopPropagation()}>
-                <h2>{tipo} de Itens</h2>
-                <p>Selecione o responsável pela {tipo.toLowerCase()}:</p>
-
-                <select
-                    value={responsavel}
-                    onChange={(e) => setResponsavel(e.target.value)}
-                >
-                    <option value="">Selecione um funcionário</option>
-                    {funcionarios.map((func) => (
-                        <option key={func.funcionarioId} value={func.nomeFuncionario}>
-                            {func.nomeFuncionario}
-                        </option>
-                    ))}
-                </select>
-
-                <ButtonRow>
-                    <button onClick={onClose}>Cancelar</button>
-                    <button
-                        onClick={() => {
-                            if (responsavel.trim()) {
-                                onConfirm(responsavel);
-                                setResponsavel("");
-                            } else {
-                                alert("Por favor, selecione um responsável.");
-                            }
-                        }}
-                    >
-                        Confirmar
-                    </button>
-                </ButtonRow>
-            </Container>
-        </Overlay>
-    );
-};
-
-export default ActionModal;

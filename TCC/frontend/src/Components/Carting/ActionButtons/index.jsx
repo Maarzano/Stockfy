@@ -1,7 +1,55 @@
 import { useState } from "react";
 import styled from "styled-components";
 import ActionModal from "../ActionModal";
+import SummaryModal from "../SummaryModal";
 import { useFuncionarios } from "../../../Hooks/Funcionarios/useFuncionarios";
+
+const ActionButtons = ({ onActionConfirmed }) => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [resumoOpen, setResumoOpen] = useState(false);
+    const [tipoAcao, setTipoAcao] = useState("");
+    const [responsavelSelecionado, setResponsavelSelecionado] = useState("");
+    const { funcionarios } = useFuncionarios([]);
+
+    const abrirModal = (tipo) => {
+        setTipoAcao(tipo);
+        setModalOpen(true);
+    };
+
+    const confirmarAcao = (responsavel) => {
+        setResponsavelSelecionado(responsavel);
+        setModalOpen(false);
+        setResumoOpen(true);
+
+        if (onActionConfirmed) {
+            onActionConfirmed(tipoAcao, responsavel);
+        }
+    };
+
+    return (
+        <Wrapper>
+            <button onClick={() => abrirModal("ENTRADA")}>Devolução</button>
+            <button onClick={() => abrirModal("SAIDA")}>Retirada</button>
+
+            <ActionModal
+                isOpen={modalOpen}
+                onClose={() => setModalOpen(false)}
+                onConfirm={confirmarAcao}
+                tipo={tipoAcao}
+                funcionarios={funcionarios}
+            />
+
+            <SummaryModal
+                isOpen={resumoOpen}
+                onClose={() => setResumoOpen(false)}
+                tipo={tipoAcao}
+                responsavel={responsavelSelecionado}
+            />
+        </Wrapper>
+    );
+};
+
+export default ActionButtons;
 
 const Wrapper = styled.div`
     display: flex;
@@ -30,41 +78,3 @@ const Wrapper = styled.div`
         background-color: #3c3131;
     }
 `;
-
-const ActionButtons = ({ onActionConfirmed }) => {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [tipoAcao, setTipoAcao] = useState("");
-    const { funcionarios } = useFuncionarios([]);
-
-    const abrirModal = (tipo) => {
-        setTipoAcao(tipo);
-        setModalOpen(true);
-    };
-
-    const confirmarAcao = (responsavel) => {
-            alert(`Você realizou a ${tipoAcao.toLowerCase()} por: ${responsavel}`);
-        
-        setModalOpen(false);
-
-        if (onActionConfirmed) {
-            onActionConfirmed(tipoAcao, responsavel);
-        }
-    };
-
-    return (
-        <Wrapper>
-            <button onClick={() => abrirModal("Devolução")}>Devolução</button>
-            <button onClick={() => abrirModal("Retirada")}>Retirada</button>
-
-            <ActionModal
-                isOpen={modalOpen}
-                onClose={() => setModalOpen(false)}
-                onConfirm={confirmarAcao}
-                tipo={tipoAcao}
-                funcionarios={funcionarios}
-            />
-        </Wrapper>
-    );
-};
-
-export default ActionButtons;

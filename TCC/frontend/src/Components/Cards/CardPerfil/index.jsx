@@ -2,14 +2,18 @@ import styled from "styled-components";
 import LogoutBTN from "../../Buttons/LogoutBTN"
 import profilePictureWhite from "../../../Assets/SVGs/Icons/icon-profile-white&purple.svg";
 import { Link } from "react-router-dom";
+import { placeholderProfile } from "../../../Utils/verificandoImagem";
 
 const CardPerfil = () => {
-    
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+
     return (
         <Wrapper>
             <ProfileWrapper>
-                <ProfilePciture src={profilePictureWhite}/>{/* TODO - ainda precisamos conectar isso ao backend */}
-                <ProfileName><Link to={"/Config/Profile"}>Convidado</Link></ProfileName>
+                <Link to={'/Config/Profile'}>
+                    <ProfilePicture src={usuario.imagem ?  placeholderProfile(usuario.imagem) : profilePictureWhite}/>
+                </Link>
+                <ProfileName><Link to={"/Config/Profile"}>{usuario.nomeCompleto}</Link></ProfileName>
             </ProfileWrapper>
             <LogoutBTN/>
         </Wrapper>
@@ -41,9 +45,12 @@ const ProfileWrapper = styled.div`
     justify-content: left;
 `
 
-const ProfilePciture = styled.img`
-    height: 80%;
+const ProfilePicture = styled.img`
+    width: 37px;
+    height: 37px;
     cursor: pointer;
+    border-radius: 50%;
+    object-fit: cover;
 `
 const ProfileName = styled.p`
     color: #FFF;

@@ -6,12 +6,15 @@ import SearchLoader from '../../../Components/Loaders/SearchLoader';
 import Search2 from '../../../Components/Searchs/Search2';
 import CardStockEmployeeCart from '../../../Components/Cards/CardStockEmployeeCart';
 import { deletarProdutoPorId } from '../../../Services/prudutoService';
+import AddItemToStockModal from '../../../Components/Modal/AddItemToStock';
+import CreateBTN from '../../../Components/Buttons/CreateBTN';
 
 const Stock = () => {
   const { produtos: produtosOriginais, loading, erro } = useProdutos([]);
   const [busca, setBusca] = useState("");
   const [produtos, setProdutos] = useState([]);
   const [expandedId, setExpandedId] = useState(null); // Novo estado para controlar expansão
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (produtosOriginais.length > 0) {
@@ -29,6 +32,14 @@ const Stock = () => {
     }
   };
 
+  // Função para recarregar produtos após criar
+  const reloadProdutos = () => {
+    if (produtosOriginais.length > 0) {
+      setProdutos(produtosOriginais);
+      window.location.reload()
+    }
+  };
+
   const produtosFiltrados = useMemo(() => {
     const termo = busca.toLowerCase();
     return produtos.filter((item) =>
@@ -40,7 +51,12 @@ const Stock = () => {
   return (
     <Wrapper>
       <h2>Itens do estoque</h2>
-
+      <CreateBTN onClick={() => setModalOpen(true)} />
+      <AddItemToStockModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSuccess={reloadProdutos}
+      />
       <WrapperSearch>
         <Search2
           value={busca}
@@ -127,7 +143,6 @@ const Wrapper = styled.div`
   .item-list {
     margin-bottom: 60px;
     color: wheat;
-    text-transform: capitalize;
     font-size: 20px;
   }
 `;

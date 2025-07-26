@@ -39,16 +39,16 @@ public class Usuario {
     @Column(name =  "NomeCompleto", nullable = false)
     private String nomeCompleto;
 
-    @Column(name = "Senha", nullable = false)
+    @Column(name = "Senha", nullable = true)
     private String senha;
 
-    @Column(name = "CPF", unique = true, nullable = false)
+    @Column(name = "CPF", unique = true, nullable = true)
     private String cpf;
 
-    @Column(name = "Celular", nullable = false)
+    @Column(name = "Celular", nullable = true)
     private String celular;
 
-    @Column(name = "Email", unique = true, nullable = false)
+    @Column(name = "Email", unique = true, nullable = true)
     private String email;
 
     @Column(name = "imagem_perfil", nullable = true)

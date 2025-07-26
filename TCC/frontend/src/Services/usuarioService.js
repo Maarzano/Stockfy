@@ -22,10 +22,24 @@ export const criarUsuario = async (info) => {
 
 export const logarUsuario = async (info) => {
     try {
-        const response = await api.post("/Usuarios/login", info);
-        return response;
+        const response = await api.post("/auth/login", info);
+        const { token, usuario } = response.data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("usuario", JSON.stringify(usuario));
+        return token;
     } catch (e) {
         console.error(e);
         throw e;
     }
-}
+};
+
+export const atualizarUsuario = async (userId, info) => {
+    try {
+        const response = await api.put(`/Usuarios/${userId}`, info);
+        return response;
+    } catch (e) {
+        console.error("Erro ao atualizar usuario", e);
+        throw e;
+    }
+};
+
