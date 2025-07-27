@@ -122,6 +122,9 @@ const AddEmployee = ({ isOpen, onClose, onSuccess, initialData }) => {
     } finally {
       setLoading(false);
     }
+    setTimeout(() => {
+      window.location.reload();
+    }, 600);
   };
 
   return (
