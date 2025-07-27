@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import CloseIcon from "../../../Assets/SVGs/Icons/icon-x-close-black.svg";
 import { useCart } from "../../../Context/Cart";
 import ConfirmActionModal from "../../Modal/ConfirmActionModal";
@@ -83,6 +83,11 @@ const Item = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
   padding: 20px 18px;
   border-radius: 15px;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.015);
+  }
 `;
 
 const ImageWrapper = styled.div`
