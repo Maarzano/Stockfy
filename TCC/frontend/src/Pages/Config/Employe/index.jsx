@@ -25,7 +25,6 @@ const Funcionarios = () => {
     if (funcionariosOriginais.length > 0) {
       setFuncionarios(funcionariosOriginais);
     }
-    window.location.reload();
   };
 
   const deletarFuncionario = async (id) => {

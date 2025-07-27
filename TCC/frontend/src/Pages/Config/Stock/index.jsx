@@ -36,7 +36,6 @@ const Stock = () => {
   const reloadProdutos = () => {
     if (produtosOriginais.length > 0) {
       setProdutos(produtosOriginais);
-      window.location.reload()
     }
   };
 

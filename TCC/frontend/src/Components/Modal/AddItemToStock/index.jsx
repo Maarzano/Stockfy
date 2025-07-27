@@ -78,7 +78,6 @@ const AddItemToStockModal = ({ isOpen, onClose, onSuccess, initialData }) => {
     } finally {
       setLoading(false);
     }
-    window.location.reload();
   };
 
   return (

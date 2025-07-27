@@ -62,7 +62,6 @@ const CardStockEmployeeCart = ({ data, type, onDelete, expanded, onExpand, onCol
 
   const handleCloseModal = () => {
     setOpenEditModal(false);
-    window.location.reload();
   };
 
   return (
