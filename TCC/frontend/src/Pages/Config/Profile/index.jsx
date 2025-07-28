@@ -20,6 +20,7 @@ const Profile = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [usuarioOriginal, setUsuarioOriginal] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         const usuarioSalvo = localStorage.getItem("usuario");
@@ -33,19 +34,51 @@ const Profile = () => {
     const handleEdit = () => {
         setUsuarioOriginal(usuario); // backup
         setIsEditing(true);
+        setErrors({});
     };
 
     const confirmCancel = () => {
         setUsuario(usuarioOriginal);
         setIsEditing(false);
+        setErrors({});
     };
 
     const handleChange = (e) => {
         const { id, value } = e.target;
         setUsuario((prev) => ({ ...prev, [id]: value }));
+        
+        // Clear error when user starts typing
+        if (errors[id]) {
+            setErrors(prev => ({ ...prev, [id]: "" }));
+        }
+    };
+
+    const validateForm = () => {
+        const newErrors = {};
+        
+        if (!usuario.nomeCompleto.trim()) {
+            newErrors.nomeCompleto = "Nome é obrigatório";
+        }
+        
+        if (!usuario.email.trim()) {
+            newErrors.email = "Email é obrigatório";
+        } else if (!/\S+@\S+\.\S+/.test(usuario.email)) {
+            newErrors.email = "Email inválido";
+        }
+
+        if (!usuario.senha.trim()) {
+            newErrors.senha = "Senha é obrigatória";
+        }
+        
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     };
 
     const handleConfirmSave = async () => {
+        if (!validateForm()) {
+            return;
+        }
+
         try {
             await atualizarUsuario(usuario.usuarioID, {
                 nomeCompleto: usuario.nomeCompleto,
@@ -57,6 +90,7 @@ const Profile = () => {
             });
             localStorage.setItem("usuario", JSON.stringify(usuario));
             setIsEditing(false);
+            setErrors({});
         } catch (e) {
             alert("Erro ao atualizar usuário");
         }
@@ -95,27 +129,52 @@ const Profile = () => {
                     />
                     <Form>
                         <DivInputLabelFirst>
-                            <Label htmlFor="nomeCompleto">Nome Completo</Label>
-                            <Input id="nomeCompleto" value={usuario.nomeCompleto} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório"/>
+                            <Label htmlFor="nomeCompleto">Nome Completo *</Label>
+                            <Input 
+                                id="nomeCompleto" 
+                                value={usuario.nomeCompleto} 
+                                readOnly={!isEditing} 
+                                onChange={isEditing ? handleChange : undefined} 
+                                placeholder="Digite seu nome completo"
+                                error={errors.nomeCompleto}
+                            />
+                            {errors.nomeCompleto && <ErrorMessage>{errors.nomeCompleto}</ErrorMessage>}
                         </DivInputLabelFirst>
                         
                         <LadoDoOutro>
                             <DivInputLabel>
                                 <Label htmlFor="cpf">CPF</Label>
-                                <Input id="cpf" value={usuario.cpf} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório"/>
+                                <Input id="cpf" value={usuario.cpf} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Digite seu CPF (opcional)"/>
                             </DivInputLabel>
                             <DivInputLabel>
                                 <Label htmlFor="celular">Celular</Label>
-                                <Input id="celular" value={usuario.celular} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório" />
+                                <Input id="celular" value={usuario.celular} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Digite seu celular (opcional)" />
                             </DivInputLabel>
                         </LadoDoOutro>
                         <DivInputLabel>
-                            <Label htmlFor="email">Email</Label>
-                            <Input id="email" value={usuario.email} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório"/>
+                            <Label htmlFor="email">Email *</Label>
+                            <Input 
+                                id="email" 
+                                value={usuario.email} 
+                                readOnly={!isEditing} 
+                                onChange={isEditing ? handleChange : undefined} 
+                                placeholder="Digite seu email"
+                                error={errors.email}
+                            />
+                            {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
                         </DivInputLabel>
                         <DivInputLabel>
-                            <Label htmlFor="senha">Senha</Label>
-                            <Input id="senha" value={usuario.senha} type="password" readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Este campo é obrigatório"/>
+                            <Label htmlFor="senha">Senha *</Label>
+                            <Input 
+                                id="senha" 
+                                value={usuario.senha} 
+                                type="password" 
+                                readOnly={!isEditing} 
+                                onChange={isEditing ? handleChange : undefined} 
+                                placeholder="Digite sua senha"
+                                error={errors.senha}
+                            />
+                            {errors.senha && <ErrorMessage>{errors.senha}</ErrorMessage>}
                         </DivInputLabel>
                     </Form>
                 </ProfileContent>
@@ -220,7 +279,7 @@ const DivBTN = styled.div`
 const Input = styled.input`
     width: 100%;
     border-radius: 0.5rem;
-    border: 1.5px solid #444;
+    border: 1.5px solid ${props => props.error ? '#ff6b6b' : '#444'};
     outline: none;
     background-color: #23272f;
     padding: 0.85rem 1.1rem;
@@ -231,12 +290,12 @@ const Input = styled.input`
     transition: border 0.2s, box-shadow 0.2s, background 0.2s;
     
     &:hover {
-        border: 1.5px solid #7c5cff;
+        border: 1.5px solid ${props => props.error ? '#ff6b6b' : '#7c5cff'};
         background: #262a35;
     }
     &:focus {
-        border: 1.5px solid #a084ff;
-        box-shadow: 0 0 0 2px rgba(160,132,255,0.15);
+        border: 1.5px solid ${props => props.error ? '#ff6b6b' : '#a084ff'};
+        box-shadow: 0 0 0 2px ${props => props.error ? 'rgba(255,107,107,0.15)' : 'rgba(160,132,255,0.15)'};
         background: #23272f;
     }
     &::placeholder {
@@ -244,6 +303,14 @@ const Input = styled.input`
         opacity: 0.7;
         font-style: italic;
     }
+`;
+
+const ErrorMessage = styled.span`
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
 `;
 
 const EditHint = styled.p`

@@ -137,10 +137,10 @@ const StyledWrapper = styled.div`
   .sign {
     display: block;
     width: 100%;
-    background-color: #a78bfa;
+    background-color: #623bda;
     padding: 0.75rem;
     text-align: center;
-    color: #111827;
+    color: whitesmoke;
     border: none;
     border-radius: 0.375rem;
     font-weight: 600;
