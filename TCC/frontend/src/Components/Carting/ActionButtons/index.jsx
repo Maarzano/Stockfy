@@ -12,7 +12,7 @@ const ActionButtons = ({ onActionConfirmed }) => {
     const [responsavelSelecionado, setResponsavelSelecionado] = useState("");
     const { funcionarios } = useFuncionarios([]);
     const { cartItems } = useCart(); 
-
+    
     const abrirModal = (tipo) => {
         setTipoAcao(tipo);
         setModalOpen(true);
@@ -22,10 +22,6 @@ const ActionButtons = ({ onActionConfirmed }) => {
         setResponsavelSelecionado(responsavel);
         setModalOpen(false);
         setResumoOpen(true);
-
-        if (onActionConfirmed) {
-            onActionConfirmed(tipoAcao, responsavel);
-        }
     };
 
     const isDisabled = cartItems.length === 0;
@@ -52,6 +48,12 @@ const ActionButtons = ({ onActionConfirmed }) => {
                 onClose={() => setResumoOpen(false)}
                 tipo={tipoAcao}
                 responsavel={responsavelSelecionado}
+                onConfirm={() => {
+                    if (onActionConfirmed) {
+                        onActionConfirmed(tipoAcao, responsavelSelecionado);
+                    }
+                    setResumoOpen(false);
+                }}
             />
         </Wrapper>
     );
