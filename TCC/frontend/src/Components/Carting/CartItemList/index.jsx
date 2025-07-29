@@ -91,6 +91,7 @@ const Item = styled.div`
 `;
 
 const ImageWrapper = styled.div`
+
   width: 60px;
   height: 60px;
   border-radius: 20%;
