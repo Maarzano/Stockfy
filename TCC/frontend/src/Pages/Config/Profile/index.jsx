@@ -13,8 +13,8 @@ const Profile = () => {
         email: "",
         cpf: "",
         celular: "",
-        senha: "", 
-Fa        imagem: ""
+        senha: "",
+        imagem: ""
     });
 
     const [isEditing, setIsEditing] = useState(false);
@@ -27,7 +27,6 @@ Fa        imagem: ""
         
         if (usuarioSalvo) {
             const dados = JSON.parse(usuarioSalvo);
-            // Garantir que campos vazios sejam strings vazias consistentes
             setUsuario({
                 nomeCompleto: dados.nomeCompleto || "",
                 email: dados.email || "",
@@ -41,14 +40,12 @@ Fa        imagem: ""
     }, []);
 
     const handleEdit = () => {
-        // Criar uma cópia profunda do estado atual para garantir que o cancelamento funcione corretamente
         setUsuarioOriginal({...usuario});
         setIsEditing(true);
         setErrors({});
     };
 
     const confirmCancel = () => {
-        // Garantir que todos os campos sejam restaurados corretamente, incluindo campos vazios
         if (usuarioOriginal) {
             setUsuario({
                 nomeCompleto: usuarioOriginal.nomeCompleto || "",
@@ -68,7 +65,6 @@ Fa        imagem: ""
         const { id, value } = e.target;
         setUsuario((prev) => ({ ...prev, [id]: value }));
         
-        // Clear error when user starts typing
         if (errors[id]) {
             setErrors(prev => ({ ...prev, [id]: "" }));
         }
@@ -130,16 +126,16 @@ Fa        imagem: ""
     return (
         <Wrapper>
             <Main>
-            <h2>Meu Perfil</h2>
+                <h2>Meu Perfil</h2>
                 <ProfileContent>
                     <div className="flex">
-                    <ImgProfile
-                        src={usuario.imagem ?  placeholderProfile(ajustarTamanhoImagemGoogle(usuario.imagem, 256)) : imagemProfile}
-                        alt="Perfil"
-                        style={{ cursor: isEditing ? 'pointer' : 'default' }}
-                        onClick={handleImageClick}
-                    />
-                    {isEditing && <EditHint>Clique na imagem para edita-la</EditHint>}
+                        <ImgProfile
+                            src={usuario.imagem ? placeholderProfile(ajustarTamanhoImagemGoogle(usuario.imagem, 256)) : imagemProfile}
+                            alt="Perfil"
+                            style={{ cursor: isEditing ? 'pointer' : 'default' }}
+                            onClick={handleImageClick}
+                        />
+                        {isEditing && <EditHint>Clique na imagem para edita-la</EditHint>}
                     </div>
                     
                     <EditImageProfileModal
@@ -165,11 +161,23 @@ Fa        imagem: ""
                         <LadoDoOutro>
                             <DivInputLabel>
                                 <Label htmlFor="cpf">CPF</Label>
-                                <Input id="cpf" value={usuario.cpf} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Digite seu CPF (opcional)"/>
+                                <Input 
+                                    id="cpf" 
+                                    value={usuario.cpf} 
+                                    readOnly={!isEditing} 
+                                    onChange={isEditing ? handleChange : undefined} 
+                                    placeholder="Digite seu CPF (opcional)"
+                                />
                             </DivInputLabel>
                             <DivInputLabel>
                                 <Label htmlFor="celular">Celular</Label>
-                                <Input id="celular" value={usuario.celular} readOnly={!isEditing} onChange={isEditing ? handleChange : undefined} placeholder="Digite seu celular (opcional)" />
+                                <Input 
+                                    id="celular" 
+                                    value={usuario.celular} 
+                                    readOnly={!isEditing} 
+                                    onChange={isEditing ? handleChange : undefined} 
+                                    placeholder="Digite seu celular (opcional)" 
+                                />
                             </DivInputLabel>
                         </LadoDoOutro>
                         <DivInputLabel>
@@ -230,17 +238,17 @@ const Wrapper = styled.div`
 `;
 
 const ProfileContent = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 40px;
-  width: 100%;
-
-  .flex {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+
+    .flex {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 `;
 
 const ImgProfile = styled.img`
@@ -345,4 +353,4 @@ const EditHint = styled.p`
     font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
 `;
 
-export default Profile;
+export default Profile; 
