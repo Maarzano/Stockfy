@@ -14,7 +14,7 @@ const Profile = () => {
         cpf: "",
         celular: "",
         senha: "", 
-        Imagem: ""
+Fa        imagem: ""
     });
 
     const [isEditing, setIsEditing] = useState(false);
@@ -27,18 +27,39 @@ const Profile = () => {
         
         if (usuarioSalvo) {
             const dados = JSON.parse(usuarioSalvo);
-            setUsuario(dados);
+            // Garantir que campos vazios sejam strings vazias consistentes
+            setUsuario({
+                nomeCompleto: dados.nomeCompleto || "",
+                email: dados.email || "",
+                cpf: dados.cpf || "",
+                celular: dados.celular || "",
+                senha: dados.senha || "",
+                imagem: dados.imagem || "",
+                usuarioID: dados.usuarioID
+            });
         }
     }, []);
 
     const handleEdit = () => {
-        setUsuarioOriginal(usuario); // backup
+        // Criar uma cópia profunda do estado atual para garantir que o cancelamento funcione corretamente
+        setUsuarioOriginal({...usuario});
         setIsEditing(true);
         setErrors({});
     };
 
     const confirmCancel = () => {
-        setUsuario(usuarioOriginal);
+        // Garantir que todos os campos sejam restaurados corretamente, incluindo campos vazios
+        if (usuarioOriginal) {
+            setUsuario({
+                nomeCompleto: usuarioOriginal.nomeCompleto || "",
+                email: usuarioOriginal.email || "",
+                cpf: usuarioOriginal.cpf || "",
+                celular: usuarioOriginal.celular || "",
+                senha: usuarioOriginal.senha || "",
+                imagem: usuarioOriginal.imagem || "",
+                usuarioID: usuarioOriginal.usuarioID
+            });
+        }
         setIsEditing(false);
         setErrors({});
     };
@@ -66,7 +87,7 @@ const Profile = () => {
             newErrors.email = "Email inválido";
         }
 
-        if (!usuario.senha.trim()) {
+        if (!usuario.senha) {
             newErrors.senha = "Senha é obrigatória";
         }
         
