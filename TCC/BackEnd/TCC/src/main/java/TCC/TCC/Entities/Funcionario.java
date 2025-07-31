@@ -41,7 +41,7 @@ public class Funcionario {
     @Column(name = "id_funcionario")
     private long funcionarioId;
 
-    @Column(name = "nome_funcionario", unique = true, nullable = false)
+    @Column(name = "nome_funcionario", unique = false, nullable = false)
     private String nomeFuncionario;
 
     @Column(name = "email_funcionario", unique = true, nullable = false)
