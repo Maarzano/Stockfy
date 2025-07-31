@@ -37,18 +37,6 @@ const Message = styled.p`
   margin-bottom: 24px;
 `;
 
-const Button = styled.button`
-  background: #7f56da;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 28px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  &:hover {
-    background: #6a40c9;
-  }
-`;
+
 
 export default SuccessActionModal;
