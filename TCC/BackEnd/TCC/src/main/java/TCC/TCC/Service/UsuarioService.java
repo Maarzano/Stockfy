@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import TCC.TCC.DTOs.UsuarioDTO.AtualizarUsuarioDTO;
@@ -16,6 +19,12 @@ import TCC.TCC.Repository.UsuarioRepository;
 public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    @Value("${spring.mail.username}")
+    private String mailFrom;
 
     public UsuarioService(UsuarioRepository usuarioRepository){
         this.usuarioRepository = usuarioRepository;
@@ -92,5 +101,19 @@ public class UsuarioService {
         return usuarioRepository.findByLoginAndSenha(login, senha).orElse(null);
     }
     
+    public boolean enviarSenhaPorEmail(String email) {
+        var usuarioOpt = usuarioRepository.findByEmail(email);
+        if (usuarioOpt.isEmpty()) {
+            return false;
+        }
+        var usuario = usuarioOpt.get();
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(mailFrom);
+        message.setTo(email);
+        message.setSubject("Recuperação de Senha - Sistema TCC");
+        message.setText("Olá " + usuario.getNomeCompleto() + ",\n\nSua senha cadastrada é: " + usuario.getSenha() + "\n\nPor favor, altere sua senha após o login se desejar.");
+        mailSender.send(message);
+        return true;
+    }
 
 }
