@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -74,6 +75,16 @@ public class UsuarioController {
         String email = jwt.getSubject();
         Usuario usuario = usuarioService.buscarPorEmail(email);
         return ResponseEntity.ok(usuario);
+    }
+
+    @PostMapping("/esqueci-senha")
+    public ResponseEntity<?> enviarSenhaPorEmail(@RequestParam String email) {
+        boolean enviado = usuarioService.enviarSenhaPorEmail(email);
+        if (enviado) {
+            return ResponseEntity.ok("Senha enviada para o e-mail informado.");
+        } else {
+            return ResponseEntity.status(404).body("E-mail não cadastrado.");
+        }
     }
 
 
