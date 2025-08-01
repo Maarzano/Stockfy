@@ -1,27 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useRecuperarSenha } from "../../../Hooks/Usuario/useRecuperarSenha";
 
 const CardEsqueceuSenha = ({ onSwitch }) => {
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [sucesso, setSucesso] = useState(false);
-  const [erro, setErro] = useState(null);
+  const { recuperar, loading, erro, sucesso } = useRecuperarSenha();
 
-  const handleEnviarLink = (e) => {
+  const handleEnviarLink = async (e) => {
     e.preventDefault();
     if (!email) return;
-    setLoading(true);
-    setErro(null);
-    setSucesso(false);
-
-    setTimeout(() => {
-      if (email.includes("@")) {
-        setSucesso(true);
-      } else {
-        setErro("Por favor, insira um e-mail válido.");
-      }
-      setLoading(false);
-    }, 1500);
+    await recuperar(email);
   };
 
   return (
@@ -44,8 +32,8 @@ const CardEsqueceuSenha = ({ onSwitch }) => {
           <button className="sign" type="submit" disabled={loading}>
             {loading ? "Enviando..." : "Enviar link"}
           </button>
+          {sucesso && !erro && <SuccessP>Senha enviada para seu e-mail!</SuccessP>}
           {erro && <ErrorP>{erro}</ErrorP>}
-          {sucesso && <SuccessP>Link enviado para seu e-mail!</SuccessP>}
         </form>
         <p className="signup" style={{ marginTop: 20 }}>
           Lembrou sua senha?{" "}
