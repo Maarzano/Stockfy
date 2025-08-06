@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import iconBox from "../../../Assets/SVGs/Icons/icon-box.svg";
+import stockIcon from "../../../Assets/SVGs/Icons/stock-svgrepo-com.png";
 
 const LandingNav = () => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const LandingNav = () => {
     <Nav isScrolled={isScrolled}>
       <NavContainer>
         <Logo>
-          <LogoIcon src={iconBox} alt="Logo" />
+          <LogoIcon src={stockIcon} alt="Logo" />
           <LogoText>Stockfy</LogoText>
         </Logo>
 
@@ -70,14 +70,14 @@ const Nav = styled.nav`
   left: 0;
   right: 0;
   z-index: 1000;
-  background: ${props => props.isScrolled ? 'rgba(26, 26, 26, 0.95)' : 'transparent'};
-  backdrop-filter: ${props => props.isScrolled ? 'blur(15px)' : 'none'};
+  background: ${props => props.isScrolled ? 'rgba(26, 26, 26, 0.95)' : 'rgba(26, 26, 26, 0.1)'};
+  backdrop-filter: ${props => props.isScrolled ? 'blur(15px)' : 'blur(5px)'};
   border-radius: ${props => props.isScrolled ? '15px' : '0'};
   margin: ${props => props.isScrolled ? '0 20px' : '0'};
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   padding: ${props => props.isScrolled ? '15px 0' : '20px 0'};
-  box-shadow: ${props => props.isScrolled ? '0 8px 32px rgba(0, 0, 0, 0.3)' : 'none'};
-  border: ${props => props.isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : 'none'};
+  box-shadow: ${props => props.isScrolled ? '0 8px 32px rgba(0, 0, 0, 0.3)' : '0 2px 10px rgba(0, 0, 0, 0.1)'};
+  border: ${props => props.isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0.05)'};
 `;
 
 const NavContainer = styled.div`
@@ -195,13 +195,16 @@ const MobileMenu = styled.div`
   left: 0;
   right: 0;
   background: rgba(26, 26, 26, 0.95);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
   flex-direction: column;
   padding: 20px;
   gap: 15px;
   transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(-100%)'};
   opacity: ${props => props.isOpen ? '1' : '0'};
   transition: all 0.3s ease;
+  border-radius: 0 0 15px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: none;
 
   @media (max-width: 768px) {
     display: flex;
