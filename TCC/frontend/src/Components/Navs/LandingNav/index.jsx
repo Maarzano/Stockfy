@@ -66,14 +66,18 @@ const LandingNav = () => {
 
 const Nav = styled.nav`
   position: fixed;
-  top: 0;
+  top: ${props => props.isScrolled ? '20px' : '0'};
   left: 0;
   right: 0;
   z-index: 1000;
   background: ${props => props.isScrolled ? 'rgba(26, 26, 26, 0.95)' : 'transparent'};
-  backdrop-filter: ${props => props.isScrolled ? 'blur(10px)' : 'none'};
-  transition: all 0.3s ease;
-  padding: 20px 0;
+  backdrop-filter: ${props => props.isScrolled ? 'blur(15px)' : 'none'};
+  border-radius: ${props => props.isScrolled ? '15px' : '0'};
+  margin: ${props => props.isScrolled ? '0 20px' : '0'};
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: ${props => props.isScrolled ? '15px 0' : '20px 0'};
+  box-shadow: ${props => props.isScrolled ? '0 8px 32px rgba(0, 0, 0, 0.3)' : 'none'};
+  border: ${props => props.isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : 'none'};
 `;
 
 const NavContainer = styled.div`
