@@ -41,6 +41,7 @@ const LandingNav = () => {
         <DesktopMenu>
           <NavLink onClick={() => scrollToSection("features")}>Funcionalidades</NavLink>
           <NavLink onClick={() => scrollToSection("benefits")}>Benefícios</NavLink>
+          <NavLink onClick={() => scrollToSection("comentarios")}>Comentários</NavLink>
           <NavLink onClick={() => scrollToSection("contact")}>Contato</NavLink>
           <LoginButton onClick={handleGetStarted}>Entrar</LoginButton>
         </DesktopMenu>
@@ -56,6 +57,7 @@ const LandingNav = () => {
         <MobileMenu isOpen={isMobileMenuOpen}>
           <MobileNavLink onClick={() => scrollToSection("features")}>Funcionalidades</MobileNavLink>
           <MobileNavLink onClick={() => scrollToSection("benefits")}>Benefícios</MobileNavLink>
+          <MobileNavLink onClick={() => scrollToSection("comentarios")}>Comentários</MobileNavLink>
           <MobileNavLink onClick={() => scrollToSection("contact")}>Contato</MobileNavLink>
           <MobileLoginButton onClick={handleGetStarted}>Entrar</MobileLoginButton>
         </MobileMenu>

@@ -77,6 +77,107 @@ const Landing = () => {
     navigate("/auth");
   };
 
+  const fakeComments = [
+    {
+      name: "Ana Souza",
+      avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+      rating: 5,
+      comment: "O Stockfy revolucionou o controle do nosso estoque! Interface intuitiva e suporte excelente.",
+    },
+    {
+      name: "Carlos Lima",
+      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+      rating: 4,
+      comment: "Muito prático e fácil de usar. Recomendo para qualquer empresa!",
+    },
+    {
+      name: "Juliana Alves",
+      avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+      rating: 5,
+      comment: "A integração com a equipe foi perfeita. O sistema é rápido e seguro.",
+    },
+    {
+      name: "Roberto Silva",
+      avatar: "https://randomuser.me/api/portraits/men/65.jpg",
+      rating: 5,
+      comment: "Nunca mais perdemos produtos por falta de controle. O histórico é sensacional!",
+    },
+    {
+      name: "Fernanda Dias",
+      avatar: "https://randomuser.me/api/portraits/women/12.jpg",
+      rating: 4,
+      comment: "O design é lindo e a navegação super fluida. Parabéns à equipe!",
+    },
+    {
+      name: "Lucas Pereira",
+      avatar: "https://randomuser.me/api/portraits/men/23.jpg",
+      rating: 5,
+      comment: "A função de exportar para Excel salvou minha vida! Muito útil.",
+    },
+    {
+      name: "Marina Costa",
+      avatar: "https://randomuser.me/api/portraits/women/21.jpg",
+      rating: 5,
+      comment: "O melhor sistema de estoque que já usei. Simplesmente perfeito!",
+    },
+    {
+      name: "Eduardo Ramos",
+      avatar: "https://randomuser.me/api/portraits/men/41.jpg",
+      rating: 4,
+      comment: "O suporte técnico é muito ágil. Resolveram meu problema em minutos.",
+    },
+    {
+      name: "Patrícia Santos",
+      avatar: "https://randomuser.me/api/portraits/women/33.jpg",
+      rating: 5,
+      comment: "A gestão de funcionários é incrível. Cada um com suas permissões específicas.",
+    },
+    {
+      name: "Thiago Oliveira",
+      avatar: "https://randomuser.me/api/portraits/men/55.jpg",
+      rating: 5,
+      comment: "O carrinho de movimentação é genial! Facilita muito o dia a dia.",
+    },
+    {
+      name: "Camila Ferreira",
+      avatar: "https://randomuser.me/api/portraits/women/89.jpg",
+      rating: 4,
+      comment: "Interface moderna e responsiva. Funciona perfeitamente no mobile.",
+    },
+    {
+      name: "Rafael Martins",
+      avatar: "https://randomuser.me/api/portraits/men/67.jpg",
+      rating: 5,
+      comment: "O backup automático na nuvem me dá total segurança. Recomendo!",
+    },
+    {
+      name: "Isabela Rodrigues",
+      avatar: "https://randomuser.me/api/portraits/women/45.jpg",
+      rating: 5,
+      comment: "Relatórios detalhados e exportação para Excel. Exatamente o que precisava!",
+    },
+    {
+      name: "Gabriel Almeida",
+      avatar: "https://randomuser.me/api/portraits/men/78.jpg",
+      rating: 4,
+      comment: "Sistema robusto e confiável. Não tive problemas desde que comecei a usar.",
+    },
+    {
+      name: "Larissa Costa",
+      avatar: "https://randomuser.me/api/portraits/women/56.jpg",
+      rating: 5,
+      comment: "A busca e filtros são muito eficientes. Encontro qualquer produto rapidamente.",
+    },
+    {
+      name: "Diego Santos",
+      avatar: "https://randomuser.me/api/portraits/men/34.jpg",
+      rating: 5,
+      comment: "O histórico de movimentações é completo. Nunca perco o controle de nada.",
+    },
+  ];
+
+  // Remover bentoLayout e grid customizado
+
   return (
     <Wrapper>
       <LandingNav />
@@ -134,6 +235,53 @@ const Landing = () => {
           ))}
         </FeaturesGrid>
       </FeaturesSection>
+
+      {/* Comments Section */}
+      <CommentsSection id="comentarios">
+        <CommentsTitle>O que estão dizendo sobre o Stockfy</CommentsTitle>
+        <CommentsDoubleCarousel>
+          <CommentsCarouselRow $variant={1}>
+            <CommentsCarouselScroller $reverse={false}>
+              {[...fakeComments, ...fakeComments].map((c, i) => (
+                <CommentCarouselCard key={i} $variant={1}>
+                  <CommentHeader>
+                    <Avatar src={c.avatar} alt={c.name} />
+                    <div>
+                      <CommentName>{c.name}</CommentName>
+                      <CommentStars>
+                        {Array.from({ length: 5 }).map((_, idx) => (
+                          <Star key={idx} $active={idx < c.rating}>★</Star>
+                        ))}
+                      </CommentStars>
+                    </div>
+                  </CommentHeader>
+                  <CommentText>"{c.comment}"</CommentText>
+                </CommentCarouselCard>
+              ))}
+            </CommentsCarouselScroller>
+          </CommentsCarouselRow>
+          <CommentsCarouselRow $variant={2}>
+            <CommentsCarouselScroller $reverse={true}>
+              {[...fakeComments, ...fakeComments].map((c, i) => (
+                <CommentCarouselCard key={i} $variant={2}>
+                  <CommentHeader>
+                    <Avatar src={c.avatar} alt={c.name} />
+                    <div>
+                      <CommentName>{c.name}</CommentName>
+                      <CommentStars>
+                        {Array.from({ length: 5 }).map((_, idx) => (
+                          <Star key={idx} $active={idx < c.rating}>★</Star>
+                        ))}
+                      </CommentStars>
+                    </div>
+                  </CommentHeader>
+                  <CommentText>"{c.comment}"</CommentText>
+                </CommentCarouselCard>
+              ))}
+            </CommentsCarouselScroller>
+          </CommentsCarouselRow>
+        </CommentsDoubleCarousel>
+      </CommentsSection>
 
       {/* Benefits Section */}
       <BenefitsSection id="benefits">
@@ -589,4 +737,121 @@ const FooterText = styled.p`
   font-size: 0.9rem;
 `;
 
-export default Landing; 
+// styled-components para a sessão de comentários
+const CommentsSection = styled.section`
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  padding: 0;
+`;
+const CommentsTitle = styled.h2`
+  text-align: center;
+  font-size: 2.3rem;
+  font-weight: bold;
+  margin-bottom: 48px;
+  background: linear-gradient(45deg, #7c5cff, #a084ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+const CommentsDoubleCarousel = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  width: 100vw;
+  align-items: center;
+`;
+const CommentsCarouselRow = styled.div`
+  width: 100vw;
+  max-width: 100vw;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: ${({ $variant }) => $variant === 2 ? 2 : 1};
+  margin-top: ${({ $variant }) => $variant === 1 ? '40px' : '0'};
+  margin-bottom: ${({ $variant }) => $variant === 2 ? '40px' : '0'};
+`;
+const CommentsCarouselScroller = styled.div`
+  display: flex;
+  gap: 48px;
+  width: max-content;
+  animation: ${({ $reverse }) => $reverse ? 'scrollCarouselReverse' : 'scrollCarousel'} 80s linear infinite;
+  will-change: transform;
+  &:hover, &:focus {
+    animation-play-state: paused;
+  }
+  @keyframes scrollCarousel {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes scrollCarouselReverse {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+  }
+`;
+const CommentCarouselCard = styled.div`
+  background: rgba(30, 24, 54, 0.88);
+  border-radius: 22px;
+  padding: 38px 32px 28px 32px;
+  min-width: 400px;
+  max-width: 440px;
+  box-shadow: 0 6px 32px 0 rgba(124,92,255,0.18), 0 1.5px 8px 0 rgba(0,0,0,0.10);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid rgba(124,92,255,0.16);
+  overflow: hidden;
+  transition: transform 0.18s, box-shadow 0.18s;
+  position: relative;
+  z-index: 3;
+  &:hover {
+    transform: scale(1.045) translateY(-6px);
+    box-shadow: 0 12px 36px 0 rgba(124,92,255,0.28), 0 2px 12px 0 rgba(0,0,0,0.13);
+    border-color: #a084ff;
+    z-index: 10;
+  }
+  @media (max-width: 900px) {
+    min-width: 260px;
+    max-width: 320px;
+    padding: 18px 10px 14px 10px;
+  }
+`;
+const CommentHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+`;
+const Avatar = styled.img`
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #a084ff;
+`;
+const CommentName = styled.div`
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #fff;
+`;
+const CommentStars = styled.div`
+  display: flex;
+  gap: 2px;
+`;
+const Star = styled.span`
+  color: ${({ $active }) => ($active ? '#FFD700' : '#888')};
+  font-size: 1.1rem;
+`;
+const CommentText = styled.p`
+  color: #e6e6e6;
+  font-size: 1.05rem;
+  margin-top: 8px;
+  font-style: italic;
+`;
+
+export default Landing;
