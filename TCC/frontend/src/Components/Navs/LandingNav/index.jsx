@@ -35,7 +35,7 @@ const LandingNav = () => {
       <NavContainer>
         <Logo>
           <LogoIcon src={iconBox} alt="Logo" />
-          <LogoText>StockManager</LogoText>
+          <LogoText>Stockfy</LogoText>
         </Logo>
 
         <DesktopMenu>

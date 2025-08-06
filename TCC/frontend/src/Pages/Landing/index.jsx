@@ -137,7 +137,7 @@ const Landing = () => {
 
       {/* Benefits Section */}
       <BenefitsSection id="benefits">
-        <SectionTitle>Por que escolher o StockManager?</SectionTitle>
+        <SectionTitle>Por que escolher o Stockfy?</SectionTitle>
         <BenefitsGrid>
           <BenefitCard>
             <BenefitIcon src={iconCloud} alt="Cloud" />
@@ -168,7 +168,7 @@ const Landing = () => {
         <CTAContent>
           <CTATitle>Pronto para otimizar seu estoque?</CTATitle>
           <CTASubtitle>
-            Junte-se a centenas de empresas que já confiam no StockManager para gerenciar seus inventários.
+            Junte-se a centenas de empresas que já confiam no Stockfy para gerenciar seus inventários.
           </CTASubtitle>
           <CTAButton onClick={handleGetStarted}>
             <GoogleIcon src={iconGoogle} alt="Google" />
@@ -181,7 +181,7 @@ const Landing = () => {
       <Footer>
         <FooterContent>
           <FooterSection>
-            <FooterTitle>StockManager</FooterTitle>
+            <FooterTitle>Stockfy</FooterTitle>
             <FooterDescription>
               Sistema completo de gestão de estoque para empresas que buscam eficiência e controle total.
             </FooterDescription>
@@ -205,7 +205,7 @@ const Landing = () => {
           </FooterSection>
         </FooterContent>
         <FooterBottom>
-          <FooterText>&copy; 2024 StockManager. Todos os direitos reservados.</FooterText>
+          <FooterText>&copy; 2024 Stockfy. Todos os direitos reservados.</FooterText>
         </FooterBottom>
       </Footer>
     </Wrapper>
