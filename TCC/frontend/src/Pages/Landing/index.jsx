@@ -211,6 +211,19 @@ const Landing = () => {
 
 
 
+  // Scroll-to-top button logic
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  const handleScrollTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <Wrapper>
       <LandingNav />
@@ -380,6 +393,15 @@ const Landing = () => {
         </FAQList>
       </FAQSection>
 
+      {/* Scroll To Top Button */}
+      <ScrollTopButton onClick={handleScrollTop} $show={showScrollTop} aria-label="Voltar ao topo">
+        <ScrollTopIcon viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="15" fill="#7c5cff" fillOpacity="0.18" />
+          <path d="M16 22V10" stroke="#a084ff" strokeWidth="2.5" strokeLinecap="round"/>
+          <path d="M10 16L16 10L22 16" stroke="#a084ff" strokeWidth="2.5" strokeLinecap="round"/>
+        </ScrollTopIcon>
+      </ScrollTopButton>
+
       {/* Footer */}
       <Footer>
         <FooterContent>
@@ -441,6 +463,49 @@ const HeroSection = styled.section`
     padding: 100px 10px 40px;
     text-align: center;
     gap: 32px;
+  }
+`;
+
+// Scroll To Top Button styled-components
+const ScrollTopButton = styled.button`
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 100;
+  background: rgba(124,92,255,0.18);
+  border: 2.5px solid #a084ff55;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 24px 0 rgba(124,92,255,0.13);
+  cursor: pointer;
+  opacity: ${({ $show }) => $show ? 1 : 0};
+  pointer-events: ${({ $show }) => $show ? 'auto' : 'none'};
+  transition: opacity 0.35s, box-shadow 0.2s, background 0.2s;
+  &:hover {
+    background: linear-gradient(90deg, #7c5cff 60%, #a084ff 100%);
+    box-shadow: 0 12px 32px 0 rgba(124,92,255,0.22);
+    border-color: #a084ff;
+  }
+  @media (max-width: 600px) {
+    left: 12px;
+    bottom: 12px;
+    width: 44px;
+    height: 44px;
+  }
+`;
+
+const ScrollTopIcon = styled.svg`
+  width: 32px;
+  height: 32px;
+  display: block;
+  pointer-events: none;
+  @media (max-width: 600px) {
+    width: 24px;
+    height: 24px;
   }
 `;
 
