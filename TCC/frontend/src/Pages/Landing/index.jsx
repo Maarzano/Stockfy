@@ -9,6 +9,7 @@ import iconEmployees from "../../Assets/SVGs/Icons/icon-employes.svg";
 import iconCloud from "../../Assets/SVGs/Icons/icon-cloud.svg";
 import iconGoogle from "../../Assets/SVGs/Icons/icon-google-color.svg";
 import iconStockfy from "../../Assets/SVGs/Icons/stock-svgrepo-com.png";
+import inoDevIcon from "../../Assets/SVGs/Icons/InoDev.png";
 
 const fadeInUp = keyframes`
   from {
@@ -408,7 +409,15 @@ const Landing = () => {
           <FooterSection>
             <FooterTitle>Stockfy</FooterTitle>
             <FooterDescription>
-              Sistema completo de gestão de estoque para empresas que buscam eficiência e controle total.
+              Sistema completo de gestão de estoque para empresas que buscam eficiência e controle total.<br/>
+              <b>Email:</b> <FooterLink href="mailto:Stockfy269@gmail.com">
+                <FooterIcon viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="20" height="20" rx="4" fill="#a084ff" fillOpacity="0.18"/>
+                  <path d="M4 6.5L10 11L16 6.5" stroke="#a084ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <rect x="4" y="6.5" width="12" height="7" rx="2" stroke="#a084ff" strokeWidth="1.5"/>
+                </FooterIcon>
+                Stockfy269@gmail.com
+              </FooterLink>
             </FooterDescription>
           </FooterSection>
           <FooterSection>
@@ -421,16 +430,24 @@ const Landing = () => {
             </FooterLinks>
           </FooterSection>
           <FooterSection>
-            <FooterTitle>Suporte</FooterTitle>
+            <FooterTitle>Sobre</FooterTitle>
             <FooterLinks>
-              <FooterLink>Documentação</FooterLink>
-              <FooterLink>Central de Ajuda</FooterLink>
-              <FooterLink>Contato</FooterLink>
+              <FooterLink href="https://github.com/InoD3v" target="_blank" rel="noopener noreferrer">
+                <FooterIcon viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="20" height="20" rx="4" fill="#a084ff" fillOpacity="0.18"/>
+                  <path d="M10 2C5.58 2 2 5.58 2 10c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.01.08-2.1 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.09.16 1.9.08 2.1.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.013 8.013 0 0 0 18 10c0-4.42-3.58-8-8-8z" fill="#a084ff"/>
+                </FooterIcon>
+                GitHub InoDev
+              </FooterLink>
+              <FooterLink as="span" style={{display:'flex',alignItems:'center',gap:'7px'}}>
+                <img src={inoDevIcon} alt="InoDev" style={{width:20,height:20,marginRight:4,verticalAlign:'middle'}} />
+                Projeto da empresa <b>InoDev</b>
+              </FooterLink>
             </FooterLinks>
           </FooterSection>
         </FooterContent>
         <FooterBottom>
-          <FooterText>&copy; 2024 Stockfy. Todos os direitos reservados.</FooterText>
+          <FooterText>&copy; 2024 Stockfy. Todos os direitos reservados. | Projeto da empresa InoDev</FooterText>
         </FooterBottom>
       </Footer>
     </Wrapper>
@@ -1208,6 +1225,14 @@ const CommentText = styled.p`
   font-size: 1.05rem;
   margin-top: 8px;
   font-style: italic;
+`;
+
+const FooterIcon = styled.svg`
+  width: 18px;
+  height: 18px;
+  margin-right: 7px;
+  margin-bottom: -3px;
+  vertical-align: middle;
 `;
 
 export default Landing;

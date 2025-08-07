@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import stockIcon from "../../../Assets/SVGs/Icons/stock-svgrepo-com.png";
+import inoDevIcon from "../../../Assets/SVGs/Icons/InoDev.png";
 
 const LandingNav = () => {
   const navigate = useNavigate();
@@ -34,7 +35,9 @@ const LandingNav = () => {
     <Nav isScrolled={isScrolled}>
       <NavContainer>
         <Logo>
-          <LogoIcon src={stockIcon} alt="Logo" />
+          <LogoIcon src={inoDevIcon} alt="Logo InoDev" />
+          <LogoSeparator />
+          <LogoIcon src={stockIcon} alt="Logo Stockfy" />
           <LogoText>Stockfy</LogoText>
         </Logo>
 
@@ -98,8 +101,8 @@ const Logo = styled.div`
 `;
 
 const LogoIcon = styled.img`
-  width: 32px;
-  height: 32px;
+  width: 35px;
+  height: 35px;
 `;
 
 const LogoText = styled.h1`
@@ -158,6 +161,26 @@ const MobileMenuButton = styled.button`
 
   @media (max-width: 768px) {
     display: flex;
+  }
+`;
+
+const LogoSeparator = styled.div`
+  width: 22px;
+  height: 32px;
+  margin: 0 3px 0 2px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 0;
+    height: 100%;
+    border-left: 2px solid #a084ff;
+    transform: skew(-25deg);
+    opacity: 0.7;
   }
 `;
 
