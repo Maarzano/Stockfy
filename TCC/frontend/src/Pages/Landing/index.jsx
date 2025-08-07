@@ -665,50 +665,94 @@ const FeatureDescription = styled.p`
 `;
 
 const BenefitsSection = styled.section`
-  padding: 80px 100px;
-
+  padding: 100px 0 100px 0;
+  background: linear-gradient(120deg, #2d2d2d 60%, #7c5cff22 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   @media (max-width: 768px) {
-    padding: 60px 20px;
+    padding: 60px 0;
   }
 `;
 
 const BenefitsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;
-  max-width: 1200px;
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  max-width: 1100px;
   margin: 0 auto;
 `;
 
 const BenefitCard = styled.div`
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 15px;
-  padding: 40px;
+  background: rgba(124, 92, 255, 0.10);
+  border-radius: 28px;
+  padding: 48px 38px 38px 38px;
   text-align: center;
-  transition: all 0.3s ease;
-
+  box-shadow: 0 8px 32px 0 rgba(124,92,255,0.13), 0 1.5px 8px 0 rgba(0,0,0,0.10);
+  border: 2.5px solid #a084ff33;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 300px;
+  max-width: 340px;
+  flex: 1 1 320px;
+  transition: all 0.3s cubic-bezier(.4,1.3,.6,1);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
   &:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.05);
+    transform: scale(1.045) translateY(-8px);
+    background: rgba(124, 92, 255, 0.18);
+    box-shadow: 0 16px 48px 0 rgba(124,92,255,0.22), 0 2px 12px 0 rgba(0,0,0,0.13);
+    border-color: #a084ff;
+    z-index: 10;
   }
 `;
 
 const BenefitIcon = styled.img`
-  width: 56px;
-  height: 56px;
-  margin-bottom: 20px;
+  width: 70px;
+  height: 70px;
+  margin-bottom: 28px;
+  filter: drop-shadow(0 4px 16px #a084ff44);
+  filter: drop-shadow(0 4px 16px #a084ff44);
+  /* For SVGs: force black fill */
+  filter: drop-shadow(0 4px 16px #a084ff44);
+  /* Try to force black color for SVGs */
+  & {
+    filter: drop-shadow(0 4px 16px #a084ff44);
+    /* For SVGs with currentColor or fill, try to force black */
+    -webkit-mask-image: none;
+    mask-image: none;
+    background: none;
+    color: #111;
+  }
+  &.svg-black {
+    filter: drop-shadow(0 4px 16px #a084ff44);
+    color: #111;
+  }
+  /* If SVG supports, force fill to black */
+  &[src$='.svg'] {
+    filter: drop-shadow(0 4px 16px #a084ff44);
+    color: #111;
+  }
 `;
 
 const BenefitTitle = styled.h3`
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 15px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
   color: #7c5cff;
+  letter-spacing: 0.5px;
 `;
 
 const BenefitDescription = styled.p`
-  color: #cccccc;
-  line-height: 1.6;
+  color: #e6e6e6;
+  line-height: 1.7;
+  font-size: 1.08rem;
+  margin-top: 8px;
 `;
 
 const CTASection = styled.section`
