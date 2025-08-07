@@ -188,7 +188,7 @@ const Landing = () => {
       <HeroSection>
         <HeroBgDecor />
         <HeroContent>
-          <Badge>🔥 Novo em 2024</Badge>
+          <Badge>🔥 Novo em 2025</Badge>
           <HeroTitle>
             <span>Sistema Completo de</span>
             <Highlight> Gestão de Estoque</Highlight>
@@ -379,17 +379,21 @@ const Wrapper = styled.div`
 const HeroSection = styled.section`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 140px 100px 80px;
+  justify-content: center;
+  gap: 140px;
+  padding: 120px 0 60px;
   min-height: 100vh;
   position: relative;
   overflow: hidden;
 
+  @media (max-width: 1200px) {
+    gap: 48px;
+  }
   @media (max-width: 900px) {
     flex-direction: column;
-    padding: 120px 20px 60px;
+    padding: 100px 10px 40px;
     text-align: center;
-    gap: 40px;
+    gap: 32px;
   }
 `;
 
