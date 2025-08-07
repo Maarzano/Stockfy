@@ -43,26 +43,56 @@ const Landing = () => {
   const navigate = useNavigate();
   const [currentFeature, setCurrentFeature] = useState(0);
 
+  // FAQ Data and logic
+  const faqData = [
+    {
+      question: "Preciso instalar algum programa para usar o Stockfy?",
+      answer: "Não! O Stockfy é 100% online, basta acessar pelo navegador e começar a usar. Nenhuma instalação é necessária.",
+    },
+    {
+      question: "Meus dados ficam seguros na plataforma?",
+      answer: "Sim, todos os dados são criptografados e armazenados em servidores seguros com backup automático na nuvem.",
+    },
+    {
+      question: "Consigo exportar relatórios para Excel?",
+      answer: "Sim! Você pode exportar todo o histórico de movimentações e inventário para Excel com apenas um clique.",
+    },
+    {
+      question: "Posso cadastrar vários usuários e controlar permissões?",
+      answer: "Claro! O Stockfy permite múltiplos usuários com diferentes níveis de acesso e permissões personalizadas.",
+    },
+    {
+      question: "O sistema funciona em dispositivos móveis?",
+      answer: "Sim, o Stockfy é totalmente responsivo e funciona perfeitamente em celulares, tablets e computadores.",
+    },
+    {
+      question: "Como funciona o suporte ao cliente?",
+      answer: "Oferecemos suporte via chat, e-mail e uma central de ajuda completa para tirar todas as suas dúvidas rapidamente.",
+    },
+  ];
+  const [openFAQ, setOpenFAQ] = useState(null);
+  const handleToggleFAQ = idx => setOpenFAQ(openFAQ === idx ? null : idx);
+
   const features = [
     {
       icon: iconBox,
       title: "Gestão de Estoque",
-      description: "Controle completo do seu inventário com cadastro, edição e exclusão de produtos de forma intuitiva."
+      description: "Controle total do inventário, cadastro, edição e exclusão de produtos de forma intuitiva."
     },
     {
       icon: iconCart,
-      title: "Sistema de Carrinho",
-      description: "Movimente itens do estoque com facilidade através do carrinho inteligente e persistente."
+      title: "Carrinho Inteligente",
+      description: "Movimente itens do estoque facilmente com o carrinho persistente e rápido."
     },
     {
-      icon: iconEmployees,
-      title: "Gestão de Funcionários",
-      description: "Cadastre e gerencie sua equipe com controle de acesso e permissões personalizadas."
+      icon: iconGoogle,
+      title: "Login com Google",
+      description: "Acesse rapidamente com sua conta Google, sem complicação."
     },
     {
       icon: iconHistory,
-      title: "Histórico Completo",
-      description: "Acompanhe todas as movimentações com relatórios detalhados e exportação para Excel."
+      title: "Histórico & Excel",
+      description: "Veja todo o histórico e exporte relatórios detalhados para Excel com 1 clique."
     }
   ];
 
@@ -180,6 +210,7 @@ const Landing = () => {
   // Remover bentoLayout e grid customizado
 
 
+
   return (
     <Wrapper>
       <LandingNav />
@@ -233,15 +264,15 @@ const Landing = () => {
       {/* Features Section */}
       <FeaturesSection id="features">
         <SectionTitle>Funcionalidades Principais</SectionTitle>
-        <FeaturesGrid>
+        <FeaturesRow>
           {features.map((feature, index) => (
-            <FeatureCard key={index} isActive={currentFeature === index}>
+            <FeatureCard key={index}>
               <FeatureIcon src={feature.icon} alt={feature.title} />
               <FeatureTitle>{feature.title}</FeatureTitle>
               <FeatureDescription>{feature.description}</FeatureDescription>
             </FeatureCard>
           ))}
-        </FeaturesGrid>
+        </FeaturesRow>
       </FeaturesSection>
 
       {/* Comments Section */}
@@ -332,6 +363,22 @@ const Landing = () => {
           </CTAButton>
         </CTAContent>
       </CTASection>
+
+      {/* FAQ Section */}
+      <FAQSection id="faq">
+        <FAQTitle>Perguntas Frequentes</FAQTitle>
+        <FAQList>
+          {faqData.map((item, idx) => (
+            <FAQItem key={idx}>
+              <FAQQuestion onClick={() => handleToggleFAQ(idx)} $open={openFAQ === idx}>
+                {item.question}
+                <FAQArrow $open={openFAQ === idx}>▼</FAQArrow>
+              </FAQQuestion>
+              <FAQAnswer $open={openFAQ === idx}>{item.answer}</FAQAnswer>
+            </FAQItem>
+          ))}
+        </FAQList>
+      </FAQSection>
 
       {/* Footer */}
       <Footer>
@@ -543,6 +590,78 @@ const GoogleIcon = styled.img`
   height: 20px;
 `;
 
+const FAQSection = styled.section`
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0 80px 0;
+  background: none;
+`;
+const FAQTitle = styled.h2`
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 38px;
+  background: linear-gradient(45deg, #7c5cff, #a084ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+const FAQList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+  max-width: 700px;
+`;
+const FAQItem = styled.div`
+  background: rgba(255,255,255,0.06);
+  border-radius: 18px;
+  border: 1.5px solid #a084ff33;
+  box-shadow: 0 2px 12px 0 rgba(124,92,255,0.08);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+  &:hover {
+    box-shadow: 0 8px 28px 0 rgba(124,92,255,0.13);
+    border-color: #a084ff;
+  }
+`;
+const FAQQuestion = styled.button`
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 1.18rem;
+  font-weight: 600;
+  text-align: left;
+  padding: 24px 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.2s;
+  background: ${({ $open }) => $open ? 'rgba(124,92,255,0.10)' : 'none'};
+`;
+const FAQArrow = styled.span`
+  font-size: 1.3rem;
+  margin-left: 18px;
+  transition: transform 0.3s;
+  transform: ${({ $open }) => $open ? 'rotate(180deg)' : 'rotate(0deg)'};
+`;
+const FAQAnswer = styled.div`
+  max-height: ${({ $open }) => $open ? '400px' : '0'};
+  opacity: ${({ $open }) => $open ? 1 : 0};
+  padding: ${({ $open }) => $open ? '0 32px 22px 32px' : '0 32px'};
+  color: #cccccc;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  background: none;
+  transition: max-height 0.35s cubic-bezier(.4,1.3,.6,1), opacity 0.25s, padding 0.25s;
+  overflow: hidden;
+`;
+
 const HeroVisual = styled.div`
   position: relative;
   width: 400px;
@@ -621,28 +740,55 @@ const SectionTitle = styled.h2`
   -webkit-text-fill-color: transparent;
 `;
 
-const FeaturesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+const FeaturesRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  justify-content: center;
+  align-items: stretch;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 40px auto;
+  flex-wrap: wrap;
+  @media (max-width: 1100px) {
+    gap: 20px;
+  }
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
 `;
 
 const FeatureCard = styled.div`
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 30px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid #a084ff33;
+  border-radius: 18px;
+  padding: 32px 28px 28px 28px;
+  min-width: 200px;
+  max-width: 250px;
+  flex: 1 1 220px;
   text-align: center;
-  transition: all 0.3s ease;
-  animation: ${fadeInUp} 0.6s ease-out;
-  animation-delay: ${props => props.isActive ? "0s" : "0.2s"};
-
+  transition: all 0.3s cubic-bezier(.4,1.3,.6,1);
+  animation: ${fadeInUp} 0.7s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-shadow: 0 6px 24px 0 rgba(124,92,255,0.10), 0 1.5px 8px 0 rgba(0,0,0,0.10);
+  position: relative;
+  z-index: 1;
   &:hover {
-    transform: translateY(-5px);
-    border-color: #7c5cff;
-    box-shadow: 0 10px 30px rgba(124, 92, 255, 0.2);
+    transform: scale(1.045) translateY(-8px);
+    background: rgba(124, 92, 255, 0.13);
+    box-shadow: 0 16px 48px 0 rgba(124,92,255,0.18), 0 2px 12px 0 rgba(0,0,0,0.13);
+    border-color: #a084ff;
+    z-index: 10;
+  }
+  @media (max-width: 900px) {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    padding: 22px 12px 18px 12px;
   }
 `;
 
@@ -653,15 +799,16 @@ const FeatureIcon = styled.img`
 `;
 
 const FeatureTitle = styled.h3`
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 15px;
+  font-size: 1.22rem;
+  font-weight: 700;
+  margin-bottom: 10px;
   color: #7c5cff;
 `;
 
 const FeatureDescription = styled.p`
   color: #cccccc;
-  line-height: 1.6;
+  line-height: 1.5;
+  font-size: 1.01rem;
 `;
 
 const BenefitsSection = styled.section`
@@ -756,18 +903,37 @@ const BenefitDescription = styled.p`
 `;
 
 const CTASection = styled.section`
-  padding: 80px 100px;
-  background: linear-gradient(135deg, rgba(124, 92, 255, 0.1) 0%, rgba(160, 132, 255, 0.1) 100%);
-  text-align: center;
-
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 0;
+  background: none;
   @media (max-width: 768px) {
-    padding: 60px 20px;
+    padding: 60px 0;
   }
 `;
 
 const CTAContent = styled.div`
-  max-width: 600px;
+  max-width: 900px;
+  min-width: 320px;
+  width: 90vw;
   margin: 0 auto;
+  background: linear-gradient(120deg, rgba(124,92,255,0.13) 0%, rgba(160,132,255,0.10) 100%);
+  border-radius: 38px;
+  box-shadow: 0 8px 32px 0 rgba(124,92,255,0.13), 0 1.5px 8px 0 rgba(0,0,0,0.10);
+  padding: 38px 64px 38px 64px;
+  text-align: center;
+  border: 2.5px solid #a084ff33;
+  backdrop-filter: blur(12px);
+  @media (max-width: 900px) {
+    padding: 28px 10vw 24px 10vw;
+    max-width: 98vw;
+  }
+  @media (max-width: 600px) {
+    padding: 18px 6vw 16px 6vw;
+    border-radius: 18px;
+  }
 `;
 
 const CTATitle = styled.h2`
