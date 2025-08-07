@@ -8,6 +8,7 @@ import iconHistory from "../../Assets/SVGs/Icons/icon-history.svg";
 import iconEmployees from "../../Assets/SVGs/Icons/icon-employes.svg";
 import iconCloud from "../../Assets/SVGs/Icons/icon-cloud.svg";
 import iconGoogle from "../../Assets/SVGs/Icons/icon-google-color.svg";
+import iconStockfy from "../../Assets/SVGs/Icons/stock-svgrepo-com.png";
 
 const fadeInUp = keyframes`
   from {
@@ -178,43 +179,50 @@ const Landing = () => {
 
   // Remover bentoLayout e grid customizado
 
+
   return (
     <Wrapper>
       <LandingNav />
 
       {/* Hero Section */}
       <HeroSection>
+        <HeroBgDecor />
         <HeroContent>
+          <Badge>🔥 Novo em 2024</Badge>
           <HeroTitle>
-            Sistema Completo de
+            <span>Sistema Completo de</span>
             <Highlight> Gestão de Estoque</Highlight>
           </HeroTitle>
           <HeroSubtitle>
-            Controle total do seu inventário com interface moderna e funcionalidades avançadas. 
-            Ideal para empresas que precisam de eficiência na gestão de produtos.
+            <span style={{fontWeight:600, color:'#fff', fontSize:'1.35rem'}}>Transforme o controle do seu estoque em uma experiência moderna, visual e inteligente.</span>
+            <br />
+            <span style={{color:'#a084ff'}}>Automatize processos, reduza erros e ganhe tempo com o Stockfy.</span>
           </HeroSubtitle>
           <CTAButtons>
             <PrimaryButton onClick={handleGetStarted}>
-              <GoogleIcon src={iconGoogle} alt="Google" />
+              <GoogleIcon src={iconStockfy} alt="Stockfy" />
               Começar Agora
+              <PulseDot />
             </PrimaryButton>
-            <SecondaryButton>
-              Saiba Mais
-            </SecondaryButton>
           </CTAButtons>
         </HeroContent>
         <HeroVisual>
-          <FloatingCard>
+          <MockupSVG viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="90" cy="90" r="80" fill="#7c5cff22" />
+            <rect x="40" y="60" width="100" height="60" rx="16" fill="#fff" fillOpacity="0.13" />
+            <rect x="60" y="80" width="60" height="20" rx="6" fill="#a084ff" fillOpacity="0.25" />
+          </MockupSVG>
+          <FloatingCard style={{zIndex:2}}>
             <CardIcon src={iconBox} alt="Estoque" />
             <CardTitle>Estoque</CardTitle>
             <CardCount>1,247 itens</CardCount>
           </FloatingCard>
-          <FloatingCard delay="0.5s">
+          <FloatingCard delay="0.5s" style={{zIndex:2}}>
             <CardIcon src={iconCart} alt="Carrinho" />
             <CardTitle>Carrinho</CardTitle>
             <CardCount>12 itens</CardCount>
           </FloatingCard>
-          <FloatingCard delay="1s">
+          <FloatingCard delay="1s" style={{zIndex:2}}>
             <CardIcon src={iconEmployees} alt="Funcionários" />
             <CardTitle>Equipe</CardTitle>
             <CardCount>8 membros</CardCount>
@@ -374,12 +382,73 @@ const HeroSection = styled.section`
   justify-content: space-between;
   padding: 140px 100px 80px;
   min-height: 100vh;
+  position: relative;
+  overflow: hidden;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     flex-direction: column;
     padding: 120px 20px 60px;
     text-align: center;
     gap: 40px;
+  }
+`;
+
+const HeroBgDecor = styled.div`
+  position: absolute;
+  top: -120px;
+  left: -120px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle at 60% 40%, #7c5cff55 0%, #a084ff22 60%, transparent 100%);
+  filter: blur(60px);
+  z-index: 0;
+  pointer-events: none;
+  @media (max-width: 900px) {
+    width: 350px;
+    height: 350px;
+    top: -60px;
+    left: -60px;
+  }
+`;
+
+const Badge = styled.div`
+  display: inline-block;
+  background: linear-gradient(90deg, #ffb347, #ff5e62);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 6px 18px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 12px #ffb34744;
+  letter-spacing: 0.5px;
+  z-index: 2;
+`;
+
+const PulseDot = styled.span`
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-left: 8px;
+  border-radius: 50%;
+  background: #ffb347;
+  box-shadow: 0 0 0 0 #ffb34744;
+  animation: ${pulse} 1.2s infinite;
+`;
+
+const MockupSVG = styled.svg`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  height: 340px;
+  z-index: 1;
+  opacity: 0.7;
+  pointer-events: none;
+  @media (max-width: 900px) {
+    width: 200px;
+    height: 200px;
   }
 `;
 
@@ -427,20 +496,24 @@ const PrimaryButton = styled.button`
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 15px 30px;
-  background: linear-gradient(45deg, #7c5cff, #a084ff);
+  padding: 18px 36px;
+  background: linear-gradient(90deg, #7c5cff, #a084ff 80%);
   color: white;
   border: none;
-  border-radius: 10px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  border-radius: 12px;
+  font-size: 1.18rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(124, 92, 255, 0.3);
+  box-shadow: 0 4px 18px rgba(124, 92, 255, 0.32);
+  position: relative;
+  overflow: hidden;
+  animation: ${pulse} 2.2s infinite;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(124, 92, 255, 0.4);
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 8px 28px rgba(124, 92, 255, 0.45);
+    background: linear-gradient(90deg, #a084ff, #7c5cff 80%);
   }
 `;
 
@@ -470,34 +543,38 @@ const HeroVisual = styled.div`
   position: relative;
   width: 400px;
   height: 400px;
-
-  @media (max-width: 768px) {
-    width: 300px;
-    height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (max-width: 900px) {
+    width: 260px;
+    height: 260px;
   }
 `;
 
 const FloatingCard = styled.div`
   position: absolute;
-  background: rgba(124, 92, 255, 0.1);
-  border: 1px solid rgba(124, 92, 255, 0.3);
-  border-radius: 15px;
-  padding: 20px;
-  backdrop-filter: blur(10px);
+  background: rgba(124, 92, 255, 0.18);
+  border: 2.5px solid #a084ff55;
+  border-radius: 18px;
+  padding: 22px 28px;
+  backdrop-filter: blur(12px);
   animation: ${float} 3s ease-in-out infinite;
   animation-delay: ${props => props.delay || "0s"};
-
-  &:nth-child(1) {
-    top: 0;
-    left: 0;
+  box-shadow: 0 6px 32px 0 rgba(124,92,255,0.13);
+  @media (max-width: 900px) {
+    padding: 12px 14px;
   }
 
   &:nth-child(2) {
+    top: 0;
+    left: 0;
+  }
+  &:nth-child(3) {
     top: 50px;
     right: 0;
   }
-
-  &:nth-child(3) {
+  &:nth-child(4) {
     bottom: 0;
     left: 50px;
   }
