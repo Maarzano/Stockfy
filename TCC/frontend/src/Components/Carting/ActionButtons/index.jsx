@@ -24,14 +24,26 @@ const ActionButtons = ({ onActionConfirmed }) => {
         setResumoOpen(true);
     };
 
-    const isDisabled = cartItems.length === 0;
+    const isCartEmpty = cartItems.length === 0;
+
+    const isRetiradaDisabled = cartItems.some(item => {
+        return item.quantity > item.quantidadeDisponivel;
+    });
+
+    const isDevolucaoDisabled = cartItems.some(item => {
+        return item.quantity > item.quantidadeRetirada;
+    })
+
+    console.log(cartItems);
+    
+    
 
     return (
         <Wrapper>
-            <button disabled={isDisabled} onClick={() => abrirModal("ENTRADA")}>
+            <button disabled={isCartEmpty || isDevolucaoDisabled} onClick={() => abrirModal("ENTRADA")}>
                 Devolução
             </button>
-            <button disabled={isDisabled} onClick={() => abrirModal("SAIDA")}>
+            <button disabled={isCartEmpty || isRetiradaDisabled} onClick={() => abrirModal("SAIDA")}>
                 Retirada
             </button>
 
