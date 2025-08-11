@@ -6,9 +6,10 @@ import { placeholder } from '../../../Utils/verificandoImagem';
 const AddToCartModal = ({ isOpen, onClose, item, onAddToCart }) => {
   const [quantity, setQuantity] = useState(1);
 
-  // Verifica se o item tem quantidade disponível no estoque
-  const maxQuantity = item?.quantidade || 0;
-  const isMaxReached = quantity >= maxQuantity;
+  const maxQuantity = item?.quantidadeDisponivel || 0;
+  const retiarada = item?.quantidadeRetirada;
+  const isMaxReached = quantity >= maxQuantity && quantity >= retiarada;
+  const notInsertOnCart = retiarada === 0 && maxQuantity === 0;
 
   const handleIncrement = () => {
     if (!isMaxReached) {
@@ -33,7 +34,8 @@ const AddToCartModal = ({ isOpen, onClose, item, onAddToCart }) => {
         <Image src={ placeholder(item.imagem)} alt={item.nomeItem} draggable={false}/>
         <h2>{item.nomeItem}</h2>
         <p>{item.descricao}</p>
-        <StockInfo>Estoque disponível: {maxQuantity}</StockInfo>
+        <StockInfo>Quantidade em estoque: {maxQuantity}</StockInfo>
+        <StockInfo>Quantidade retirada: {retiarada}</StockInfo>
         <QuantityContainer>
           <button onClick={handleDecrement}>-</button>
           <span>{quantity}</span>
@@ -46,7 +48,7 @@ const AddToCartModal = ({ isOpen, onClose, item, onAddToCart }) => {
           </button>
         </QuantityContainer>
         <ButtonRow>
-          <button onClick={handleAddToCart}>Adicionar ao Carrinho</button>
+          <button onClick={handleAddToCart} disabled={notInsertOnCart} className={notInsertOnCart ? "disabled" : ""}>Adicionar ao Carrinho</button>
         </ButtonRow>
       </Container>
     </Modal>
@@ -137,6 +139,13 @@ const ButtonRow = styled.div`
 
     &:last-child {
       background-color: #6c47ff;
+    }
+
+    &.disabled {
+      background-color: #1a1a2e;
+      color: #666;
+      cursor: not-allowed;
+      opacity: 0.5;
     }
 
     &:hover {
