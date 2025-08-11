@@ -7,7 +7,7 @@ import { criarProduto, editarProdutoPorId } from '../../../Services/prudutoServi
 const AddItemToStockModal = ({ isOpen, onClose, onSuccess, initialData }) => {
   const [form, setForm] = useState({
     nomeItem: '',
-    quantidade: '',
+    quantidadeDisponivel: '',
     imagem: '',
     descricao: ''
   });
@@ -19,14 +19,14 @@ const AddItemToStockModal = ({ isOpen, onClose, onSuccess, initialData }) => {
     if (initialData && isOpen) {
       setForm({
         nomeItem: initialData.nomeItem || '',
-        quantidade: initialData.quantidade !== undefined ? initialData.quantidade : '',
+        quantidadeDisponivel: initialData.quantidadeDisponivel !== undefined ? initialData.quantidadeDisponivel : '',
         imagem: initialData.imagem || '',
         descricao: initialData.descricao || ''
       });
     } else if (!isOpen) {
       setForm({
         nomeItem: '',
-        quantidade: '',
+        quantidadeDisponivel: '',
         imagem: '',
         descricao: ''
       });
@@ -43,7 +43,7 @@ const AddItemToStockModal = ({ isOpen, onClose, onSuccess, initialData }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErro('');
-    if (!form.nomeItem.trim() || !form.quantidade) {
+    if (!form.nomeItem.trim()) {
       setErro('Nome e quantidade são obrigatórios.');
       return;
     }
@@ -57,19 +57,19 @@ const AddItemToStockModal = ({ isOpen, onClose, onSuccess, initialData }) => {
       if (isEdit) {
         await editarProdutoPorId(initialData.itemId, {
           nomeItem: form.nomeItem,
-          quantidade: Number(form.quantidade),
+          quantidade: Number(form.quantidadeDisponivel),
           imagem: form.imagem || undefined,
           descricao: form.descricao || undefined
         });
       } else {
         await criarProduto({
           nomeItem: form.nomeItem,
-          quantidade: Number(form.quantidade),
+          quantidadeDisponivel: Number(form.quantidadeDisponivel),
           imagem: form.imagem || undefined,
           descricao: form.descricao || undefined
         });
       }
-      setForm({ nomeItem: '', quantidade: '', imagem: '', descricao: '' });
+      setForm({ nomeItem: '', quantidadeDisponivel: '', imagem: '', descricao: '' });
       setShowConfirm(false);
       if (onSuccess) onSuccess();
       onClose();
@@ -102,10 +102,10 @@ const AddItemToStockModal = ({ isOpen, onClose, onSuccess, initialData }) => {
           <label>
               Quantidade*
                 <input
-                  name="quantidade"
+                  name="quantidadeDisponivel"
                   type="number"
                   min="0"
-                  value={form.quantidade}
+                  value={form.quantidadeDisponivel}
                   onChange={handleChange}
                   required
                   disabled={loading}

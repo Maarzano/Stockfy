@@ -42,8 +42,8 @@ const CardStockEmployeeCart = ({ data, type, onDelete, expanded, onExpand, onCol
         descricao: data?.descricao || 'Sem descrição',
         imagemSrc: data?.imagem,
         infoExtra:
-          data?.quantidade !== undefined && data?.quantidade !== null
-            ? `Quantidade: ${data.quantidade}`
+          data?.quantidadeDisponivel !== undefined && data?.quantidadeDisponivel !== null
+            ? `Quantidade: ${data.quantidadeDisponivel + data.quantidadeRetirada}`
             : null,
       };
     }
