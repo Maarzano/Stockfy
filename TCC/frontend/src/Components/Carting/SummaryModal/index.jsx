@@ -25,41 +25,6 @@ const SummaryModal = ({isOpen, onClose, onConfirm = () => {}, tipo, responsavel,
       
       await CriarMovimentacao(obj);
 
-      if (tipo === "SAIDA" || tipo === "ENTRADA") {
-        for (const item of cartItems) {
-          try {
-            const produtoAtual = await buscarProdutoPorId(item.itemId);
-            
-            if (!produtoAtual || produtoAtual.quantidade === undefined) {
-              continue;
-            }
-            
-            let novaQuantidade;
-            
-            if (tipo === "SAIDA") {
-              novaQuantidade = produtoAtual.quantidade - item.quantity;
-              if (novaQuantidade < 0) {
-                novaQuantidade = 0;
-              }
-            } else if (tipo === "ENTRADA") {
-              novaQuantidade = produtoAtual.quantidade + item.quantity;
-            }
-            if (novaQuantidade !== undefined) {
-              const dadosAtualizados = {
-                nomeItem: produtoAtual.nomeItem,
-                quantidade: novaQuantidade,
-                descricao: produtoAtual.descricao || "",
-                imagem: produtoAtual.imagem || ""
-              };
-              await editarProdutoPorId(item.itemId, dadosAtualizados);
-            }
-          } catch (error) {
-            console.error(`❌ Erro ao atualizar ${item.nomeItem}:`, error);
-            console.error("Detalhes do erro:", error.response?.data || error.message);
-          }
-        }
-      }
-
       clearCart();
       onConfirm();
       onClose();
