@@ -27,9 +27,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Item {
     
-    public Item(String nomeItem, Integer quantidade, String imagem, String descricao) {
+    public Item(String nomeItem, int quantidadeDisponivel, String imagem, String descricao) {
         this.nomeItem = nomeItem;
-        this.quantidade = quantidade;
+        this.quantidadeDisponivel = quantidadeDisponivel;
         this.imagem = imagem;
         this.descricao = descricao;
     }
@@ -40,14 +40,14 @@ public class Item {
     @Column(name = "id_item")
     private long itemId;
 
-    /*estou mudando isso pois estava dando um problema bizarro 
-        (mas não sei se é a melhor forma de corrigir) */
-
     @Column(name = "nome_item", nullable = false, unique = false) 
     private String nomeItem;
 
-    @Column(name = "quantidade", nullable = false)
-    private Integer quantidade;
+    @Column(name = "quantidade_disponivel", nullable = false)
+    private int quantidadeDisponivel;
+
+    @Column(name = "quantidade_retirada")
+    private int quantidadeRetirada;
 
     @Column(name = "imagem", nullable = true)
     private String imagem;

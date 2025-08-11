@@ -5,6 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = false)
 public record CriarItemDTO (
     String nomeItem,
-    Integer quantidade,
+    Integer quantidadeDisponivel,
     String imagem,
     String descricao) { }

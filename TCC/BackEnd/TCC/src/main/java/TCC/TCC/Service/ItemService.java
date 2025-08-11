@@ -24,11 +24,11 @@ public class ItemService {
 
     public long criarItem(CriarItemDTO criarItemDTO, Usuario usuario){
 
-        if(criarItemDTO.quantidade() < 0){
-            throw new QuantidadeInvalida(criarItemDTO.quantidade());
+        if(criarItemDTO.quantidadeDisponivel() < 0){
+            throw new QuantidadeInvalida(criarItemDTO.quantidadeDisponivel());
         }
 
-        Item entity = new Item(criarItemDTO.nomeItem(), criarItemDTO.quantidade(),  
+        Item entity = new Item(criarItemDTO.nomeItem(), criarItemDTO.quantidadeDisponivel(),
                                 criarItemDTO.imagem(), criarItemDTO.descricao());
         
         entity.setCriadoPor(usuario);
@@ -83,7 +83,7 @@ public class ItemService {
             itemExiste.setNomeItem(atualizarItemDTO.nomeItem());
         }
         if (atualizarItemDTO.quantidade() != null) {
-            itemExiste.setQuantidade(atualizarItemDTO.quantidade());
+            itemExiste.setQuantidadeDisponivel(atualizarItemDTO.quantidade());
         }
     
         if (atualizarItemDTO.descricao() != null) {
