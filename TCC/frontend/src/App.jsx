@@ -1,14 +1,14 @@
-import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./Routes";
 import { CartProvider } from "./Context/Cart";
+import { HashRouter } from "react-router-dom";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <CartProvider>
         <AppRoutes/>
       </CartProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
