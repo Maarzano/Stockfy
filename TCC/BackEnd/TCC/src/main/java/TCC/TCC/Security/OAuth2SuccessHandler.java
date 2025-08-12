@@ -49,7 +49,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         String token = JwtUtil.gerarToken(usuario.getEmail());
 
-        String redirectUrl = "https://stockfy-ten.vercel.app/auth/callback?token=" + URLEncoder.encode(token, StandardCharsets.UTF_8);
+        String redirectUrl = "https://stockfy-ten.vercel.app/#/auth/callback?token=" + URLEncoder.encode(token, StandardCharsets.UTF_8);
         response.sendRedirect(redirectUrl);
     }
 }
