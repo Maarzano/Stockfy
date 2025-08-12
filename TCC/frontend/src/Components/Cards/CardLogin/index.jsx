@@ -13,7 +13,7 @@ const CardLogin = ({ onSwitch, onForgotPassword }) => {
   
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    window.location.href = "https://tcc-rh3r.onrender.com:8080/oauth2/authorization/google";
   };
 
 

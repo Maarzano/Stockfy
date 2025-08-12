@@ -33,7 +33,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         String email = oauthUser.getAttribute("email");
 
         if (email == null || email.isEmpty()) {
-            response.sendRedirect("http://localhost:3000/login?error=email_missing");
+            response.sendRedirect("https://stockfy-ten.vercel.app/login?error=email_missing");
             return;
         }
 
@@ -49,7 +49,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         String token = JwtUtil.gerarToken(usuario.getEmail());
 
-        String redirectUrl = "http://localhost:3000/auth/callback?token=" + URLEncoder.encode(token, StandardCharsets.UTF_8);
+        String redirectUrl = "https://stockfy-ten.vercel.app/auth/callback?token=" + URLEncoder.encode(token, StandardCharsets.UTF_8);
         response.sendRedirect(redirectUrl);
     }
 }
