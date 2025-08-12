@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:8080/v1/",
+    baseURL: "https://tcc-rh3r.onrender.com/v1/",
     timeout: 100000,
     headers: {
         'Content-Type': 'application/json',
