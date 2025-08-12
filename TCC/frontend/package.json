@@ -25,7 +25,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://maarzano.github.io/TCC",
+  "homepage": ".",
   "eslintConfig": {
     "extends": [
       "react-app",
