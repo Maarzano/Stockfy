@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -25,9 +27,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Item {
     
-    public Item(String nomeItem, Integer quantidade, String imagem, String descricao) {
+    public Item(String nomeItem, int quantidadeDisponivel, String imagem, String descricao) {
         this.nomeItem = nomeItem;
-        this.quantidade = quantidade;
+        this.quantidadeDisponivel = quantidadeDisponivel;
         this.imagem = imagem;
         this.descricao = descricao;
     }
@@ -38,11 +40,14 @@ public class Item {
     @Column(name = "id_item")
     private long itemId;
 
-    @Column(name = "nome_item", nullable = false, unique = true)
+    @Column(name = "nome_item", nullable = false, unique = false) 
     private String nomeItem;
 
-    @Column(name = "quantidade", nullable = false)
-    private Integer quantidade;
+    @Column(name = "quantidade_disponivel", nullable = false)
+    private int quantidadeDisponivel;
+
+    @Column(name = "quantidade_retirada")
+    private int quantidadeRetirada;
 
     @Column(name = "imagem", nullable = true)
     private String imagem;
@@ -54,9 +59,18 @@ public class Item {
     @CreationTimestamp
     private OffsetDateTime dataDeCriacao;
 
+    @ManyToOne
+    @JoinColumn(name = "criado_por", referencedColumnName = "id_usuario", nullable = false)
+    private Usuario criadoPor;
+
+    @Column(name = "ativo", nullable = false)
+    private Boolean ativo;
+
+
     @PrePersist
     protected void onCreate() {
         this.dataDeCriacao = OffsetDateTime.now(ZoneId.of("America/Sao_Paulo"));
+        this.ativo = true;
     }
 
 }

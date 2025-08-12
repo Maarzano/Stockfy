@@ -16,6 +16,7 @@ import TCC.TCC.Entities.Funcionario;
 import TCC.TCC.Entities.Item;
 import TCC.TCC.Entities.Movimentacao;
 import TCC.TCC.Entities.MovimentacaoItem;
+import TCC.TCC.Entities.Usuario;
 import TCC.TCC.Entities.Enum.StatusMovimentacao;
 import TCC.TCC.Exceptions.ItemsException.ItemNaoEncontradoException;
 import TCC.TCC.Repository.FuncionarioRepository;
@@ -34,49 +35,75 @@ public class MovimentacaoService {
     private final MovimentacaoItemRepository movimentacaoItemRepository;
 
     @Transactional
-    public DetalhesMovimentacaoDTO criarMovimentacao(CriarMovimentacaoDTO dto) {
+    public DetalhesMovimentacaoDTO criarMovimentacao(CriarMovimentacaoDTO dto, Usuario usuario) {
         Funcionario funcionario = funcionarioRepository.findById(dto.funcionarioId())
             .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
 
         Movimentacao movimentacao = new Movimentacao(
             funcionario,
-            dto.tipoMovimentacao(), StatusMovimentacao.PENDENTE,
+            dto.tipoMovimentacao(), 
+            StatusMovimentacao.PENDENTE,
             null
         );
+        movimentacao.setCriadoPor(usuario);
 
         movimentacao = movimentacaoRepository.save(movimentacao);
 
         List<MovimentacaoItem> movimentacaoItens = new ArrayList<>();
 
-
         for (ItemQuantidadeDTO itemDTO : dto.itens()) {
             Item item = itemRepository.findById(itemDTO.IdItem())
                 .orElseThrow(() -> new ItemNaoEncontradoException("Item com ID " + itemDTO.IdItem() + " não encontrado"));
 
+            int quantidadeOperacao = itemDTO.quantidade();
+
+            switch (dto.tipoMovimentacao()) {
+                case SAIDA:
+                    if (quantidadeOperacao > item.getQuantidadeDisponivel()) {
+                        throw new IllegalArgumentException("Quantidade para retirada maior que a disponível");
+                    }
+                    item.setQuantidadeDisponivel(item.getQuantidadeDisponivel() - quantidadeOperacao);
+                    item.setQuantidadeRetirada(item.getQuantidadeRetirada() + quantidadeOperacao);
+                    break;
+
+                case ENTRADA:
+                    if (quantidadeOperacao > item.getQuantidadeRetirada()) {
+                        throw new IllegalArgumentException("Quantidade para devolução maior que a retirada");
+                    }
+                    item.setQuantidadeDisponivel(item.getQuantidadeDisponivel() + quantidadeOperacao);
+                    item.setQuantidadeRetirada(item.getQuantidadeRetirada() - quantidadeOperacao);
+                    break;
+
+                default:
+                    throw new IllegalArgumentException("Tipo de movimentação inválido");
+            }
+
+            itemRepository.save(item);
+
             MovimentacaoItem movimentacaoItem = new MovimentacaoItem();
             movimentacaoItem.setMovimentacao(movimentacao);
             movimentacaoItem.setItem(item);
-            movimentacaoItem.setQuantidade(itemDTO.quantidade());
+            movimentacaoItem.setQuantidade(quantidadeOperacao);
 
             movimentacaoItem = movimentacaoItemRepository.save(movimentacaoItem);
             movimentacaoItens.add(movimentacaoItem);
         }
 
-
         return new DetalhesMovimentacaoDTO(
-        movimentacao.getIdMovimentacao(),
-        movimentacao.getFuncionario(),
-        movimentacao.getTipoMovimentacao(),
-        movimentacaoItens.stream()
-            .map(item -> new ItemMovimentadoDTO(
-                item.getItem().getItemId(),
-                item.getItem().getNomeItem(),
-                item.getQuantidade()
-            ))
-            .toList(),
-        movimentacao.getDataMovimentacao()
+            movimentacao.getIdMovimentacao(),
+            movimentacao.getFuncionario(),
+            movimentacao.getTipoMovimentacao(),
+            movimentacaoItens.stream()
+                .map(item -> new ItemMovimentadoDTO(
+                    item.getItem().getItemId(),
+                    item.getItem().getNomeItem(),
+                    item.getQuantidade()
+                ))
+                .toList(),
+            movimentacao.getDataMovimentacao()
         );
     }
+
 
     public void concluirMovimentacao(Long id) {
         Movimentacao movimentacao = movimentacaoRepository.findById(id)
@@ -89,8 +116,8 @@ public class MovimentacaoService {
         movimentacaoRepository.save(movimentacao);
     }
 
-    public List<DetalhesMovimentacaoDTO> listarMovimentacoes() {
-        List<Movimentacao> movimentacoes = movimentacaoRepository.findAll();
+    public List<DetalhesMovimentacaoDTO> listarMovimentacoes(Usuario usuario) {
+        List<Movimentacao> movimentacoes = movimentacaoRepository.findByCriadoPor(usuario);
 
         return movimentacoes.stream().map(mov -> {
             List<MovimentacaoItem> itens = movimentacaoItemRepository.findByMovimentacao(mov);

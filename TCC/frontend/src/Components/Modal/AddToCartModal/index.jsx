@@ -6,8 +6,15 @@ import { placeholder } from '../../../Utils/verificandoImagem';
 const AddToCartModal = ({ isOpen, onClose, item, onAddToCart }) => {
   const [quantity, setQuantity] = useState(1);
 
+  const maxQuantity = item?.quantidadeDisponivel || 0;
+  const retiarada = item?.quantidadeRetirada;
+  const isMaxReached = quantity >= maxQuantity && quantity >= retiarada;
+  const notInsertOnCart = retiarada === 0 && maxQuantity === 0;
+
   const handleIncrement = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
+    if (!isMaxReached) {
+      setQuantity((prevQuantity) => prevQuantity + 1);
+    }
   };
 
   const handleDecrement = () => {
@@ -27,13 +34,21 @@ const AddToCartModal = ({ isOpen, onClose, item, onAddToCart }) => {
         <Image src={ placeholder(item.imagem)} alt={item.nomeItem} draggable={false}/>
         <h2>{item.nomeItem}</h2>
         <p>{item.descricao}</p>
+        <StockInfo>Quantidade em estoque: {maxQuantity}</StockInfo>
+        <StockInfo>Quantidade retirada: {retiarada}</StockInfo>
         <QuantityContainer>
           <button onClick={handleDecrement}>-</button>
           <span>{quantity}</span>
-          <button onClick={handleIncrement}>+</button>
+          <button 
+            onClick={handleIncrement}
+            disabled={isMaxReached}
+            className={isMaxReached ? 'disabled' : ''}
+          >
+            +
+          </button>
         </QuantityContainer>
         <ButtonRow>
-          <button onClick={handleAddToCart}>Adicionar ao Carrinho</button>
+          <button onClick={handleAddToCart} disabled={notInsertOnCart} className={notInsertOnCart ? "disabled" : ""}>Adicionar ao Carrinho</button>
         </ButtonRow>
       </Container>
     </Modal>
@@ -60,6 +75,13 @@ const Image = styled.img`
   margin-bottom: 24px;
 `;
 
+const StockInfo = styled.div`
+  font-size: 14px;
+  color: #a084ff;
+  margin-bottom: 16px;
+  font-weight: 500;
+`;
+
 const QuantityContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -77,8 +99,15 @@ const QuantityContainer = styled.div`
     cursor: pointer;
     transition: background-color 0.2s;
 
-    &:hover {
+    &:hover:not(.disabled) {
       background-color: #3a3a4d;
+    }
+
+    &.disabled {
+      background-color: #1a1a2e;
+      color: #666;
+      cursor: not-allowed;
+      opacity: 0.5;
     }
   }
 
@@ -112,11 +141,17 @@ const ButtonRow = styled.div`
       background-color: #6c47ff;
     }
 
+    &.disabled {
+      background-color: #1a1a2e;
+      color: #666;
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
     &:hover {
       opacity: 0.9;
     }
   }
 `;
-
 
 export default AddToCartModal;
